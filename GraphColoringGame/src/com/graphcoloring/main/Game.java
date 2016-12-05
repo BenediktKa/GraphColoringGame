@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable {
 	public static final boolean FPSCOUNTER = true;
 	
 	//Settings
-	public static boolean ANTIALIASING = false;
+	public static boolean ANTIALIASING = true;
 
 	// Thread
 	private Thread thread;
@@ -86,7 +86,7 @@ public class Game extends Canvas implements Runnable {
 
 	public void initilizeGame() {
 		// Temporary
-		new GameMode(this, handler);
+		new GameMode(this, handler, notification);
 	}
 
 	public void run() {

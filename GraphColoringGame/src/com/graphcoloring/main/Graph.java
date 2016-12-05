@@ -1,20 +1,24 @@
 package com.graphcoloring.main;
 
-import java.awt.Graphics;
 import java.util.LinkedList;
-import java.util.Random;
+
+import com.graphcoloring.hud.Notification;
+import com.graphcoloring.hud.Notification.TYPE;
 
 public class Graph {
 
 	private Handler handler;
+	private Notification notification;
 	private int vertices;
 	private int edges;
 	private int adjacencyMatrix[][];
+	private int adjacencySimple[][];
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
-	public Graph(Handler handler, int verticies, int edges) {
+	public Graph(Handler handler, Notification notification, int verticies, int edges) {
 		this.handler = handler;
+		this.notification = notification;
 		this.vertices = verticies;
 		this.edges = edges;
 
@@ -23,10 +27,6 @@ public class Graph {
 	}
 
 	public void generateRandomGraph() {
-		/*
-		 * Richard
-		 * ---------------------------------------------------------------------
-		 */
 
 		// the edges we still need to create after creating 1 edge for each
 		// vertices
@@ -51,13 +51,29 @@ public class Graph {
 				edgeToGenerate--;
 			}
 		}
-
+		
+		adjSimple();
 		positionNodes();
+	}
+
+	public void adjSimple() {
+		adjacencySimple = new int[vertices][vertices];
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				adjacencySimple[i][j] = adjacencyMatrix[i][j];
+			}
+		}
+		for (int i = 0; i < vertices; i++) {
+			for (int j = 0; j < vertices; j++) {
+				if (i > j) {
+					adjacencySimple[i][j] = 0;
+				}
+			}
+		}
 	}
 
 	public void positionNodes() {
 
-		Random r = new Random();
 		int centerX = Game.WIDTH / 2 - Game.WIDTH / 50;
 		int centerY = Game.HEIGHT / 2 - Game.WIDTH / 50;
 		int radiusCircle = (Game.HEIGHT - 100) / 2;
@@ -67,14 +83,10 @@ public class Graph {
 		for (int i = 0; i < vertices; i++) {
 			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)),
 					(int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i,
-					adjacencyMatrix);
+					adjacencySimple);
 			handler.addObject(node);
 			addObject(node);
 		}
-	}
-
-	public void generateEdges() {
-
 	}
 
 	public void addObject(GraphNode object) {
