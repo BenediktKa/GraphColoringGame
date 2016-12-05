@@ -3,7 +3,6 @@ package com.graphcoloring.main;
 import java.util.LinkedList;
 
 import com.graphcoloring.hud.Notification;
-import com.graphcoloring.hud.Notification.TYPE;
 
 public class Graph {
 
@@ -51,7 +50,7 @@ public class Graph {
 				edgeToGenerate--;
 			}
 		}
-		
+
 		adjSimple();
 		positionNodes();
 	}

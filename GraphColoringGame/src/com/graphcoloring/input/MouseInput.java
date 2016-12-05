@@ -1,9 +1,14 @@
-package com.graphcoloring.main;
+package com.graphcoloring.input;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Game.STATE;
+import com.graphcoloring.main.GameObject;
+import com.graphcoloring.main.GraphNode;
+import com.graphcoloring.main.Handler;
+import com.graphcoloring.main.ID;
 
 public class MouseInput extends MouseAdapter {
 
@@ -16,13 +21,12 @@ public class MouseInput extends MouseAdapter {
 	}
 
 	public void mouseClicked(MouseEvent event) {
-		
-		//Don't do anything if not in-game
-		if(game.gameState != STATE.Game) {
+
+		// Don't do anything if not in-game
+		if (game.gameState != STATE.Game) {
 			return;
 		}
-		
-		
+
 		if (event.getButton() == MouseEvent.BUTTON1) {
 
 			for (int i = 0; i < handler.object.size(); i++) {
@@ -52,5 +56,9 @@ public class MouseInput extends MouseAdapter {
 				}
 			}
 		}
+	}
+	
+	public void mouseMoved(MouseEvent e) {
+		System.out.println("Miau2");
 	}
 }

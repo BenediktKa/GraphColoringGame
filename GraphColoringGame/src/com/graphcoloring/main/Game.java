@@ -7,21 +7,22 @@ import java.awt.image.BufferStrategy;
 
 import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.Notification;
-import com.graphcoloring.hud.Notification.TYPE;
+import com.graphcoloring.input.MouseInput;
+import com.graphcoloring.input.MouseMotionListener;
 import com.graphcoloring.menu.Menu;
 
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = -3545061167023626203L;
 
-	//Version
+	// Version
 	public final static String VERSION = "v0.01";
-	
+
 	// Debug
 	public static final boolean DEBUG = true;
 	public static final boolean FPSCOUNTER = true;
-	
-	//Settings
+
+	// Settings
 	public static boolean ANTIALIASING = true;
 
 	// Thread
@@ -35,11 +36,11 @@ public class Game extends Canvas implements Runnable {
 
 	// Menu
 	private Menu menu;
-	
-	//FPS Counter
+
+	// FPS Counter
 	private HUDFPS fpscounter;
-	
-	//Notification
+
+	// Notification
 	Notification notification;
 
 	// States
@@ -54,19 +55,21 @@ public class Game extends Canvas implements Runnable {
 
 	public Game() {
 		handler = new Handler();
-		
-		if(DEBUG) fpscounter = new HUDFPS();
+
+		if (DEBUG)
+			fpscounter = new HUDFPS();
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this);
-		
+
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
-		
+
 		
 		this.addMouseListener(new MouseInput(this, handler));
+		this.addMouseMotionListener(new MouseMotionListener(this, handler));
 		this.addMouseListener(menu);
-		
+
 	}
 
 	public synchronized void start() {
@@ -131,7 +134,7 @@ public class Game extends Canvas implements Runnable {
 		if (gameState == STATE.Menu || gameState == STATE.Settings || gameState == STATE.Gamemodes) {
 			menu.tick();
 		}
-		
+
 		handler.tick();
 		notification.tick();
 	}
@@ -149,17 +152,18 @@ public class Game extends Canvas implements Runnable {
 
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		//g.setColor(Color.BLACK);
-		//g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT - 100) / 2), HEIGHT - 100, HEIGHT - 100);
-		
+		// g.setColor(Color.BLACK);
+		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
+		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
+
 		if (gameState == STATE.Menu || gameState == STATE.Settings || gameState == STATE.Gamemodes) {
-			menu.render(g);
+			if(menu != null) menu.render(g);
 		}
-		
+
 		handler.render(g);
 		notification.render(g);
-		
-		if(FPSCOUNTER) {
+
+		if (FPSCOUNTER) {
 			fpscounter.render(g);
 		}
 

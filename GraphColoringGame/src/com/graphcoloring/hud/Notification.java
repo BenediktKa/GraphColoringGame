@@ -84,7 +84,6 @@ public class Notification {
 		}
 		g2d.setPaint(color);
 		drawCenteredString(message, Game.WIDTH, Game.HEIGHT, g);
-
 	}
 
 	public void tick() {

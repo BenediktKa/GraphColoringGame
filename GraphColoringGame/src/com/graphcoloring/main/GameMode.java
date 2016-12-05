@@ -11,7 +11,8 @@ public class GameMode {
 	public GameMode(Game game, Handler handler, Notification notification) {
 		this.game = game;
 		this.handler = handler;
+		this.notification = notification;
 
-		new Graph(handler, notification, 10, 5);
+		new Graph(handler, notification, 10, 10);
 	}
 }

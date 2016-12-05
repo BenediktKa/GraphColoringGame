@@ -75,7 +75,7 @@ public class Menu extends MouseAdapter {
 				notification.createNotification(TYPE.Error, "Button TODO", 2);
 			}
 		}
-		
+
 		if (backButton != null && mouseOver(mx, my, backButton.x, backButton.y, backButton.width, backButton.height)) {
 			game.gameState = STATE.Menu;
 		}
@@ -173,7 +173,7 @@ public class Menu extends MouseAdapter {
 		g.setFont(fnt1);
 
 		g2d.drawString("Back", backButton.x + 20, backButton.y + (backButton.height / 2) + 10);
-		
+
 		g2d.draw(backButton);
 	}
 
