@@ -109,6 +109,7 @@ public class Menu extends MouseAdapter {
 		g2d.setColor(Color.black);
 		drawCenteredString("Graph Coloring " + Game.VERSION, Game.WIDTH, 50, g);
 
+		playButton = new Rectangle(0, 75, Game.WIDTH / 3, 50);
 		settingsButton = new Rectangle(0, playButton.y + playButton.height + spacing, Game.WIDTH / 3, 50);
 		quitButton = new Rectangle(0, settingsButton.y + settingsButton.height + spacing, Game.WIDTH / 3, 50);
 

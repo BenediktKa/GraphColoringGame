@@ -3,10 +3,12 @@ package com.graphcoloring.main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.Notification;
+import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
 import com.graphcoloring.menu.Menu;
 
@@ -36,6 +38,9 @@ public class Game extends Canvas implements Runnable {
 	// Menu
 	private Menu menu;
 
+	// Camera
+	private Camera camera;
+
 	// FPS Counter
 	private HUDFPS fpscounter;
 
@@ -55,6 +60,8 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		handler = new Handler();
 
+		camera = new Camera(0, 0);
+
 		if (DEBUG)
 			fpscounter = new HUDFPS();
 
@@ -64,10 +71,10 @@ public class Game extends Canvas implements Runnable {
 
 		menu = new Menu(this, handler, notification);
 
-		
 		this.addMouseListener(new MouseInput(this, handler));
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
+		this.addKeyListener(new KeyBoardInput(camera));
 
 	}
 
@@ -147,6 +154,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D) g;
 		// Stuff to Render Start
 
 		g.setColor(Color.WHITE);
@@ -154,12 +162,15 @@ public class Game extends Canvas implements Runnable {
 		// g.setColor(Color.BLACK);
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
-
+		
 		if (gameState == STATE.Menu || gameState == STATE.Settings || gameState == STATE.Gamemodes) {
-			if(menu != null) menu.render(g);
+			if (menu != null)
+				menu.render(g);
 		}
-
+		g2d.translate(camera.getX(), camera.getY());
 		handler.render(g);
+		g2d.translate(-camera.getX(), -camera.getY());
+		
 		notification.render(g);
 
 		if (FPSCOUNTER) {
