@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class GraphNode extends GameObject {
 	private Handler handler;
-
+	
 	private int nodeID;
 	private int color;
 	public boolean hover;

@@ -44,7 +44,7 @@ public class Graph {
 		while (edgeToGenerate > 0) {
 			int random1 = (int) (Math.random() * vertices);
 			int random2 = (int) (Math.random() * vertices);
-			if ((adjacencyMatrix[random1][random2] == 0) && random1 != random2) {
+			if ((adjacencyMatrix[random1][random2] == 0) && (adjacencyMatrix[random2][random1] != random2)) {
 				adjacencyMatrix[random1][random2] = 1;
 				adjacencyMatrix[random2][random1] = 1;
 				edgeToGenerate--;

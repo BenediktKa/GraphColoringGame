@@ -3,6 +3,7 @@ package com.graphcoloring.input;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Game.STATE;
 import com.graphcoloring.main.GameObject;
@@ -14,14 +15,15 @@ public class MouseInput extends MouseAdapter {
 
 	Game game;
 	Handler handler;
+	Camera camera;
 
-	public MouseInput(Game game, Handler handler) {
+	public MouseInput(Game game, Handler handler, Camera camera) {
 		this.game = game;
 		this.handler = handler;
+		this.camera = camera;
 	}
 
 	public void mouseClicked(MouseEvent event) {
-
 		// Don't do anything if not in-game
 		if (game.gameState != STATE.Game) {
 			return;
@@ -36,8 +38,8 @@ public class MouseInput extends MouseAdapter {
 					continue;
 				}
 				GraphNode gn = (GraphNode) tempObject;
-
-				if (gn.clicked(event.getX(), event.getY())) {
+			
+				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
 					gn.changeColor();
 				}
 			}
@@ -51,7 +53,7 @@ public class MouseInput extends MouseAdapter {
 				}
 				GraphNode gn = (GraphNode) tempObject;
 
-				if (gn.clicked(event.getX(), event.getY())) {
+				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
 					gn.changeColor();
 				}
 			}

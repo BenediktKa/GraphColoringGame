@@ -71,7 +71,7 @@ public class Game extends Canvas implements Runnable {
 
 		menu = new Menu(this, handler, notification);
 
-		this.addMouseListener(new MouseInput(this, handler));
+		this.addMouseListener(new MouseInput(this, handler, camera));
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addKeyListener(new KeyBoardInput(camera));
