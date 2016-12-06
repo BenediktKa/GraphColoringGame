@@ -44,12 +44,12 @@ public class Menu extends MouseAdapter {
 		this.handler = handler;
 		this.notification = notification;
 
-		for (int i = 0; i < 10; i++) {
+		/*for (int i = 0; i < 10; i++) {
 			GraphNode node = new GraphNode((int) (Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT),
 					(int) (Math.random() * 10 - Math.random() * 10),
-					(int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette());
+					(int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette(), false);
 			handler.addObject(node);
-		}
+		}*/
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -196,5 +196,21 @@ public class Menu extends MouseAdapter {
 				return false;
 		} else
 			return false;
+	}
+	
+	private void drawButton(Rectangle rectangle, Graphics g, int x, int y, int width, int height, String text, boolean center) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(Color.black);
+		Font fnt = new Font("arial", Font.BOLD, 30);
+		g2d.setFont(fnt);
+		
+		if(center) {
+			rectangle = new Rectangle(Game.WIDTH / 2 - width / 2, y, width, height);
+		} else {
+			rectangle = new Rectangle(x, y, width, height);
+		}
+		
+		drawCenteredString(text, 50, Game.WIDTH, g);
+		g2d.draw(rectangle);
 	}
 }

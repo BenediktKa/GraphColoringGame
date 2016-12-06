@@ -35,13 +35,13 @@ public class Graph {
 		int edgeToGenerate = edges - vertices;
 		// create 1 edges for each vertices
 		adjacencyMatrix = new int[vertices][vertices];
-		for (int i = 0; i < vertices; i++) {
+		int e = 0;
+		while (e < vertices) {
 			int random = (int) (Math.random() * vertices);
-			if (random != i && (adjacencyMatrix[i][random] == 0)) {
-				adjacencyMatrix[i][random] = 1;
-				adjacencyMatrix[random][i] = 1;
-			} else {
-				edgeToGenerate++;
+			if (random != e && (adjacencyMatrix[e][random] == 0) && (adjacencyMatrix[random][e] == 0)) {
+				adjacencyMatrix[e][random] = 1;
+				adjacencyMatrix[random][e] = 1;
+				e++;
 			}
 		}
 		while (edgeToGenerate > 0) {

@@ -16,6 +16,7 @@ public class GraphNode extends GameObject {
 	private int color;
 	public boolean hover;
 	private int adjecencyMatrix[][];
+	private boolean outline = true;
 
 	private Color colorArray[];
 
@@ -38,13 +39,14 @@ public class GraphNode extends GameObject {
 		this.color = 0;
 	}
 
-	public GraphNode(int x, int y, int velX, int velY, ID id, Color colorArray[]) {
+	public GraphNode(int x, int y, int velX, int velY, ID id, Color colorArray[], boolean outline) {
 		super(x, y, id);
 
 		this.velX = velX;
 		this.velY = velY;
 
 		this.colorArray = colorArray;
+		this.outline = outline;
 
 		randomColor();
 
@@ -85,14 +87,20 @@ public class GraphNode extends GameObject {
 
 		g2d.setColor(colorArray[color]);
 		if (!hover) {
-			node = new Ellipse2D.Double(x, y, Game.WIDTH / 25, Game.WIDTH / 25);
+			node = new Ellipse2D.Double(x, y, Game.WIDTH / 20, Game.WIDTH / 20);
 		}
 
 		if (adjecencyMatrix != null) {
 			generateEdges(g2d);
 		}
-
+		
 		g2d.fill(node);
+		g2d.setColor(colorArray[0]);
+		
+		if(outline) {
+			g2d.setStroke(new BasicStroke(3));
+			g2d.draw(node);
+		}
 	}
 
 	public void generateEdges(Graphics2D g2d) {
@@ -155,9 +163,13 @@ public class GraphNode extends GameObject {
 
 		return (int) node.getCenterY();
 	}
-	
+
 	public int getRadius() {
-		return (int)node.getWidth();
+		return (int) node.getWidth();
+	}
+
+	public Ellipse2D getNode() {
+		return node;
 	}
 
 	public void randomColor() {

@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable {
 	public STATE gameState = STATE.Menu;
 
 	// Windows Size
-	public static final int WIDTH = 1280, HEIGHT = WIDTH / 12 * 9;
+	public static int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 
 	public Game() {
 		handler = new Handler();
