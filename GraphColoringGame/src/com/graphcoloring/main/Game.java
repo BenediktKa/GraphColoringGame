@@ -8,7 +8,6 @@ import java.awt.image.BufferStrategy;
 import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.input.MouseInput;
-import com.graphcoloring.input.MouseMotionListener;
 import com.graphcoloring.menu.Menu;
 
 public class Game extends Canvas implements Runnable {
@@ -67,8 +66,8 @@ public class Game extends Canvas implements Runnable {
 
 		
 		this.addMouseListener(new MouseInput(this, handler));
-		this.addMouseMotionListener(new MouseMotionListener(this, handler));
 		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 
 	}
 
