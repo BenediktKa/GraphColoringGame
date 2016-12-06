@@ -40,7 +40,7 @@ public class MouseInput extends MouseAdapter {
 				}
 				GraphNode gn = (GraphNode) tempObject;
 
-				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
+				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor();
 				}
 			}
@@ -54,14 +54,27 @@ public class MouseInput extends MouseAdapter {
 				}
 				GraphNode gn = (GraphNode) tempObject;
 
-				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
+				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor();
 				}
 			}
 		}
 	}
-	
-	public void mouseMoved(MouseEvent e) {
-		System.out.println("Miau2");
+
+	public void mouseDragged(MouseEvent event) {
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() != ID.GraphNode) {
+				continue;
+			}
+			GraphNode gn = (GraphNode) tempObject;
+
+			if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
+				gn.setX(event.getX() - (int) camera.getX() - gn.getRadius() / 2);
+				gn.setY(event.getY() - (int) camera.getY() - gn.getRadius() / 2);
+			}
+		}
 	}
 }

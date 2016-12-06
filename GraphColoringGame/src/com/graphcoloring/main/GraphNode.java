@@ -155,6 +155,10 @@ public class GraphNode extends GameObject {
 
 		return (int) node.getCenterY();
 	}
+	
+	public int getRadius() {
+		return (int)node.getWidth();
+	}
 
 	public void randomColor() {
 		this.color = new Random().nextInt(colorArray.length);
