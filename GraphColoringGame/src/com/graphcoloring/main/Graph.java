@@ -1,5 +1,6 @@
 package com.graphcoloring.main;
 
+import java.awt.Color;
 import java.util.LinkedList;
 
 import com.graphcoloring.hud.Notification;
@@ -12,6 +13,7 @@ public class Graph {
 	private int edges;
 	private int adjacencyMatrix[][];
 	private int adjacencySimple[][];
+	private Color colorArray[];
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
@@ -20,6 +22,7 @@ public class Graph {
 		this.notification = notification;
 		this.vertices = verticies;
 		this.edges = edges;
+		this.colorArray = new RandomColors(20, 0.05f).getPalette();
 
 		// Temporary
 		generateRandomGraph();
@@ -82,7 +85,7 @@ public class Graph {
 		for (int i = 0; i < vertices; i++) {
 			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)),
 					(int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i,
-					adjacencySimple);
+					adjacencySimple, colorArray);
 			handler.addObject(node);
 			addObject(node);
 		}

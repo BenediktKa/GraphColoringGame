@@ -17,6 +17,7 @@ import com.graphcoloring.main.Game.STATE;
 import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
 import com.graphcoloring.main.ID;
+import com.graphcoloring.main.RandomColors;
 
 public class Menu extends MouseAdapter {
 
@@ -45,8 +46,8 @@ public class Menu extends MouseAdapter {
 
 		for (int i = 0; i < 10; i++) {
 			GraphNode node = new GraphNode((int) (Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT),
-					(int) (Math.random() * 10 - Math.random() * 10) + 1,
-					(int) (Math.random() * 10 - Math.random() * 10) + 1, ID.GraphNode);
+					(int) (Math.random() * 10 - Math.random() * 10),
+					(int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette());
 			handler.addObject(node);
 		}
 	}
