@@ -24,7 +24,6 @@ public class MouseInput extends MouseAdapter {
 	}
 
 	public void mouseClicked(MouseEvent event) {
-
 		// Don't do anything if not in-game
 		if (game.gameState != STATE.Game) {
 			return;

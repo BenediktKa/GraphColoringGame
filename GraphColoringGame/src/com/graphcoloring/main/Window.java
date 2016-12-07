@@ -22,8 +22,6 @@ public class Window extends Canvas {
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null); 
 		frame.add(game);
-		frame.setUndecorated(true);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		game.start();
 

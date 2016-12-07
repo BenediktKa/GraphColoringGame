@@ -16,6 +16,7 @@ public class GraphNode extends GameObject {
 	private int color;
 	public boolean hover;
 	private int adjecencyMatrix[][];
+	private int colorMatrix[][];
 	private boolean outline = true;
 
 	private Color colorArray[];
@@ -93,11 +94,11 @@ public class GraphNode extends GameObject {
 		if (adjecencyMatrix != null) {
 			generateEdges(g2d);
 		}
-		
+
 		g2d.fill(node);
 		g2d.setColor(colorArray[0]);
-		
-		if(outline) {
+
+		if (outline) {
 			g2d.setStroke(new BasicStroke(3));
 			g2d.draw(node);
 		}

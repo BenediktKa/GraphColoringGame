@@ -19,8 +19,8 @@ public class TestSprite extends GameObject {
 		} catch (IOException error) {
 			System.out.println(error);
 		}
-		velX = (int)(Math.random() * 100 - Math.random() * 100);
-		velY = (int)(Math.random() * 100 - Math.random() * 100);
+		velX = (int)(Math.random() * 10 - Math.random() * 10);
+		velY = (int)(Math.random() * 10 - Math.random() * 10);
 	}
 
 	public void tick() {

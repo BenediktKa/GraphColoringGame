@@ -100,9 +100,9 @@ public class Game extends Canvas implements Runnable {
 		// Temporary
 		new GameMode(this, handler, notification);
 		
-		for(int i = 0; i < 20; i++) {
+		/*for(int i = 0; i < 20; i++) {
 			handler.addObject(new TestSprite(20, 20, ID.TestSprite));
-		}
+		}*/
 	}
 
 	public void run() {

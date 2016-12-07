@@ -14,10 +14,7 @@ import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Game.STATE;
-import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
-import com.graphcoloring.main.ID;
-import com.graphcoloring.main.RandomColors;
 
 public class Menu extends MouseAdapter {
 
@@ -31,6 +28,7 @@ public class Menu extends MouseAdapter {
 	Rectangle playButton;
 	Rectangle settingsButton;
 	Rectangle quitButton;
+	CustomSlider testSlider;
 
 	// Settings Menu Elements
 	Rectangle soundButton;
@@ -50,6 +48,8 @@ public class Menu extends MouseAdapter {
 					(int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette(), false);
 			handler.addObject(node);
 		}*/
+		
+		testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -82,7 +82,13 @@ public class Menu extends MouseAdapter {
 		}
 	}
 	
-	public void mouseMoved(MouseEvent e) {
+	public void mouseDragged(MouseEvent e) {
+		int mx = e.getX();
+		int my = e.getY();
+		
+		if(testSlider.contains(mx, my)) {
+			testSlider.setKnobX(mx);
+		}
 	}
 
 	public void tick() {
@@ -124,6 +130,7 @@ public class Menu extends MouseAdapter {
 		g2d.draw(playButton);
 		g2d.draw(settingsButton);
 		g2d.draw(quitButton);
+		testSlider.drawSlider(g);
 	}
 
 	public void settingsMenu(Graphics g) {
