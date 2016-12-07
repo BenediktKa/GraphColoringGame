@@ -6,7 +6,6 @@ public class RandomColors {
 	Color[] colors;
 	float saturation;
 
-	//Test
 	public RandomColors(int amount, float satRange) {
 		colors = new Color[amount];
 		saturation = 0.5f + (float) Math.random() * satRange;
