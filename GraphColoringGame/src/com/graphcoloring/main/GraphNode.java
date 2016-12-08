@@ -1,5 +1,6 @@
 package com.graphcoloring.main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,13 +16,15 @@ public class GraphNode extends GameObject {
 	private int color;
 	public boolean hover;
 	private int adjecencyMatrix[][];
+	private int colorMatrix[][];
+	private boolean outline = true;
 
-
-	private Color colorArray[] = { Color.black, Color.blue, Color.cyan, Color.gray, Color.green, Color.red };
+	private Color colorArray[];
 
 	private Ellipse2D node;
 
-	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][]) {
+	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][],
+			Color colorArray[]) {
 		super(x, y, id);
 
 		this.handler = handler;
@@ -32,14 +35,19 @@ public class GraphNode extends GameObject {
 		this.nodeID = nodeID;
 		this.adjecencyMatrix = adjecencyMatrix;
 
+		this.colorArray = colorArray;
+
 		this.color = 0;
 	}
 
-	public GraphNode(int x, int y, int velX, int velY, ID id) {
+	public GraphNode(int x, int y, int velX, int velY, ID id, Color colorArray[], boolean outline) {
 		super(x, y, id);
 
 		this.velX = velX;
 		this.velY = velY;
+
+		this.colorArray = colorArray;
+		this.outline = outline;
 
 		randomColor();
 
@@ -79,8 +87,8 @@ public class GraphNode extends GameObject {
 		}
 
 		g2d.setColor(colorArray[color]);
-		if(!hover) {
-			node = new Ellipse2D.Double(x, y, Game.WIDTH / 25, Game.WIDTH / 25);
+		if (!hover) {
+			node = new Ellipse2D.Double(x, y, Game.WIDTH / 20, Game.WIDTH / 20);
 		}
 
 		if (adjecencyMatrix != null) {
@@ -88,6 +96,12 @@ public class GraphNode extends GameObject {
 		}
 
 		g2d.fill(node);
+		g2d.setColor(colorArray[0]);
+
+		if (outline) {
+			g2d.setStroke(new BasicStroke(3));
+			g2d.draw(node);
+		}
 	}
 
 	public void generateEdges(Graphics2D g2d) {
@@ -106,6 +120,7 @@ public class GraphNode extends GameObject {
 				GraphNode gn = (GraphNode) tempObject;
 
 				if (gn.getNodeID() == i) {
+					g2d.setStroke(new BasicStroke(2));
 					g2d.draw(new Line2D.Double(this.getCenterX(), this.getCenterY(), gn.getCenterX(), gn.getCenterY()));
 				}
 			}
@@ -115,7 +130,7 @@ public class GraphNode extends GameObject {
 	public boolean clicked(int x, int y) {
 		return node.contains(x, y);
 	}
-	
+
 	public void onHover() {
 		hover = true;
 	}
@@ -148,6 +163,14 @@ public class GraphNode extends GameObject {
 			return 0;
 
 		return (int) node.getCenterY();
+	}
+
+	public int getRadius() {
+		return (int) node.getWidth();
+	}
+
+	public Ellipse2D getNode() {
+		return node;
 	}
 
 	public void randomColor() {

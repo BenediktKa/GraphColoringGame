@@ -38,9 +38,10 @@ public class MouseInput extends MouseAdapter {
 					continue;
 				}
 				GraphNode gn = (GraphNode) tempObject;
-			
-				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
+
+				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor();
+					break;
 				}
 			}
 		} else if (event.getButton() == MouseEvent.BUTTON3) {
@@ -52,15 +53,35 @@ public class MouseInput extends MouseAdapter {
 					continue;
 				}
 				GraphNode gn = (GraphNode) tempObject;
-
-				if (gn.clicked(event.getX() - (int)camera.getX(), event.getY() - (int)camera.getY())) {
+				
+				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor();
+					break;
 				}
 			}
 		}
 	}
-	
-	public void mouseMoved(MouseEvent e) {
-		System.out.println("Miau2");
+
+	public void mouseDragged(MouseEvent event) {
+
+		// Don't do anything if not in-game
+		if (game.gameState != STATE.Game) {
+			return;
+		}
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() != ID.GraphNode) {
+				continue;
+			}
+			GraphNode gn = (GraphNode) tempObject;
+
+			if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
+				gn.setX(event.getX() - (int) camera.getX() - gn.getRadius() / 2);
+				gn.setY(event.getY() - (int) camera.getY() - gn.getRadius() / 2);
+				break;
+			}
+		}
 	}
 }

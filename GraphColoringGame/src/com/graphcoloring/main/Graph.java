@@ -1,5 +1,6 @@
 package com.graphcoloring.main;
 
+import java.awt.Color;
 import java.util.LinkedList;
 
 import com.graphcoloring.hud.Notification;
@@ -12,6 +13,7 @@ public class Graph {
 	private int edges;
 	private int adjacencyMatrix[][];
 	private int adjacencySimple[][];
+	private Color colorArray[];
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
@@ -20,6 +22,7 @@ public class Graph {
 		this.notification = notification;
 		this.vertices = verticies;
 		this.edges = edges;
+		this.colorArray = new RandomColors(20, 0.05f).getPalette();
 
 		// Temporary
 		generateRandomGraph();
@@ -32,13 +35,13 @@ public class Graph {
 		int edgeToGenerate = edges - vertices;
 		// create 1 edges for each vertices
 		adjacencyMatrix = new int[vertices][vertices];
-		for (int i = 0; i < vertices; i++) {
+		int e = 0;
+		while (e < vertices) {
 			int random = (int) (Math.random() * vertices);
-			if (random != i && (adjacencyMatrix[i][random] == 0)) {
-				adjacencyMatrix[i][random] = 1;
-				adjacencyMatrix[random][i] = 1;
-			} else {
-				edgeToGenerate++;
+			if (random != e && (adjacencyMatrix[e][random] == 0) && (adjacencyMatrix[random][e] == 0)) {
+				adjacencyMatrix[e][random] = 1;
+				adjacencyMatrix[random][e] = 1;
+				e++;
 			}
 		}
 		while (edgeToGenerate > 0) {
@@ -82,7 +85,7 @@ public class Graph {
 		for (int i = 0; i < vertices; i++) {
 			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)),
 					(int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i,
-					adjacencySimple);
+					adjacencySimple, colorArray);
 			handler.addObject(node);
 			addObject(node);
 		}

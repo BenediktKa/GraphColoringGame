@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable {
 	public STATE gameState = STATE.Menu;
 
 	// Windows Size
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 
 	public Game() {
 		handler = new Handler();
@@ -70,8 +70,11 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
-
-		this.addMouseListener(new MouseInput(this, handler, camera));
+		
+		MouseInput mouse = new MouseInput(this, handler, camera);
+		
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addKeyListener(new KeyBoardInput(camera));
@@ -96,6 +99,10 @@ public class Game extends Canvas implements Runnable {
 	public void initilizeGame() {
 		// Temporary
 		new GameMode(this, handler, notification);
+		
+		/*for(int i = 0; i < 20; i++) {
+			handler.addObject(new TestSprite(20, 20, ID.TestSprite));
+		}*/
 	}
 
 	public void run() {
@@ -177,7 +184,7 @@ public class Game extends Canvas implements Runnable {
 			fpscounter.render(g);
 		}
 
-		// Stuff to Render End
+		// Stuff to Render Endz
 		g.dispose();
 		bs.show();
 	}

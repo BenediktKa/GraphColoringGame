@@ -1,0 +1,120 @@
+package com.graphcoloring.menu;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
+
+import com.graphcoloring.main.Game;
+
+public class CustomSlider {
+
+	private int x, y;
+	private int knobX, knobY;
+	private int width, height;
+	private boolean centered;
+	private int limit;
+	private String text;
+
+	private int sliderPosition;
+	private int knobValue;
+
+	private RoundRectangle2D body;
+	private Ellipse2D knob;
+
+	public CustomSlider(int x, int y, int width, int height, boolean centered, int limit, String text) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.centered = centered;
+		this.limit = limit;
+		this.text = text;
+	}
+
+	public void drawSlider(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+
+		g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
+
+		if (centered) {
+			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25 , 25);
+			g2d.fill(body);
+		} else {
+			body = new RoundRectangle2D.Double(x - width / 2, y, width, height, 25, 25);
+			g2d.fill(body);
+		}
+
+		g2d.setStroke(new BasicStroke(3));
+		drawSliderKnob(g);
+
+		Font fnt = new Font("arial", Font.BOLD, 20);
+		g2d.setFont(fnt);
+		g2d.setColor(Color.black);
+
+		drawCenteredString(text, Game.WIDTH, y - 20, g);
+	}
+
+	public void drawSliderKnob(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+
+		if (centered) {
+			g2d.setColor(Color.getHSBColor(184.0f / 360, 10.0f / 100, 65.0f / 100));
+			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 - height + knobX, y - height / 2, height * 2,
+					height * 2);
+			g2d.fill(knob);
+			g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
+			g2d.draw(knob);
+		} else {
+			g2d.setColor(Color.getHSBColor(184.0f / 360, 10.0f / 100, 65.0f / 100));
+			knob = new Ellipse2D.Double(x - width / 2 - height + knobX, y - height / 2, height * 2, height * 2);
+			g2d.fill(knob);
+			g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
+			g2d.draw(knob);
+		}
+	}
+
+	public void drawCenteredString(String s, int w, int y, Graphics g) {
+		FontMetrics fm = g.getFontMetrics();
+		int x = (w - fm.stringWidth(s)) / 2;
+		g.drawString(s + " " + knobValue, x, y);
+	}
+
+	public int getKnobX() {
+		return knobX;
+	}
+
+	public int getKnobY() {
+		return knobY;
+	}
+
+	public void setKnobX(int x) {
+		if (x - body.getMinX() < 0 || x - body.getMinX() - height / 4 > width) {
+			return;
+		}
+
+		this.knobX = (int) (x - body.getMinX());
+		setKnobValue((int) (knobX / (width / limit)));
+	}
+
+	public void setKnobY(int y) {
+		this.knobY = y;
+	}
+
+	public boolean contains(double x, double y) {
+		return knob.contains(x, y);
+	}
+
+	public int getKnobValue() {
+		return knobValue;
+	}
+
+	public void setKnobValue(int knobValue) {
+		this.knobValue = knobValue;
+	}
+}
