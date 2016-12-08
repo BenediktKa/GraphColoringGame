@@ -5,15 +5,12 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
-import com.graphcoloring.main.Game.STATE;
 import com.graphcoloring.main.Handler;
 
 public class Menu extends MouseAdapter {
@@ -25,31 +22,32 @@ public class Menu extends MouseAdapter {
 	private int spacing = 20;
 
 	// Main Menu Elements
-	CustomButton playButton;
-	CustomButton settingsButton;
-	CustomButton quitButton;
+	private CustomButton playButton;
+	private CustomButton settingsButton;
+	private CustomButton quitButton;
 	
 	// Main Menu Elements
-	CustomButton bitterEnd;
-	CustomButton bestUpperBound;
-	CustomButton randomOrder;
+	private CustomButton bitterEnd;
+	private CustomButton bestUpperBound;
+	private CustomButton randomOrder;
+	private CustomButton gamemodesBackButton;
 
 	// Settings Menu Elements
-	CustomButton soundButton;
-	CustomButton antialiasingButton;
-	CustomButton settingsBackButton;
+	private CustomButton soundButton;
+	private CustomButton antialiasingButton;
+	private CustomButton settingsBackButton;
 
 	// Sound Menu
-	CustomSlider menuMusicSlider;
-	CustomSlider soundFXSlider;
-	CustomButton soundBackButton;
+	private CustomSlider menuMusicSlider;
+	private CustomSlider soundFXSlider;
+	private CustomButton soundBackButton;
 
 	// States
-	private enum MENUSTATE {
+	public enum MENUSTATE {
 		Main, Settings, Sound, Gamemodes;
 	};
 
-	private MENUSTATE menuState;
+	public MENUSTATE menuState;
 
 	public Menu(Game game, Handler handler, Notification notification) {
 		this.game = game;
@@ -74,9 +72,10 @@ public class Menu extends MouseAdapter {
 		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit");
 		
 		//Gamemodes Menu
-		bitterEnd = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Bitter End");
-		bestUpperBound = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Best Upper Bound");
-		randomOrder = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Random Order");
+		bitterEnd = new CustomButton(0, Game.HEIGHT / 5, 200, 50, true, "Bitter End");
+		bestUpperBound = new CustomButton(0, Game.HEIGHT / 5 * 2, 200, 50, true, "Best Upper Bound");
+		randomOrder = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Random Order");
+		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back");
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds");
@@ -84,13 +83,13 @@ public class Menu extends MouseAdapter {
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
 
 		// Sound Menu
-		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, "Menu Music:");
-		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, "SoundFX");
+		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
+		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, 100, "SoundFX");
 		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if (game.gameState != STATE.Menu) {
+		if (game.gameState != Game.STATE.Menu) {
 			return;
 		}
 
@@ -131,13 +130,15 @@ public class Menu extends MouseAdapter {
 			if(bitterEnd.mouseOver(mx, my)) {
 				handler.removeAllObjects();
 				game.initilizeGame();
-				game.gameState = STATE.Game;
+				game.gameState = Game.STATE.Game;
+			} else if(gamemodesBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Main;
 			}
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if(game.gameState != STATE.Game) {
+		if(game.gameState != Game.STATE.Menu) {
 			return;
 		}
 		
@@ -154,7 +155,7 @@ public class Menu extends MouseAdapter {
 	}
 
 	public void render(Graphics g) {
-		if (game.gameState != STATE.Menu) {
+		if (game.gameState != Game.STATE.Menu) {
 			return;
 		}
 
@@ -183,6 +184,7 @@ public class Menu extends MouseAdapter {
 		bitterEnd.drawButton(g);
 		bestUpperBound.drawButton(g);
 		randomOrder.drawButton(g);
+		gamemodesBackButton.drawButton(g);
 	}
 
 	public void settingsMenu(Graphics g) {

@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 
@@ -21,13 +20,12 @@ public class CustomSlider {
 	private int limit;
 	private String text;
 
-	private int sliderPosition;
 	private int knobValue;
 
 	private RoundRectangle2D body;
 	private Ellipse2D knob;
 
-	public CustomSlider(int x, int y, int width, int height, boolean centered, int limit, String text) {
+	public CustomSlider(int x, int y, int width, int height, boolean centered, int limit, int defaultValue, String text) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -35,6 +33,11 @@ public class CustomSlider {
 		this.centered = centered;
 		this.limit = limit;
 		this.text = text;
+		
+		if(defaultValue > 0) {
+			this.knobValue = defaultValue;
+			this.knobX = (int)  (defaultValue * (x + width) / limit);
+		}
 	}
 
 	public void drawSlider(Graphics g) {
@@ -104,7 +107,7 @@ public class CustomSlider {
 		}
 
 		this.knobX = (int) (x - body.getMinX());
-		setKnobValue((int) Math.ceil((knobX / (width / limit))));
+		setKnobValue((int) Math.ceil(((double)knobX / ((double)width / (double)limit))));
 	}
 
 	public void setKnobY(int knobY) {

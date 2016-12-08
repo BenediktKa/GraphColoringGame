@@ -12,6 +12,7 @@ import com.graphcoloring.hud.Notification;
 import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
 import com.graphcoloring.menu.Menu;
+import com.graphcoloring.menu.PauseMenu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -38,6 +39,9 @@ public class Game extends Canvas implements Runnable {
 
 	// Menu
 	private Menu menu;
+	
+	//Pause Menu
+	private PauseMenu pauseMenu;
 
 	// Camera
 	private Camera camera;
@@ -71,6 +75,7 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
+		pauseMenu = new PauseMenu(this, menu);
 
 		MouseInput mouse = new MouseInput(this, handler, camera);
 
@@ -78,7 +83,8 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseMotionListener(mouse);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
-		this.addKeyListener(new KeyBoardInput(camera));
+		this.addMouseListener(pauseMenu);
+		this.addKeyListener(new KeyBoardInput(this, camera));
 
 	}
 
@@ -148,9 +154,13 @@ public class Game extends Canvas implements Runnable {
 
 		if (gameState == STATE.Menu) {
 			menu.tick();
-		}
-
-		handler.tick();
+		} else if(gameState == STATE.Game) {
+			handler.tick();
+		} else if(gameState == STATE.Pause) {
+			pauseMenu.tick();
+		} 
+		
+		
 		notification.tick();
 	}
 
@@ -177,21 +187,28 @@ public class Game extends Canvas implements Runnable {
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
 
+		notification.render(g);
+		
+		if (gameState == STATE.Game || gameState == STATE.Pause) {
+			g2d.translate(camera.getX(), camera.getY());
+			handler.render(g);
+			g2d.translate(-camera.getX(), -camera.getY());
+		}
+		
 		if (gameState == STATE.Menu) {
 			if (menu != null)
 				menu.render(g);
+		} else if(gameState == STATE.Game) {
+			handler.tick();
+		} else if(gameState == STATE.Pause) {
+			pauseMenu.render(g);
 		}
-		g2d.translate(camera.getX(), camera.getY());
-		handler.render(g);
-		g2d.translate(-camera.getX(), -camera.getY());
-
-		notification.render(g);
 
 		if (FPSCOUNTER) {
 			fpscounter.render(g);
 		}
 
-		// Stuff to Render Endz
+		// Stuff to Render End
 		g.dispose();
 		bs.show();
 	}

@@ -4,12 +4,15 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import com.graphcoloring.main.Camera;
+import com.graphcoloring.main.Game;
 
 public class KeyBoardInput extends KeyAdapter {
 
+	private Game game;
 	private Camera camera;
 
-	public KeyBoardInput(Camera camera) {
+	public KeyBoardInput(Game game, Camera camera) {
+		this.game = game;
 		this.camera = camera;
 	}
 
@@ -29,7 +32,8 @@ public class KeyBoardInput extends KeyAdapter {
 			camera.setX(camera.getX() - 10);
 			break;
 		case KeyEvent.VK_ESCAPE:
-			System.exit(1);
+			if(game.gameState == Game.STATE.Game) game.gameState = Game.STATE.Pause;
+			else if(game.gameState == Game.STATE.Pause) game.gameState = Game.STATE.Game;
 			break;
 		}
 	}
