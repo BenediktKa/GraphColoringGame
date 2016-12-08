@@ -55,30 +55,11 @@ public class GraphNode extends GameObject {
 
 		this.colorArray = colorArray;
 		this.outline = outline;
-
-		randomColor();
-
 	}
 
 	public void tick() {
 		if (node == null) {
 			return;
-		}
-
-		if (node.getCenterX() > Game.WIDTH) {
-			velX = -velX;
-			randomColor();
-		} else if (node.getCenterX() < 0) {
-			velX = -velX;
-			randomColor();
-		}
-
-		if (node.getCenterY() > Game.HEIGHT) {
-			velY = -velY;
-			randomColor();
-		} else if (node.getCenterY() < 0) {
-			velY = -velY;
-			randomColor();
 		}
 
 		x += velX;

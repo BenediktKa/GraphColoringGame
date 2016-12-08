@@ -10,7 +10,6 @@ public class Handler {
 	public void tick() {
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-
 			tempObject.tick();
 		}
 	}
@@ -18,7 +17,6 @@ public class Handler {
 	public void render(Graphics g) {
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-
 			tempObject.render(g);
 		}
 	}

@@ -6,10 +6,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.graphcoloring.main.Game;
+import com.graphcoloring.main.Handler;
 
 public class PauseMenu extends MouseAdapter {
 	
 	private Game game;
+	private Handler handler;
 	private Menu menu;
 	
 	private int borderRadius = 20;
@@ -18,8 +20,9 @@ public class PauseMenu extends MouseAdapter {
 	private CustomButton settingsButton;
 	private CustomButton quitButton;
 
-	public PauseMenu(Game game, Menu menu) {
+	public PauseMenu(Game game, Handler handler, Menu menu) {
 		this.game = game;
+		this.handler = handler;
 		this.menu = menu;
 		
 		resumeButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Resume", borderRadius);
@@ -55,6 +58,7 @@ public class PauseMenu extends MouseAdapter {
 			menu.menuState = Menu.MENUSTATE.Settings;
 			game.gameState = Game.STATE.Menu;
 		} else if(quitButton.mouseOver(mx, my)) {
+			handler.removeAllObjects();
 			menu.menuState = Menu.MENUSTATE.Main;
 			game.gameState = Game.STATE.Menu;
 		}

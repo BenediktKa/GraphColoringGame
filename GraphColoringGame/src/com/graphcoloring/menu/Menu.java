@@ -25,12 +25,17 @@ public class Menu extends MouseAdapter {
 	private CustomButton playButton;
 	private CustomButton settingsButton;
 	private CustomButton quitButton;
-	
-	// Main Menu Elements
+
+	// Gamemode Elements
 	private CustomButton bitterEnd;
 	private CustomButton bestUpperBound;
 	private CustomButton randomOrder;
 	private CustomButton gamemodesBackButton;
+
+	// Bitter End Elements
+	private CustomSlider nodesSlider;
+	private CustomSlider edgesSlider;
+	private CustomButton bitterEndStartButton;
 
 	// Settings Menu Elements
 	private CustomButton soundButton;
@@ -46,7 +51,7 @@ public class Menu extends MouseAdapter {
 
 	// States
 	public enum MENUSTATE {
-		Main, Settings, Sound, Gamemodes;
+		Main, Settings, Sound, Gamemodes, BitterEnd, BestUpperBound, RandomOrder;
 	};
 
 	public MENUSTATE menuState;
@@ -72,23 +77,28 @@ public class Menu extends MouseAdapter {
 		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play", borderRadius);
 		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings", borderRadius);
 		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit", borderRadius);
-		
-		//Gamemodes Menu
+
+		// Gamemodes Menu
 		bitterEnd = new CustomButton(0, Game.HEIGHT / 5, 200, 50, true, "Bitter End", borderRadius);
 		bestUpperBound = new CustomButton(0, Game.HEIGHT / 5 * 2, 200, 50, true, "Best Upper Bound", borderRadius);
 		randomOrder = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Random Order", borderRadius);
 		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
+		// Bitter End
+		nodesSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 30, 10, "Nodes");
+		edgesSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 30, 15, "Edges");
+		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Start", borderRadius);
+
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
 		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6, 50, 25, false, "Antialiasing", true);
 		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 2, 50, 25, false, "Dithering", true);
-		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Small Nodes", false);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Small Nodes",
+				false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
-		
 
 		// Sound Menu
-		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
+		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music");
 		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, 100, "SoundFX");
 		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 	}
@@ -140,26 +150,48 @@ public class Menu extends MouseAdapter {
 		//Game modes Menu
 		else if(menuState == MENUSTATE.Gamemodes) {
 			if(bitterEnd.mouseOver(mx, my)) {
-				handler.removeAllObjects();
-				game.initilizeGame();
-				game.gameState = Game.STATE.Game;
+				menuState = MENUSTATE.BitterEnd;
 			} else if(gamemodesBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
+			}
+		}
+			
+		//Bitter End
+		else if(menuState == MENUSTATE.BitterEnd) {
+			if(bitterEndStartButton.mouseOver(mx, my)) {		
+				int nodes = nodesSlider.getKnobValue();
+				int edges = edgesSlider.getKnobValue();
+				
+				if(nodes > edges) {
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
+					return;
+				}
+				
+				game.gameState = Game.STATE.Game;
+				game.initilizeGame(nodes, edges);
 			}
 		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if(game.gameState != Game.STATE.Menu) {
+		if (game.gameState != Game.STATE.Menu) {
 			return;
 		}
-		
+
 		int mx = e.getX();
 		int my = e.getY();
-		
-		if(menuState == MENUSTATE.Sound) {
-			if(menuMusicSlider.contains(mx, my)) menuMusicSlider.setKnobX(mx);
-			else if(soundFXSlider.contains(mx, my)) soundFXSlider.setKnobX(mx);
+
+		if (menuState == MENUSTATE.Sound) {
+			if (menuMusicSlider.contains(mx, my))
+				menuMusicSlider.setKnobX(mx);
+			else if (soundFXSlider.contains(mx, my))
+				soundFXSlider.setKnobX(mx);
+		} else if(menuState == MENUSTATE.BitterEnd) {
+			if(nodesSlider.contains(mx, my)) {
+				nodesSlider.setKnobX(mx);
+			} else if(edgesSlider.contains(mx, my)) {
+				edgesSlider.setKnobX(mx);
+			}
 		}
 	}
 
@@ -180,43 +212,43 @@ public class Menu extends MouseAdapter {
 			mainMenu(g);
 		} else if (menuState == MENUSTATE.Settings) {
 			settingsMenu(g);
-		} else if(menuState == MENUSTATE.Sound) {
+		} else if (menuState == MENUSTATE.Sound) {
 			soundMenu(g);
 		} else if (menuState == MENUSTATE.Gamemodes) {
 			gamemodesMenu(g);
+		} else if (menuState == MENUSTATE.BitterEnd) {
+			bitterEndMenu(g);
 		}
 	}
 
 	public void mainMenu(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-
 		playButton.drawButton(g);
 		settingsButton.drawButton(g);
 		quitButton.drawButton(g);
 	}
-	
-	public void gamemodesMenu(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 
+	public void gamemodesMenu(Graphics g) {
 		bitterEnd.drawButton(g);
 		bestUpperBound.drawButton(g);
 		randomOrder.drawButton(g);
 		gamemodesBackButton.drawButton(g);
 	}
 
-	public void settingsMenu(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
+	public void bitterEndMenu(Graphics g) {
+		nodesSlider.drawSlider(g);
+		edgesSlider.drawSlider(g);
+		bitterEndStartButton.drawButton(g);
+	}
 
+	public void settingsMenu(Graphics g) {
 		soundButton.drawButton(g);
 		antialiasingCheckBox.drawButton(g);
 		ditheringCheckBox.drawButton(g);
 		smallNodesCheckBox.drawButton(g);
 		settingsBackButton.drawButton(g);
 	}
-	
+
 	public void soundMenu(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		
 		menuMusicSlider.drawSlider(g);
 		soundFXSlider.drawSlider(g);
 		soundBackButton.drawButton(g);
@@ -227,15 +259,5 @@ public class Menu extends MouseAdapter {
 		int x = (w - fm.stringWidth(s)) / 2;
 		int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) / 2);
 		g.drawString(s, x, y);
-	}
-
-	private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
-		if (mx > x && mx < x + width) {
-			if (my > y && my < y + height) {
-				return true;
-			} else
-				return false;
-		} else
-			return false;
 	}
 }

@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.geom.RoundRectangle2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +18,7 @@ public class Notification {
 		Error;
 	};
 
-	private Rectangle errorRectangle;
+	private RoundRectangle2D errorRectangle;
 	private boolean notificationVisible;
 	private boolean fadeOut;
 	private boolean fadeIn;
@@ -52,14 +52,15 @@ public class Notification {
 	public void displayError(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		int rectangleWidth = Game.WIDTH / 2;
 		int rectangleHeight = Game.HEIGHT / 3;
 
-		Font fnt = new Font("Lucida Grande", Font.BOLD, 30);
+		Font fnt = new Font("Lucida Grande", Font.BOLD, 18);
 		g2d.setFont(fnt);
-
-		errorRectangle = new Rectangle(Game.WIDTH / 2 - (rectangleWidth / 2), Game.HEIGHT / 2 - (rectangleHeight / 2),
-				rectangleWidth, rectangleHeight);
+		
+		FontMetrics metrics = g2d.getFontMetrics(fnt);
+		int textWidth = metrics.stringWidth(message) + 50;
+		
+		errorRectangle = new RoundRectangle2D.Double(Game.WIDTH / 2 - (textWidth / 2), Game.HEIGHT / 2 - (rectangleHeight / 2), textWidth, rectangleHeight, 25, 25);
 
 		Color color;
 		if (alpha < 0) {
@@ -78,6 +79,8 @@ public class Notification {
 			color = new Color(236.0f / 255.0f, 240.0f / 255.0f, 241.0f / 255.0f, alpha);
 		}
 		g2d.setPaint(color);
+		
+		
 		drawCenteredString(message, Game.WIDTH, Game.HEIGHT, g);
 	}
 

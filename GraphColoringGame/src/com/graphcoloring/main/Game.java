@@ -53,6 +53,9 @@ public class Game extends Canvas implements Runnable {
 
 	// Notification
 	Notification notification;
+	
+	//Gamemodes
+	private GameMode gamemode;
 
 	// States
 	public enum STATE {
@@ -77,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
-		pauseMenu = new PauseMenu(this, menu);
+		pauseMenu = new PauseMenu(this, handler, menu);
 
 		MouseInput mouse = new MouseInput(this, handler, camera);
 
@@ -105,9 +108,9 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	public void initilizeGame() {
+	public void initilizeGame(int nodes, int edges) {
 		// Temporary
-		new GameMode(this, handler, notification);
+		gamemode = new GameMode(nodes, edges, this, handler, notification, menu);
 
 		//for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20, 20, ID.TestSprite)); }
 		 
@@ -189,8 +192,6 @@ public class Game extends Canvas implements Runnable {
 		// g.setColor(Color.BLACK);
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
-
-		notification.render(g);
 		
 		if (gameState == STATE.Game || gameState == STATE.Pause) {
 			g2d.translate(camera.getX(), camera.getY());
@@ -207,6 +208,8 @@ public class Game extends Canvas implements Runnable {
 			pauseMenu.render(g);
 		}
 
+		notification.render(g);
+		
 		if (FPSCOUNTER) {
 			fpscounter.render(g);
 		}

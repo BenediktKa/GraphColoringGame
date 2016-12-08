@@ -25,7 +25,7 @@ public class Window extends Canvas {
 		frame.setVisible(true);
 		game.start();
 
-		frame.addComponentListener(new ComponentAdapter() 
+		frame.addComponentListener(new ComponentAdapter()
 		{  
 		        public void componentResized(ComponentEvent event) {
 		        	Game.WIDTH = frame.getWidth();
