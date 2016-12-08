@@ -18,13 +18,14 @@ public class GraphNode extends GameObject {
 	private int adjecencyMatrix[][];
 	private int colorMatrix[][];
 	private boolean outline = true;
+	
+	private int nodeSize;
 
 	private Color colorArray[];
 
 	private Ellipse2D node;
 
-	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][],
-			Color colorArray[]) {
+	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][], Color colorArray[]) {
 		super(x, y, id);
 
 		this.handler = handler;
@@ -38,6 +39,12 @@ public class GraphNode extends GameObject {
 		this.colorArray = colorArray;
 
 		this.color = 0;
+		
+		if(Game.SMALLNODES) {
+			nodeSize = Game.WIDTH / 25;
+		} else {
+			nodeSize = Game.WIDTH / 20;
+		}
 	}
 
 	public GraphNode(int x, int y, int velX, int velY, ID id, Color colorArray[], boolean outline) {
@@ -84,7 +91,7 @@ public class GraphNode extends GameObject {
 
 		g2d.setColor(colorArray[color]);
 		if (!hover) {
-			node = new Ellipse2D.Double(x, y, Game.WIDTH / 20, Game.WIDTH / 20);
+			node = new Ellipse2D.Double(x, y, nodeSize, nodeSize);
 		}
 
 		if (adjecencyMatrix != null) {

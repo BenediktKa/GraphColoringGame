@@ -36,7 +36,7 @@ public class CustomSlider {
 		
 		if(defaultValue > 0) {
 			this.knobValue = defaultValue;
-			this.knobX = (int)  (defaultValue * (x + width) / limit);
+			this.knobX = (int) Math.ceil(((double)defaultValue * ((double)width / (double)limit)));
 		}
 	}
 
@@ -45,15 +45,16 @@ public class CustomSlider {
 
 		g2d.setColor(Color.black);
 		
+		
+		g2d.setStroke(new BasicStroke(3));
 		if (centered) {
 			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25 , 25);
-			g2d.fill(body);
 		} else {
-			body = new RoundRectangle2D.Double(x - width / 2, y, width, height, 25, 25);
-			g2d.fill(body);
+			body = new RoundRectangle2D.Double(x, y, width, height, 25, 25);
 		}
-
-		g2d.setStroke(new BasicStroke(3));
+		
+		g2d.draw(body);
+		
 		drawSliderKnob(g);
 		g2d.setStroke(new BasicStroke(1));
 
@@ -65,9 +66,9 @@ public class CustomSlider {
 			drawCenteredString(text, Game.WIDTH, y - 20, g);
 		} else {
 			FontMetrics metrics = g2d.getFontMetrics(fnt);
-			int textWidth = metrics.stringWidth(text);
+			int textWidth = metrics.stringWidth(text + " " + knobValue);
 			
-			g2d.drawString(text + " " + knobValue, x - textWidth / 2, y + height / 2 + 10);
+			g2d.drawString(text + " " + knobValue, x + width / 2 - textWidth / 2, y - 20);
 		}
 	}
 
@@ -81,7 +82,7 @@ public class CustomSlider {
 			g2d.setColor(Color.BLACK);
 			g2d.draw(knob);
 		} else {
-			knob = new Ellipse2D.Double(x - width / 2 - height + knobX, y - height / 4, y - height / 2, height * 2);
+			knob = new Ellipse2D.Double(x - height + knobX, y - height / 2, height * 2, height * 2);
 			g2d.setColor(Color.WHITE);
 			g2d.fill(knob);
 			g2d.setColor(Color.BLACK);
@@ -91,7 +92,7 @@ public class CustomSlider {
 
 	public void drawCenteredString(String s, int w, int y, Graphics g) {
 		FontMetrics fm = g.getFontMetrics();
-		int x = (w - fm.stringWidth(s)) / 2;
+		int x = (w - fm.stringWidth(s + " " + knobValue)) / 2;
 		g.drawString(s + " " + knobValue, x, y);
 	}
 
@@ -109,6 +110,7 @@ public class CustomSlider {
 		}
 
 		this.knobX = (int) (x - body.getMinX());
+		
 		setKnobValue((int) Math.ceil(((double)knobX / ((double)width / (double)limit))));
 	}
 

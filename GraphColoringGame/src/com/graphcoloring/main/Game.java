@@ -27,6 +27,8 @@ public class Game extends Canvas implements Runnable {
 
 	// Settings
 	public static boolean ANTIALIASING = true;
+	public static boolean DITHERING = true;
+	public static boolean SMALLNODES = false;
 
 	// Thread
 	private Thread thread;
@@ -173,8 +175,11 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-		if (Game.ANTIALIASING) {
+		if (ANTIALIASING) {
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+		if(DITHERING) {
+			g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 		}
 		
 		// Stuff to Render Start

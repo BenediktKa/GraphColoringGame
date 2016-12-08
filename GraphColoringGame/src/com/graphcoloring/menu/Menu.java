@@ -34,7 +34,9 @@ public class Menu extends MouseAdapter {
 
 	// Settings Menu Elements
 	private CustomButton soundButton;
-	private CustomCheckBox antialiasingButton;
+	private CustomCheckBox antialiasingCheckBox;
+	private CustomCheckBox ditheringCheckBox;
+	private CustomCheckBox smallNodesCheckBox;
 	private CustomButton settingsBackButton;
 
 	// Sound Menu
@@ -79,13 +81,14 @@ public class Menu extends MouseAdapter {
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
-		antialiasingButton = new CustomCheckBox(0, Game.HEIGHT / 4 * 2, 50, 25, true, "Antialiasing", true);
+		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6, 50, 25, false, "Antialiasing", true);
+		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 2, 50, 25, false, "Dithering", true);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Small Nodes", false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 		
 
 		// Sound Menu
-		menuMusicSlider = new CustomSlider(200, Game.HEIGHT / 4, 200, 25, false, 100, 100, "Menu Music:");
-		//menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
+		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
 		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, 100, "SoundFX");
 		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 	}
@@ -113,9 +116,15 @@ public class Menu extends MouseAdapter {
 		else if (menuState == MENUSTATE.Settings) {
 			if (soundButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Sound;
-			} else if (antialiasingButton.mouseOver(mx, my)) {
-				antialiasingButton.setKnobState();
+			} else if (antialiasingCheckBox.mouseOver(mx, my)) {
+				antialiasingCheckBox.setKnobState();
 				Game.ANTIALIASING = Game.ANTIALIASING ? false : true;
+			} else if (ditheringCheckBox.mouseOver(mx, my)) {
+				ditheringCheckBox.setKnobState();
+				Game.DITHERING = Game.DITHERING ? false : true;
+			} else if (smallNodesCheckBox.mouseOver(mx, my)) {
+				smallNodesCheckBox.setKnobState();
+				Game.SMALLNODES = Game.SMALLNODES ? false : true;
 			} else if (settingsBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
 			}
@@ -156,7 +165,9 @@ public class Menu extends MouseAdapter {
 
 	public void tick() {
 		if (menuState == MENUSTATE.Settings) {
-			antialiasingButton.tick();
+			antialiasingCheckBox.tick();
+			ditheringCheckBox.tick();
+			smallNodesCheckBox.tick();
 		}
 	}
 
@@ -197,7 +208,9 @@ public class Menu extends MouseAdapter {
 		Graphics2D g2d = (Graphics2D) g;
 
 		soundButton.drawButton(g);
-		antialiasingButton.drawButton(g);
+		antialiasingCheckBox.drawButton(g);
+		ditheringCheckBox.drawButton(g);
+		smallNodesCheckBox.drawButton(g);
 		settingsBackButton.drawButton(g);
 	}
 	
