@@ -82,10 +82,6 @@ public class GraphNode extends GameObject {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
 		g2d.setColor(colorArray[color]);
 		if (!hover) {
 			node = new Ellipse2D.Double(x, y, Game.WIDTH / 20, Game.WIDTH / 20);

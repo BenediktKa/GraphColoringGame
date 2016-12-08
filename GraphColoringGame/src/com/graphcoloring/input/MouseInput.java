@@ -53,7 +53,7 @@ public class MouseInput extends MouseAdapter {
 					continue;
 				}
 				GraphNode gn = (GraphNode) tempObject;
-				
+
 				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor();
 					break;

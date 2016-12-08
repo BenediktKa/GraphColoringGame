@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
 import com.graphcoloring.hud.HUDFPS;
@@ -49,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 
 	// States
 	public enum STATE {
-		Menu, Settings, Gamemodes, Game, Pause;
+		Menu, Game, Pause;
 	};
 
 	public STATE gameState = STATE.Menu;
@@ -70,9 +71,9 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
-		
+
 		MouseInput mouse = new MouseInput(this, handler, camera);
-		
+
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
 		this.addMouseListener(menu);
@@ -99,10 +100,11 @@ public class Game extends Canvas implements Runnable {
 	public void initilizeGame() {
 		// Temporary
 		new GameMode(this, handler, notification);
-		
-		/*for(int i = 0; i < 20; i++) {
-			handler.addObject(new TestSprite(20, 20, ID.TestSprite));
-		}*/
+
+		/*
+		 * for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20,
+		 * 20, ID.TestSprite)); }
+		 */
 	}
 
 	public void run() {
@@ -144,7 +146,7 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 
-		if (gameState == STATE.Menu || gameState == STATE.Settings || gameState == STATE.Gamemodes) {
+		if (gameState == STATE.Menu) {
 			menu.tick();
 		}
 
@@ -162,6 +164,11 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
+		
+		if (Game.ANTIALIASING) {
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		}
+		
 		// Stuff to Render Start
 
 		g.setColor(Color.WHITE);
@@ -169,15 +176,15 @@ public class Game extends Canvas implements Runnable {
 		// g.setColor(Color.BLACK);
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
-		
-		if (gameState == STATE.Menu || gameState == STATE.Settings || gameState == STATE.Gamemodes) {
+
+		if (gameState == STATE.Menu) {
 			if (menu != null)
 				menu.render(g);
 		}
 		g2d.translate(camera.getX(), camera.getY());
 		handler.render(g);
 		g2d.translate(-camera.getX(), -camera.getY());
-		
+
 		notification.render(g);
 
 		if (FPSCOUNTER) {

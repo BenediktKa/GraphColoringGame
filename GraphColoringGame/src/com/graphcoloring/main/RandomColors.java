@@ -9,10 +9,10 @@ public class RandomColors {
 	public RandomColors(int amount, float satRange) {
 		colors = new Color[amount];
 		saturation = 0.5f + (float) Math.random() * satRange;
-		
-		//Set First Color
+
+		// Set First Color
 		colors[0] = Color.getHSBColor(183.53f / 360, 10.24f / 100, 65.1f / 100);
-		
+
 		for (int i = 1; i < amount; i++) {
 			colors[i] = Color.getHSBColor((float) Math.random() * 100, saturation, (float) Math.random());
 		}

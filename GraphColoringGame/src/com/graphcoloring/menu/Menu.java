@@ -25,69 +25,128 @@ public class Menu extends MouseAdapter {
 	private int spacing = 20;
 
 	// Main Menu Elements
-	Rectangle playButton;
-	Rectangle settingsButton;
-	Rectangle quitButton;
-	CustomSlider testSlider;
+	CustomButton playButton;
+	CustomButton settingsButton;
+	CustomButton quitButton;
+	
+	// Main Menu Elements
+	CustomButton bitterEnd;
+	CustomButton bestUpperBound;
+	CustomButton randomOrder;
 
 	// Settings Menu Elements
-	Rectangle soundButton;
-	Rectangle antialiasingButton;
+	CustomButton soundButton;
+	CustomButton antialiasingButton;
+	CustomButton settingsBackButton;
 
-	// Back Button
-	Rectangle backButton;
+	// Sound Menu
+	CustomSlider menuMusicSlider;
+	CustomSlider soundFXSlider;
+	CustomButton soundBackButton;
+
+	// States
+	private enum MENUSTATE {
+		Main, Settings, Sound, Gamemodes;
+	};
+
+	private MENUSTATE menuState;
 
 	public Menu(Game game, Handler handler, Notification notification) {
 		this.game = game;
 		this.handler = handler;
 		this.notification = notification;
 
-		/*for (int i = 0; i < 10; i++) {
-			GraphNode node = new GraphNode((int) (Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT),
-					(int) (Math.random() * 10 - Math.random() * 10),
-					(int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette(), false);
-			handler.addObject(node);
-		}*/
+		menuState = MENUSTATE.Main;
+
+		/*
+		 * for (int i = 0; i < 10; i++) { GraphNode node = new GraphNode((int)
+		 * (Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT),
+		 * (int) (Math.random() * 10 - Math.random() * 10), (int) (Math.random()
+		 * * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100,
+		 * 0.05f).getPalette(), false); handler.addObject(node); }
+		 */
+
+		// testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
+
+		// Main Menu
+		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play");
+		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings");
+		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit");
 		
-		testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
+		//Gamemodes Menu
+		bitterEnd = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Bitter End");
+		bestUpperBound = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Best Upper Bound");
+		randomOrder = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Random Order");
+
+		// Settings Menu
+		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds");
+		antialiasingButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Antialiasing");
+		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
+
+		// Sound Menu
+		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, "Menu Music:");
+		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, "SoundFX");
+		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
 	}
 
 	public void mousePressed(MouseEvent e) {
+		if (game.gameState != STATE.Menu) {
+			return;
+		}
 
 		int mx = e.getX();
 		int my = e.getY();
 
-		if (game.gameState == STATE.Menu) {
-			if (mouseOver(mx, my, playButton.x, playButton.y, playButton.width, playButton.height)) {
+		// Main Menu
+		if (menuState == MENUSTATE.Main) {
+			if (playButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Gamemodes;
+			} else if (settingsButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Settings;
+			} else if (quitButton.mouseOver(mx, my)) {
+				System.exit(1);
+			}
+		}
+
+		// Settings Menu
+		else if (menuState == MENUSTATE.Settings) {
+			if (soundButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Sound;
+			} else if (antialiasingButton.mouseOver(mx, my)) {
+				Game.ANTIALIASING = Game.ANTIALIASING ? false : true;
+			} else if (settingsBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Main;
+			}
+		}
+		
+		//Sound Menu
+		else if(menuState == MENUSTATE.Sound) {
+			if(soundBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Settings;
+			}
+		}
+		
+		//Game modes Menu
+		else if(menuState == MENUSTATE.Gamemodes) {
+			if(bitterEnd.mouseOver(mx, my)) {
 				handler.removeAllObjects();
 				game.initilizeGame();
 				game.gameState = STATE.Game;
-			} else if (mouseOver(mx, my, settingsButton.x, settingsButton.y, settingsButton.width,
-					settingsButton.height)) {
-				game.gameState = STATE.Settings;
-			} else if (mouseOver(mx, my, quitButton.x, quitButton.y, quitButton.width, quitButton.height)) {
-				System.exit(1);
 			}
-		} else if (game.gameState == STATE.Settings) {
-			if (mouseOver(mx, my, antialiasingButton.x, antialiasingButton.y, antialiasingButton.width,
-					antialiasingButton.height)) {
-				Game.ANTIALIASING = Game.ANTIALIASING ? false : true;
-			} else if (mouseOver(mx, my, soundButton.x, soundButton.y, soundButton.width, soundButton.height)) {
-				notification.createNotification(TYPE.Error, "Button TODO", 2);
-			}
-		}
-
-		if (backButton != null && mouseOver(mx, my, backButton.x, backButton.y, backButton.width, backButton.height)) {
-			game.gameState = STATE.Menu;
 		}
 	}
-	
+
 	public void mouseDragged(MouseEvent e) {
+		if(game.gameState != STATE.Game) {
+			return;
+		}
+		
 		int mx = e.getX();
 		int my = e.getY();
 		
-		if(testSlider.contains(mx, my)) {
-			testSlider.setKnobX(mx);
+		if(menuState == MENUSTATE.Sound) {
+			if(menuMusicSlider.contains(mx, my)) menuMusicSlider.setKnobX(mx);
+			else if(soundFXSlider.contains(mx, my)) soundFXSlider.setKnobX(mx);
 		}
 	}
 
@@ -95,11 +154,17 @@ public class Menu extends MouseAdapter {
 	}
 
 	public void render(Graphics g) {
-		if (game.gameState == STATE.Menu) {
+		if (game.gameState != STATE.Menu) {
+			return;
+		}
+
+		if (menuState == MENUSTATE.Main) {
 			mainMenu(g);
-		} else if (game.gameState == STATE.Settings) {
+		} else if (menuState == MENUSTATE.Settings) {
 			settingsMenu(g);
-		} else if (game.gameState == STATE.Gamemodes) {
+		} else if(menuState == MENUSTATE.Sound) {
+			soundMenu(g);
+		} else if (menuState == MENUSTATE.Gamemodes) {
 			gamemodesMenu(g);
 		}
 	}
@@ -107,85 +172,33 @@ public class Menu extends MouseAdapter {
 	public void mainMenu(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
+		playButton.drawButton(g);
+		settingsButton.drawButton(g);
+		quitButton.drawButton(g);
+	}
+	
+	public void gamemodesMenu(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
 
-		Font fnt = new Font("arial", Font.BOLD, 30);
-		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
-		drawCenteredString("Graph Coloring " + Game.VERSION, Game.WIDTH, 50, g);
-
-		playButton = new Rectangle(0, 75, Game.WIDTH / 3, 50);
-		settingsButton = new Rectangle(0, playButton.y + playButton.height + spacing, Game.WIDTH / 3, 50);
-		quitButton = new Rectangle(0, settingsButton.y + settingsButton.height + spacing, Game.WIDTH / 3, 50);
-
-		Font fnt1 = new Font("arial", Font.BOLD, 20);
-		g2d.setFont(fnt1);
-
-		g2d.drawString("Play", playButton.x + 20, playButton.y + (playButton.height / 2) + 10);
-		g2d.drawString("Settings", settingsButton.x + 20, settingsButton.y + (settingsButton.height / 2) + 10);
-		g2d.drawString("Quit", quitButton.x + 20, quitButton.y + (quitButton.height / 2) + 10);
-
-		g2d.draw(playButton);
-		g2d.draw(settingsButton);
-		g2d.draw(quitButton);
-		testSlider.drawSlider(g);
+		bitterEnd.drawButton(g);
+		bestUpperBound.drawButton(g);
+		randomOrder.drawButton(g);
 	}
 
 	public void settingsMenu(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
-		Font fnt = new Font("arial", Font.BOLD, 30);
-		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
-		drawCenteredString("Graph Coloring " + Game.VERSION, Game.WIDTH, 50, g);
-
-		soundButton = new Rectangle(0, 75, Game.WIDTH / 3, 50);
-		antialiasingButton = new Rectangle(0, soundButton.y + soundButton.height + spacing, Game.WIDTH / 3, 50);
-		backButton = new Rectangle(Game.WIDTH - Game.WIDTH / 3, Game.HEIGHT - 100, Game.WIDTH / 3, 50);
-
-		Font fnt1 = new Font("arial", Font.BOLD, 20);
-		g.setFont(fnt1);
-
-		g2d.drawString("Sound", soundButton.x + 20, soundButton.y + (soundButton.height / 2) + 10);
-
-		String antialiasing = Game.ANTIALIASING ? "Antialiasing ON" : "Antialiasing OFF";
-		g2d.drawString(antialiasing, antialiasingButton.x + 20,
-				antialiasingButton.y + (antialiasingButton.height / 2) + 10);
-		g2d.drawString("Back", backButton.x + 20, backButton.y + (backButton.height / 2) + 10);
-
-		g2d.draw(soundButton);
-		g2d.draw(antialiasingButton);
-		g2d.draw(backButton);
+		soundButton.drawButton(g);
+		antialiasingButton.drawButton(g);
+		settingsBackButton.drawButton(g);
 	}
-
-	public void gamemodesMenu(Graphics g) {
+	
+	public void soundMenu(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
-		Font fnt = new Font("arial", Font.BOLD, 30);
-		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
-		drawCenteredString("Graph Coloring " + Game.VERSION, Game.WIDTH, 50, g);
-
-		soundButton = new Rectangle(0, 75, Game.WIDTH / 3, 50);
-		antialiasingButton = new Rectangle(0, soundButton.y + soundButton.height + spacing, Game.WIDTH / 3, 50);
-		backButton = new Rectangle(Game.WIDTH - Game.WIDTH / 3, Game.HEIGHT - 100, Game.WIDTH / 3, 50);
-
-		Font fnt1 = new Font("arial", Font.BOLD, 20);
-		g.setFont(fnt1);
-
-		g2d.drawString("Back", backButton.x + 20, backButton.y + (backButton.height / 2) + 10);
-
-		g2d.draw(backButton);
+		
+		menuMusicSlider.drawSlider(g);
+		soundFXSlider.drawSlider(g);
+		soundBackButton.drawButton(g);
 	}
 
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
@@ -203,21 +216,5 @@ public class Menu extends MouseAdapter {
 				return false;
 		} else
 			return false;
-	}
-	
-	private void drawButton(Rectangle rectangle, Graphics g, int x, int y, int width, int height, String text, boolean center) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.black);
-		Font fnt = new Font("arial", Font.BOLD, 30);
-		g2d.setFont(fnt);
-		
-		if(center) {
-			rectangle = new Rectangle(Game.WIDTH / 2 - width / 2, y, width, height);
-		} else {
-			rectangle = new Rectangle(x, y, width, height);
-		}
-		
-		drawCenteredString(text, 50, Game.WIDTH, g);
-		g2d.draw(rectangle);
 	}
 }

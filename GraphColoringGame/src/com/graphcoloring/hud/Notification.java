@@ -53,10 +53,6 @@ public class Notification {
 	public void displayError(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
 		int rectangleWidth = Game.WIDTH / 2;
 		int rectangleHeight = Game.HEIGHT / 3;
 

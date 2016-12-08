@@ -52,12 +52,17 @@ public class CustomSlider {
 
 		g2d.setStroke(new BasicStroke(3));
 		drawSliderKnob(g);
+		g2d.setStroke(new BasicStroke(1));
 
 		Font fnt = new Font("arial", Font.BOLD, 20);
 		g2d.setFont(fnt);
 		g2d.setColor(Color.black);
 
-		drawCenteredString(text, Game.WIDTH, y - 20, g);
+		if(centered) {
+			drawCenteredString(text, Game.WIDTH, y - 20, g);
+		} else {
+			
+		}
 	}
 
 	public void drawSliderKnob(Graphics g) {
@@ -94,16 +99,16 @@ public class CustomSlider {
 	}
 
 	public void setKnobX(int x) {
-		if (x - body.getMinX() < 0 || x - body.getMinX() - height / 4 > width) {
+		if (x - body.getMinX() < 0 || x - body.getMinX() > width) {
 			return;
 		}
 
 		this.knobX = (int) (x - body.getMinX());
-		setKnobValue((int) (knobX / (width / limit)));
+		setKnobValue((int) Math.ceil((knobX / (width / limit))));
 	}
 
-	public void setKnobY(int y) {
-		this.knobY = y;
+	public void setKnobY(int knobY) {
+		this.knobY = knobY;
 	}
 
 	public boolean contains(double x, double y) {

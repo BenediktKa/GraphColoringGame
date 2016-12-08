@@ -15,10 +15,6 @@ public class HUDFPS {
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		if (Game.ANTIALIASING) {
-			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		}
-
 		String FPSString = "FPS: " + FPS;
 
 		Font fnt = new Font("Lucida Grande", Font.PLAIN, 15);
