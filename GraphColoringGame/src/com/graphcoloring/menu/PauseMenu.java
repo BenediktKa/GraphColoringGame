@@ -12,6 +12,8 @@ public class PauseMenu extends MouseAdapter {
 	private Game game;
 	private Menu menu;
 	
+	private int borderRadius = 20;
+	
 	private CustomButton resumeButton;
 	private CustomButton settingsButton;
 	private CustomButton quitButton;
@@ -20,9 +22,9 @@ public class PauseMenu extends MouseAdapter {
 		this.game = game;
 		this.menu = menu;
 		
-		resumeButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Resume");
-		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings");
-		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit");
+		resumeButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Resume", borderRadius);
+		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings", borderRadius);
+		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit", borderRadius);
 	}
 
 	public void tick() {

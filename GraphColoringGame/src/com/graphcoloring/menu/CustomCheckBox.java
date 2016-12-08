@@ -6,21 +6,25 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 
 import com.graphcoloring.main.Game;
 
-public class CustomButton {
+public class CustomCheckBox {
 
 	private int x, y;
 	private int width, height;
 	private boolean centered;
 	private String text;
-	private int borderRadius;
+	
+	private boolean knobState;
+	private int knobX;
 	
 	private RoundRectangle2D body;
+	private Ellipse2D knob;
 
-	public CustomButton(int x, int y, int width, int height, boolean centered, String text, int borderRadius) {
+	public CustomCheckBox(int x, int y, int width, int height, boolean centered, String text, boolean knobState) {
 		if(centered) {
 			this.x = Game.WIDTH / 2 - width / 2;
 		} else {
@@ -31,7 +35,19 @@ public class CustomButton {
 		this.height = height;
 		this.centered = centered;
 		this.text = text;
-		this.borderRadius = borderRadius;
+		this.knobState = knobState;
+		
+		if(knobState) {
+			knobX = width - height;
+		}
+	}
+	
+	public void tick() {
+		if(knobState) {
+			setKnobX(knobX + 4);
+		} else {
+			setKnobX(knobX - 4);
+		}
 	}
 	
 	public void drawButton(Graphics g) {
@@ -39,13 +55,17 @@ public class CustomButton {
 		
 		g2d.setColor(Color.black);
 		if (centered) {
-			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, borderRadius, borderRadius);
+			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25, 25);
+			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 + knobX, y, height, height);
 		} else {
-			body = new RoundRectangle2D.Double(x - width / 2, y, width, height, borderRadius, borderRadius);
+			body = new RoundRectangle2D.Double(x - width / 2, y, width, height, 25, 25);
+			knob = new Ellipse2D.Double(x - width / 2 + knobX, y, height, height);
 		}
 		
 		g2d.setStroke(new BasicStroke(3));
 		g2d.draw(body);
+		
+		g2d.draw(knob);
 		g2d.setStroke(new BasicStroke(1));
 		drawText(g);
 	}
@@ -58,12 +78,9 @@ public class CustomButton {
 		g2d.setColor(Color.black);
 
 		if(centered) {
-			drawCenteredString(text, Game.WIDTH, y + height / 2 + 10, g);
+			g.drawString(text, x - width / 2, y - 20);
 		} else {
-			FontMetrics metrics = g2d.getFontMetrics(fnt);
-			int textWidth = metrics.stringWidth(text);
-			
-			g2d.drawString(text, x - textWidth / 2, y + height / 2 + 10);
+			g.drawString(text, x, y);
 		}
 	}
 	
@@ -103,6 +120,25 @@ public class CustomButton {
 	
 	public void setHeight(int height) {
 		this.height = height;
+	}
+	
+	public int getKnobX() {
+		return knobX;
+	}
+	
+	public void setKnobX(int knobX) {
+		if(knobX > width - height || knobX < 0) {
+			return;
+		}
+		this.knobX = knobX;
+	}
+	
+	public boolean getKnobState() {
+		return knobState;
+	}
+	
+	public void setKnobState() {
+		this.knobState = this.knobState ? false : true;
 	}
 	
 	public boolean mouseOver(int mx, int my) {

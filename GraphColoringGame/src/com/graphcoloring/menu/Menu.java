@@ -19,7 +19,7 @@ public class Menu extends MouseAdapter {
 	private Handler handler;
 	private Notification notification;
 
-	private int spacing = 20;
+	private int borderRadius = 20;
 
 	// Main Menu Elements
 	private CustomButton playButton;
@@ -34,7 +34,7 @@ public class Menu extends MouseAdapter {
 
 	// Settings Menu Elements
 	private CustomButton soundButton;
-	private CustomButton antialiasingButton;
+	private CustomCheckBox antialiasingButton;
 	private CustomButton settingsBackButton;
 
 	// Sound Menu
@@ -67,25 +67,27 @@ public class Menu extends MouseAdapter {
 		// testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
 
 		// Main Menu
-		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play");
-		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings");
-		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit");
+		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play", borderRadius);
+		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings", borderRadius);
+		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit", borderRadius);
 		
 		//Gamemodes Menu
-		bitterEnd = new CustomButton(0, Game.HEIGHT / 5, 200, 50, true, "Bitter End");
-		bestUpperBound = new CustomButton(0, Game.HEIGHT / 5 * 2, 200, 50, true, "Best Upper Bound");
-		randomOrder = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Random Order");
-		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back");
+		bitterEnd = new CustomButton(0, Game.HEIGHT / 5, 200, 50, true, "Bitter End", borderRadius);
+		bestUpperBound = new CustomButton(0, Game.HEIGHT / 5 * 2, 200, 50, true, "Best Upper Bound", borderRadius);
+		randomOrder = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Random Order", borderRadius);
+		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Settings Menu
-		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds");
-		antialiasingButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Antialiasing");
-		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
+		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
+		antialiasingButton = new CustomCheckBox(0, Game.HEIGHT / 4 * 2, 50, 25, true, "Antialiasing", true);
+		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
+		
 
 		// Sound Menu
-		menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
+		menuMusicSlider = new CustomSlider(200, Game.HEIGHT / 4, 200, 25, false, 100, 100, "Menu Music:");
+		//menuMusicSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 100, 100, "Menu Music:");
 		soundFXSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 100, 100, "SoundFX");
-		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back");
+		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -112,6 +114,7 @@ public class Menu extends MouseAdapter {
 			if (soundButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Sound;
 			} else if (antialiasingButton.mouseOver(mx, my)) {
+				antialiasingButton.setKnobState();
 				Game.ANTIALIASING = Game.ANTIALIASING ? false : true;
 			} else if (settingsBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
@@ -152,6 +155,9 @@ public class Menu extends MouseAdapter {
 	}
 
 	public void tick() {
+		if (menuState == MENUSTATE.Settings) {
+			antialiasingButton.tick();
+		}
 	}
 
 	public void render(Graphics g) {

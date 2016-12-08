@@ -43,8 +43,8 @@ public class CustomSlider {
 	public void drawSlider(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
-
+		g2d.setColor(Color.black);
+		
 		if (centered) {
 			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25 , 25);
 			g2d.fill(body);
@@ -64,7 +64,10 @@ public class CustomSlider {
 		if(centered) {
 			drawCenteredString(text, Game.WIDTH, y - 20, g);
 		} else {
+			FontMetrics metrics = g2d.getFontMetrics(fnt);
+			int textWidth = metrics.stringWidth(text);
 			
+			g2d.drawString(text + " " + knobValue, x - textWidth / 2, y + height / 2 + 10);
 		}
 	}
 
@@ -72,17 +75,16 @@ public class CustomSlider {
 		Graphics2D g2d = (Graphics2D) g;
 
 		if (centered) {
-			g2d.setColor(Color.getHSBColor(184.0f / 360, 10.0f / 100, 65.0f / 100));
-			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 - height + knobX, y - height / 2, height * 2,
-					height * 2);
+			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 - height + knobX, y - height / 2, height * 2, height * 2);
+			g2d.setColor(Color.WHITE);
 			g2d.fill(knob);
-			g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
+			g2d.setColor(Color.BLACK);
 			g2d.draw(knob);
 		} else {
-			g2d.setColor(Color.getHSBColor(184.0f / 360, 10.0f / 100, 65.0f / 100));
-			knob = new Ellipse2D.Double(x - width / 2 - height + knobX, y - height / 2, height * 2, height * 2);
+			knob = new Ellipse2D.Double(x - width / 2 - height + knobX, y - height / 4, y - height / 2, height * 2);
+			g2d.setColor(Color.WHITE);
 			g2d.fill(knob);
-			g2d.setColor(Color.getHSBColor(204.0f / 360, 5.0f / 100, 78.0f / 100));
+			g2d.setColor(Color.BLACK);
 			g2d.draw(knob);
 		}
 	}

@@ -97,6 +97,7 @@ public class GraphNode extends GameObject {
 		if (outline) {
 			g2d.setStroke(new BasicStroke(3));
 			g2d.draw(node);
+			g2d.setStroke(new BasicStroke(1));
 		}
 	}
 
