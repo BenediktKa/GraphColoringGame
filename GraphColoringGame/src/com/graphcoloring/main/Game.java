@@ -26,6 +26,7 @@ public class Game extends Canvas implements Runnable {
 	public static final boolean FPSCOUNTER = true;
 
 	// Settings
+	public static boolean FIXEDRENDERRATE = true;
 	public static boolean ANTIALIASING = true;
 	public static boolean DITHERING = true;
 	public static boolean SMALLNODES = false;
@@ -135,14 +136,18 @@ public class Game extends Canvas implements Runnable {
 
 			if (delta >= 1) {
 				tick();
+				if(FIXEDRENDERRATE) {
+					render();
+				}
 				delta--;
 			}
-			if (running)
+			if (running && !FIXEDRENDERRATE) {
 				render();
+			}
 			frames++;
 
 			// Tick and FPS displayer
-			if (FPSCOUNTER && System.currentTimeMillis() - timer > 1000) {
+			if (!FIXEDRENDERRATE && FPSCOUNTER && System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				fpscounter.setFPS(frames);
 				frames = 0;
@@ -210,7 +215,7 @@ public class Game extends Canvas implements Runnable {
 
 		notification.render(g);
 		
-		if (FPSCOUNTER) {
+		if (!FIXEDRENDERRATE && FPSCOUNTER) {
 			fpscounter.render(g);
 		}
 

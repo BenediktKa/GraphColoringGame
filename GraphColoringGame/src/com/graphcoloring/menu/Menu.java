@@ -1,17 +1,17 @@
 package com.graphcoloring.menu;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
+import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
+import com.graphcoloring.main.ID;
+import com.graphcoloring.main.RandomColors;
 
 public class Menu extends MouseAdapter {
 
@@ -39,6 +39,7 @@ public class Menu extends MouseAdapter {
 
 	// Settings Menu Elements
 	private CustomButton soundButton;
+	private CustomCheckBox fixedRefreshRateCheckBox;
 	private CustomCheckBox antialiasingCheckBox;
 	private CustomCheckBox ditheringCheckBox;
 	private CustomCheckBox smallNodesCheckBox;
@@ -63,13 +64,10 @@ public class Menu extends MouseAdapter {
 
 		menuState = MENUSTATE.Main;
 
-		/*
-		 * for (int i = 0; i < 10; i++) { GraphNode node = new GraphNode((int)
-		 * (Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT),
-		 * (int) (Math.random() * 10 - Math.random() * 10), (int) (Math.random()
-		 * * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100,
-		 * 0.05f).getPalette(), false); handler.addObject(node); }
-		 */
+		
+		 /*for (int i = 0; i < 10; i++) {
+			 GraphNode node = new GraphNode((int)(Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT), (int) (Math.random() * 10 - Math.random() * 10), (int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette(), false); handler.addObject(node); 
+		 }*/
 
 		// testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
 
@@ -91,9 +89,10 @@ public class Menu extends MouseAdapter {
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
-		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6, 50, 25, false, "Antialiasing", true);
-		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 2, 50, 25, false, "Dithering", true);
-		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Small Nodes",
+		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 1, 50, 25, false, "Fixed Refresh Rate", true);
+		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 2, 50, 25, false, "Antialiasing", true);
+		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Dithering", true);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 4, 50, 25, false, "Small Nodes",
 				false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 
@@ -126,6 +125,9 @@ public class Menu extends MouseAdapter {
 		else if (menuState == MENUSTATE.Settings) {
 			if (soundButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Sound;
+			} else if (fixedRefreshRateCheckBox.mouseOver(mx, my)) {
+				fixedRefreshRateCheckBox.setKnobState();
+				Game.FIXEDRENDERRATE = Game.FIXEDRENDERRATE ? false : true;
 			} else if (antialiasingCheckBox.mouseOver(mx, my)) {
 				antialiasingCheckBox.setKnobState();
 				Game.ANTIALIASING = Game.ANTIALIASING ? false : true;
@@ -139,34 +141,34 @@ public class Menu extends MouseAdapter {
 				menuState = MENUSTATE.Main;
 			}
 		}
-		
-		//Sound Menu
-		else if(menuState == MENUSTATE.Sound) {
-			if(soundBackButton.mouseOver(mx, my)) {
+
+		// Sound Menu
+		else if (menuState == MENUSTATE.Sound) {
+			if (soundBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Settings;
 			}
 		}
-		
-		//Game modes Menu
-		else if(menuState == MENUSTATE.Gamemodes) {
-			if(bitterEnd.mouseOver(mx, my)) {
+
+		// Game modes Menu
+		else if (menuState == MENUSTATE.Gamemodes) {
+			if (bitterEnd.mouseOver(mx, my)) {
 				menuState = MENUSTATE.BitterEnd;
-			} else if(gamemodesBackButton.mouseOver(mx, my)) {
+			} else if (gamemodesBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
 			}
 		}
-			
-		//Bitter End
-		else if(menuState == MENUSTATE.BitterEnd) {
-			if(bitterEndStartButton.mouseOver(mx, my)) {		
+
+		// Bitter End
+		else if (menuState == MENUSTATE.BitterEnd) {
+			if (bitterEndStartButton.mouseOver(mx, my)) {
 				int nodes = nodesSlider.getKnobValue();
 				int edges = edgesSlider.getKnobValue();
-				
-				if(nodes > edges) {
-					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
+
+				if (nodes > edges) {
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
 					return;
 				}
-				
+
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges);
 			}
@@ -186,10 +188,10 @@ public class Menu extends MouseAdapter {
 				menuMusicSlider.setKnobX(mx);
 			else if (soundFXSlider.contains(mx, my))
 				soundFXSlider.setKnobX(mx);
-		} else if(menuState == MENUSTATE.BitterEnd) {
-			if(nodesSlider.contains(mx, my)) {
+		} else if (menuState == MENUSTATE.BitterEnd) {
+			if (nodesSlider.contains(mx, my)) {
 				nodesSlider.setKnobX(mx);
-			} else if(edgesSlider.contains(mx, my)) {
+			} else if (edgesSlider.contains(mx, my)) {
 				edgesSlider.setKnobX(mx);
 			}
 		}
@@ -200,6 +202,7 @@ public class Menu extends MouseAdapter {
 			antialiasingCheckBox.tick();
 			ditheringCheckBox.tick();
 			smallNodesCheckBox.tick();
+			fixedRefreshRateCheckBox.tick();
 		}
 	}
 
@@ -242,6 +245,7 @@ public class Menu extends MouseAdapter {
 
 	public void settingsMenu(Graphics g) {
 		soundButton.drawButton(g);
+		fixedRefreshRateCheckBox.drawButton(g);
 		antialiasingCheckBox.drawButton(g);
 		ditheringCheckBox.drawButton(g);
 		smallNodesCheckBox.drawButton(g);

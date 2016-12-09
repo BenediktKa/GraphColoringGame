@@ -113,6 +113,8 @@ public class GraphNode extends GameObject {
 	}
 
 	public boolean clicked(int x, int y) {
+		if(node == null) return false;
+		
 		return node.contains(x, y);
 	}
 
