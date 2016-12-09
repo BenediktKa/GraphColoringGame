@@ -1,5 +1,7 @@
 package com.graphcoloring.menu;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -64,13 +66,20 @@ public class Menu extends MouseAdapter {
 
 		menuState = MENUSTATE.Main;
 
-		
-		 /*for (int i = 0; i < 10; i++) {
-			 GraphNode node = new GraphNode((int)(Math.random() * Game.WIDTH), (int) (Math.random() * Game.HEIGHT), (int) (Math.random() * 10 - Math.random() * 10), (int) (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new RandomColors(100, 0.05f).getPalette(), false); handler.addObject(node); 
-		 }*/
+		/*
+		 * for (int i = 0; i < 10; i++) { GraphNode node = new
+		 * GraphNode((int)(Math.random() * Game.WIDTH), (int) (Math.random() *
+		 * Game.HEIGHT), (int) (Math.random() * 10 - Math.random() * 10), (int)
+		 * (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new
+		 * RandomColors(100, 0.05f).getPalette(), false);
+		 * handler.addObject(node); }
+		 */
 
 		// testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
+		initialize();
+	}
 
+	public void initialize() {
 		// Main Menu
 		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play", borderRadius);
 		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings", borderRadius);
@@ -89,11 +98,10 @@ public class Menu extends MouseAdapter {
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
-		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 1, 50, 25, false, "Fixed Refresh Rate", true);
-		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 2, 50, 25, false, "Antialiasing", true);
-		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 3, 50, 25, false, "Dithering", true);
-		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 6 * 4, 50, 25, false, "Small Nodes",
-				false);
+		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 1, 50, 25, false, "Fixed Refresh Rate", true);
+		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 2, 50, 25, false, "Antialiasing", true);
+		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 3, 50, 25, false, "Dithering", true);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 4, 50, 25, false, "Small Nodes", false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 
 		// Sound Menu
@@ -210,6 +218,11 @@ public class Menu extends MouseAdapter {
 		if (game.gameState != Game.STATE.Menu) {
 			return;
 		}
+
+		Font fnt = new Font("arial", Font.BOLD, Game.HEIGHT / 15);
+		g.setFont(fnt);
+		g.setColor(Color.black);
+		drawCenteredString("GraphColoring Game", Game.WIDTH, Game.HEIGHT / 15 + 30, g);
 
 		if (menuState == MENUSTATE.Main) {
 			mainMenu(g);

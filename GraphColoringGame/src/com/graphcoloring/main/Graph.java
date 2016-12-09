@@ -83,9 +83,7 @@ public class Graph {
 		double divisions = 2.0 / vertices;
 
 		for (int i = 0; i < vertices; i++) {
-			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)),
-					(int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i,
-					adjacencySimple, colorArray);
+			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)), (int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i, adjacencySimple, colorArray);
 			handler.addObject(node);
 			addObject(node);
 		}

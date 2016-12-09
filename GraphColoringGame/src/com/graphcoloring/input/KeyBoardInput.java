@@ -32,8 +32,10 @@ public class KeyBoardInput extends KeyAdapter {
 			camera.setX(camera.getX() - 10);
 			break;
 		case KeyEvent.VK_ESCAPE:
-			if(game.gameState == Game.STATE.Game) game.gameState = Game.STATE.Pause;
-			else if(game.gameState == Game.STATE.Pause) game.gameState = Game.STATE.Game;
+			if (game.gameState == Game.STATE.Game)
+				game.gameState = Game.STATE.Pause;
+			else if (game.gameState == Game.STATE.Pause)
+				game.gameState = Game.STATE.Game;
 			break;
 		}
 	}

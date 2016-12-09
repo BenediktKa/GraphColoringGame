@@ -42,8 +42,8 @@ public class Game extends Canvas implements Runnable {
 
 	// Menu
 	private Menu menu;
-	
-	//Pause Menu
+
+	// Pause Menu
 	private PauseMenu pauseMenu;
 
 	// Camera
@@ -54,8 +54,8 @@ public class Game extends Canvas implements Runnable {
 
 	// Notification
 	Notification notification;
-	
-	//Gamemodes
+
+	// Gamemodes
 	private GameMode gamemode;
 
 	// States
@@ -76,11 +76,11 @@ public class Game extends Canvas implements Runnable {
 		if (DEBUG)
 			fpscounter = new HUDFPS();
 
-		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this);
-
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
+
+		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu);
 		pauseMenu = new PauseMenu(this, handler, menu);
 
 		MouseInput mouse = new MouseInput(this, handler, camera);
@@ -113,8 +113,9 @@ public class Game extends Canvas implements Runnable {
 		// Temporary
 		gamemode = new GameMode(nodes, edges, this, handler, notification, menu);
 
-		//for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20, 20, ID.TestSprite)); }
-		 
+		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20,
+		// 20, ID.TestSprite)); }
+
 	}
 
 	public void run() {
@@ -136,7 +137,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (delta >= 1) {
 				tick();
-				if(FIXEDRENDERRATE) {
+				if (FIXEDRENDERRATE) {
 					render();
 				}
 				delta--;
@@ -152,7 +153,6 @@ public class Game extends Canvas implements Runnable {
 				fpscounter.setFPS(frames);
 				frames = 0;
 			}
-
 		}
 		// If we exit Game Loop, stop
 		stop();
@@ -162,13 +162,12 @@ public class Game extends Canvas implements Runnable {
 
 		if (gameState == STATE.Menu) {
 			menu.tick();
-		} else if(gameState == STATE.Game) {
+		} else if (gameState == STATE.Game) {
 			handler.tick();
-		} else if(gameState == STATE.Pause) {
+		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
-		} 
-		
-		
+		}
+
 		notification.tick();
 	}
 
@@ -182,14 +181,14 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
-		
+
 		if (ANTIALIASING) {
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		}
-		if(DITHERING) {
+		if (DITHERING) {
 			g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 		}
-		
+
 		// Stuff to Render Start
 
 		g.setColor(Color.WHITE);
@@ -197,24 +196,24 @@ public class Game extends Canvas implements Runnable {
 		// g.setColor(Color.BLACK);
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
-		
+
 		if (gameState == STATE.Game || gameState == STATE.Pause) {
 			g2d.translate(camera.getX(), camera.getY());
 			handler.render(g);
 			g2d.translate(-camera.getX(), -camera.getY());
 		}
-		
+
 		if (gameState == STATE.Menu) {
 			if (menu != null)
 				menu.render(g);
-		} else if(gameState == STATE.Game) {
+		} else if (gameState == STATE.Game) {
 			handler.tick();
-		} else if(gameState == STATE.Pause) {
+		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
 		}
 
 		notification.render(g);
-		
+
 		if (!FIXEDRENDERRATE && FPSCOUNTER) {
 			fpscounter.render(g);
 		}

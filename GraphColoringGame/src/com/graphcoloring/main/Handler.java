@@ -28,9 +28,9 @@ public class Handler {
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
 	}
-	
+
 	public void removeAllObjects() {
-		while(!this.object.isEmpty()) {
+		while (!this.object.isEmpty()) {
 			this.object.removeFirst();
 		}
 	}

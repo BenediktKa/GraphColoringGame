@@ -9,13 +9,13 @@ import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
 
 public class PauseMenu extends MouseAdapter {
-	
+
 	private Game game;
 	private Handler handler;
 	private Menu menu;
-	
+
 	private int borderRadius = 20;
-	
+
 	private CustomButton resumeButton;
 	private CustomButton settingsButton;
 	private CustomButton quitButton;
@@ -24,10 +24,9 @@ public class PauseMenu extends MouseAdapter {
 		this.game = game;
 		this.handler = handler;
 		this.menu = menu;
-		
+
 		resumeButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Resume", borderRadius);
-		settingsButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Settings", borderRadius);
-		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Quit", borderRadius);
+		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Quit", borderRadius);
 	}
 
 	public void tick() {
@@ -41,23 +40,19 @@ public class PauseMenu extends MouseAdapter {
 		g.setColor(Color.BLACK);
 		resumeButton.drawButton(g);
 		quitButton.drawButton(g);
-		settingsButton.drawButton(g);
 	}
-	
+
 	public void mousePressed(MouseEvent e) {
 		if (game.gameState != Game.STATE.Pause) {
 			return;
 		}
-		
+
 		int mx = e.getX();
 		int my = e.getY();
-		
-		if(resumeButton.mouseOver(mx, my)) {
+
+		if (resumeButton.mouseOver(mx, my)) {
 			game.gameState = Game.STATE.Game;
-		} else if(settingsButton.mouseOver(mx, my)) {
-			menu.menuState = Menu.MENUSTATE.Settings;
-			game.gameState = Game.STATE.Menu;
-		} else if(quitButton.mouseOver(mx, my)) {
+		} else if (quitButton.mouseOver(mx, my)) {
 			handler.removeAllObjects();
 			menu.menuState = Menu.MENUSTATE.Main;
 			game.gameState = Game.STATE.Menu;
