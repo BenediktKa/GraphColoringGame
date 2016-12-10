@@ -13,6 +13,7 @@ import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
 import com.graphcoloring.menu.Menu;
 import com.graphcoloring.menu.PauseMenu;
+import com.graphcoloring.menu.ScoreMenu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -46,6 +47,9 @@ public class Game extends Canvas implements Runnable {
 	// Pause Menu
 	private PauseMenu pauseMenu;
 
+	// Score Menu
+	private ScoreMenu scoreMenu;
+
 	// Camera
 	private Camera camera;
 
@@ -60,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 
 	// States
 	public enum STATE {
-		Menu, Game, Pause;
+		Menu, Game, Pause, Score;
 	};
 
 	public STATE gameState = STATE.Menu;
@@ -81,7 +85,9 @@ public class Game extends Canvas implements Runnable {
 		menu = new Menu(this, handler, notification);
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu);
+		
 		pauseMenu = new PauseMenu(this, handler, menu);
+		scoreMenu = new ScoreMenu(this, handler, menu);
 
 		MouseInput mouse = new MouseInput(this, handler, camera);
 
@@ -90,6 +96,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addMouseListener(pauseMenu);
+		this.addMouseListener(scoreMenu);
 		this.addKeyListener(new KeyBoardInput(this, camera));
 
 	}
@@ -166,6 +173,8 @@ public class Game extends Canvas implements Runnable {
 			handler.tick();
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
+		} else if(gameState == STATE.Score) {
+			scoreMenu.tick();
 		}
 
 		notification.tick();
@@ -210,6 +219,8 @@ public class Game extends Canvas implements Runnable {
 			handler.tick();
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
+		} else if(gameState == STATE.Score) {
+			scoreMenu.render(g);
 		}
 
 		notification.render(g);

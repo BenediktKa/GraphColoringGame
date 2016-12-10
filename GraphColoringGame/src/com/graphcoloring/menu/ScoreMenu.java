@@ -1,6 +1,8 @@
 package com.graphcoloring.menu;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,27 +10,33 @@ import java.awt.event.MouseEvent;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
 
-public class PauseMenu extends MouseAdapter {
+public class ScoreMenu extends MouseAdapter {
 
 	private Game game;
 	private Handler handler;
 	private Menu menu;
 
+	private int score = 2023;
+	private int displayScore;
 	private int borderRadius = 20;
-	
-	private CustomButton resumeButton;
+
 	private CustomButton quitButton;
 
-	public PauseMenu(Game game, Handler handler, Menu menu) {
+	public ScoreMenu(Game game, Handler handler, Menu menu) {
 		this.game = game;
 		this.handler = handler;
 		this.menu = menu;
 
-		resumeButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Resume", borderRadius);
 		quitButton = new CustomButton(0, Game.HEIGHT / 4 * 2, 200, 50, true, "Quit", borderRadius);
 	}
 
 	public void tick() {
+		
+		if(displayScore < score && displayScore + 10 > score) {
+			displayScore++;
+		} else if(displayScore < score) {
+			displayScore += 10;
+		}
 	}
 
 	public void render(Graphics g) {
@@ -36,24 +44,33 @@ public class PauseMenu extends MouseAdapter {
 		g.setColor(new Color(255, 255, 255, 150));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.setColor(Color.BLACK);
-		resumeButton.drawButton(g);
+		
+		Font fnt = new Font("arial", Font.BOLD, 40);
+		g.setFont(fnt);
+		
+		drawCenteredString("Score: " + displayScore, Game.WIDTH, 100, g);
 		quitButton.drawButton(g);
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if (game.gameState != Game.STATE.Pause) {
+		if (game.gameState != Game.STATE.Score) {
 			return;
 		}
 
 		int mx = e.getX();
 		int my = e.getY();
 
-		if (resumeButton.mouseOver(mx, my)) {
-			game.gameState = Game.STATE.Game;
-		} else if (quitButton.mouseOver(mx, my)) {
+		if (quitButton.mouseOver(mx, my)) {
 			handler.removeAllObjects();
 			menu.menuState = Menu.MENUSTATE.Main;
 			game.gameState = Game.STATE.Menu;
 		}
 	}
+
+	public void drawCenteredString(String s, int w, int y, Graphics g) {
+		FontMetrics fm = g.getFontMetrics();
+		int x = (w - fm.stringWidth(s)) / 2;
+		g.drawString(s, x, y);
+	}
+
 }

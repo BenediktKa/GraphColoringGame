@@ -10,10 +10,7 @@ import java.awt.event.MouseEvent;
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
-import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
-import com.graphcoloring.main.ID;
-import com.graphcoloring.main.RandomColors;
 
 public class Menu extends MouseAdapter {
 
