@@ -11,6 +11,7 @@ import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
+import com.graphcoloring.menu.ColorPickerHUD;
 import com.graphcoloring.menu.Menu;
 import com.graphcoloring.menu.PauseMenu;
 import com.graphcoloring.menu.ScoreMenu;
@@ -61,6 +62,9 @@ public class Game extends Canvas implements Runnable {
 
 	// Gamemodes
 	private GameMode gamemode;
+	
+	//Color Picker HUD
+	private ColorPickerHUD colorPickerHUD;
 
 	// States
 	public enum STATE {
@@ -83,8 +87,10 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification);
+		
+		colorPickerHUD = new ColorPickerHUD(this);
 
-		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu);
+		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
 		
 		pauseMenu = new PauseMenu(this, handler, menu);
 		scoreMenu = new ScoreMenu(this, handler, menu);
@@ -96,6 +102,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addMouseListener(pauseMenu);
+		this.addMouseListener(colorPickerHUD);
 		this.addMouseListener(scoreMenu);
 		this.addKeyListener(new KeyBoardInput(this, camera));
 
@@ -171,6 +178,7 @@ public class Game extends Canvas implements Runnable {
 			menu.tick();
 		} else if (gameState == STATE.Game) {
 			handler.tick();
+			colorPickerHUD.tick();
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
 		} else if(gameState == STATE.Score) {
@@ -216,7 +224,7 @@ public class Game extends Canvas implements Runnable {
 			if (menu != null)
 				menu.render(g);
 		} else if (gameState == STATE.Game) {
-			handler.tick();
+			colorPickerHUD.render(g);
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
 		} else if(gameState == STATE.Score) {

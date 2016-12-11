@@ -35,6 +35,9 @@ public class Menu extends MouseAdapter {
 	private CustomSlider nodesSlider;
 	private CustomSlider edgesSlider;
 	private CustomButton bitterEndStartButton;
+	
+	//Gamemode Selection Back Button
+	private CustomButton selectionBackButton;
 
 	// Settings Menu Elements
 	private CustomButton soundButton;
@@ -89,9 +92,12 @@ public class Menu extends MouseAdapter {
 		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Bitter End
-		nodesSlider = new CustomSlider(0, Game.HEIGHT / 4, 200, 25, true, 30, 10, "Nodes");
-		edgesSlider = new CustomSlider(0, Game.HEIGHT / 4 * 2, 200, 25, true, 30, 15, "Edges");
-		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Start", borderRadius);
+		nodesSlider = new CustomSlider(0, Game.HEIGHT / 5, 200, 25, true, 30, 10, "Nodes");
+		edgesSlider = new CustomSlider(0, Game.HEIGHT / 5 * 2, 200, 25, true, 30, 15, "Edges");
+		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Start", borderRadius);
+		
+		//Gamemode Selection Back Button
+		selectionBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
@@ -176,6 +182,8 @@ public class Menu extends MouseAdapter {
 
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges);
+			} else if(selectionBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Gamemodes;
 			}
 		}
 	}
@@ -251,6 +259,7 @@ public class Menu extends MouseAdapter {
 		nodesSlider.drawSlider(g);
 		edgesSlider.drawSlider(g);
 		bitterEndStartButton.drawButton(g);
+		selectionBackButton.drawButton(g);
 	}
 
 	public void settingsMenu(Graphics g) {

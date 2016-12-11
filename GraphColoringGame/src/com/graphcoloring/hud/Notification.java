@@ -1,5 +1,6 @@
 package com.graphcoloring.hud;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -62,17 +63,22 @@ public class Notification {
 		
 		errorRectangle = new RoundRectangle2D.Double(Game.WIDTH / 2 - (textWidth / 2), Game.HEIGHT / 2 - (rectangleHeight / 2), textWidth, rectangleHeight, 25, 25);
 
-		Color color;
+		Color color, colorBorder;
 		if (alpha < 0) {
 			color = new Color(231.0f / 255.0f, 76.0f / 255.0f, 60.0f / 255.0f, 0);
+			colorBorder = new Color(0, 0, 0, 0);
 		} else {
 			color = new Color(231.0f / 255.0f, 76.0f / 255.0f, 60.0f / 255.0f, alpha);
+			colorBorder = new Color(0, 0, 0, alpha);
 		}
-
+		
 		g2d.setPaint(color);
-		g2d.draw(errorRectangle);
 		g2d.fill(errorRectangle);
-
+		g2d.setStroke(new BasicStroke(2));
+		g2d.setPaint(colorBorder);
+		g2d.draw(errorRectangle);
+		g2d.setStroke(new BasicStroke(1));
+		
 		if (alpha < 0) {
 			color = new Color(236.0f / 255.0f, 240.0f / 255.0f, 241.0f / 255.0f, 0);
 		} else {
