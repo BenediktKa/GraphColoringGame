@@ -65,6 +65,9 @@ public class Game extends Canvas implements Runnable {
 	
 	//Color Picker HUD
 	private ColorPickerHUD colorPickerHUD;
+	
+	//SoundPlayer
+	private SoundPlayer soundPlayer;
 
 	// States
 	public enum STATE {
@@ -78,6 +81,8 @@ public class Game extends Canvas implements Runnable {
 
 	public Game() {
 		handler = new Handler();
+		
+		soundPlayer = new SoundPlayer();
 
 		camera = new Camera(0, 0);
 

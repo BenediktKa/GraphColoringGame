@@ -12,58 +12,72 @@ import javax.sound.sampled.SourceDataLine;
 
 public class SoundPlayer {
 
-    private final int BUFFER_SIZE = 128000;
-    private File file;
-    private AudioInputStream audioStream;
-    private AudioFormat audioFormat;
-    private SourceDataLine sourceDataLine;
+	private final int BUFFER_SIZE = 128000;
+	private File file;
+	private AudioInputStream audioStream;
+	private AudioFormat audioFormat;
+	private SourceDataLine sourceDataLine;
 
-    public void playSound(String initFileName){
+	public void playMusic(String soundName) {
+		switch (soundName) {
+		case "MenuMusic":
+			break;
+		}
+	}
+	
+	public void playSoundFX(String soundName) {
+		switch (soundName) {
+		case "MenuClick":
+			break;
+		}
+	}
 
-        String fileName = initFileName;
+	public void playSound(String initFileName) {
 
-        try {
-            file = new File(fileName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		String fileName = initFileName;
 
-        try {
-            audioStream = AudioSystem.getAudioInputStream(file);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+		try {
+			file = new File(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        audioFormat = audioStream.getFormat();
+		try {
+			audioStream = AudioSystem.getAudioInputStream(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-		
-        try {
-            sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
-            sourceDataLine.open(audioFormat);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		audioFormat = audioStream.getFormat();
 
-        sourceDataLine.start();
+		DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
 
-        int byteInput = 0;
-        byte[] abData = new byte[BUFFER_SIZE];
-        while (byteInput != -1) {
-            try {
-                byteInput = audioStream.read(abData, 0, abData.length);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (byteInput >= 0) {
-                @SuppressWarnings("unused")
-                int nBytesWritten = sourceDataLine.write(abData, 0, byteInput);
-            }
-        }
+		try {
+			sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
+			sourceDataLine.open(audioFormat);
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        sourceDataLine.drain();
-        sourceDataLine.close();
-    }
+		sourceDataLine.start();
+
+		int byteInput = 0;
+		byte[] abData = new byte[BUFFER_SIZE];
+		while (byteInput != -1) {
+			try {
+				byteInput = audioStream.read(abData, 0, abData.length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (byteInput >= 0) {
+				@SuppressWarnings("unused")
+				int nBytesWritten = sourceDataLine.write(abData, 0, byteInput);
+			}
+		}
+
+		sourceDataLine.drain();
+		sourceDataLine.close();
+	}
 }
