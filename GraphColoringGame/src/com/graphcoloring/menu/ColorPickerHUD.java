@@ -19,6 +19,7 @@ public class ColorPickerHUD extends MouseAdapter {
 	
 	private RoundRectangle2D selector;
 	private RoundRectangle2D adder;
+	private RoundRectangle2D remover;
 	
 	private Color colorArray[];
 	private int activeColor;
@@ -65,8 +66,10 @@ public class ColorPickerHUD extends MouseAdapter {
 			}
 			
 			g2d.setColor(Color.BLACK);
-			adder = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - circleList.size() * 60 - 10, 5, 50, 50, borderRadius, borderRadius);
+			remover = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - circleList.size() * 60 - 10, 5, 50, 50, borderRadius, borderRadius);
+			adder = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - circleList.size() * 60 - 20 - remover.getWidth(), 5, 50, 50, borderRadius, borderRadius);
 			g2d.fill(adder);
+			g2d.fill(remover);
 		}
 		
 		g2d.fill(selector);
@@ -88,6 +91,10 @@ public class ColorPickerHUD extends MouseAdapter {
 			selectorActive = selectorActive ? false : true;
 		} else if(adder != null && adder.contains(mx, my)) {
 			addCircle(1);
+		} else if(remover != null && remover.contains(mx, my)) {
+			if(circleList.size() > 0) {
+				circleList.removeLast();
+			}
 		} else {
 			for(int i = 0; i < circleList.size(); i++) {
 				RoundRectangle2D circle = circleList.get(i);
@@ -108,8 +115,10 @@ public class ColorPickerHUD extends MouseAdapter {
 	}
 	
 	public void setActiveColor(int activeColor) {
-		if(activeColor > circleList.size()) {
+		if(activeColor > circleList.size() - 1) {
 			this.activeColor = 0;
+		} else if(activeColor < 0) {
+			this.activeColor = circleList.size() - 1;
 		} else {
 			this.activeColor = activeColor;
 		}
