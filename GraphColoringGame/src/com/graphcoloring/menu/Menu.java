@@ -230,9 +230,9 @@ public class Menu extends MouseAdapter {
 			return;
 		}
 
-		Font fnt = new Font("arial", Font.BOLD, Game.HEIGHT / 15);
+		Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 30f);
 		g.setFont(fnt);
-		g.setColor(Color.black);
+		g.setColor(Game.textColor);
 		drawCenteredString("GraphColoring Game", Game.WIDTH, Game.HEIGHT / 15 + 30, g);
 
 		if (menuState == MENUSTATE.Main) {

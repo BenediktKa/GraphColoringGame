@@ -43,10 +43,8 @@ public class CustomSlider {
 	public void drawSlider(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.transparentColor);
 		
-		
-		g2d.setStroke(new BasicStroke(3));
 		if (centered) {
 			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25 , 25);
 		} else {
@@ -56,11 +54,10 @@ public class CustomSlider {
 		g2d.draw(body);
 		
 		drawSliderKnob(g);
-		g2d.setStroke(new BasicStroke(1));
 
-		Font fnt = new Font("arial", Font.BOLD, 20);
+		Font fnt = Game.getFont(1).deriveFont(Font.PLAIN, 20f);
 		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.textColor);
 
 		if(centered) {
 			drawCenteredString(text, Game.WIDTH, y - 20, g);
@@ -77,16 +74,12 @@ public class CustomSlider {
 
 		if (centered) {
 			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 - height + knobX, y - height / 2, height * 2, height * 2);
-			g2d.setColor(Color.WHITE);
+			g2d.setColor(Game.dimWhiteColor);
 			g2d.fill(knob);
-			g2d.setColor(Color.BLACK);
-			g2d.draw(knob);
 		} else {
 			knob = new Ellipse2D.Double(x - height + knobX, y - height / 2, height * 2, height * 2);
-			g2d.setColor(Color.WHITE);
+			g2d.setColor(Game.dimWhiteColor);
 			g2d.fill(knob);
-			g2d.setColor(Color.BLACK);
-			g2d.draw(knob);
 		}
 	}
 

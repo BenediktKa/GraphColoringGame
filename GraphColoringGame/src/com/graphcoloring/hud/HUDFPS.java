@@ -1,9 +1,10 @@
 package com.graphcoloring.hud;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
+import com.graphcoloring.main.Game;
 
 public class HUDFPS {
 
@@ -16,7 +17,7 @@ public class HUDFPS {
 
 		Font fnt = new Font("Lucida Grande", Font.PLAIN, 15);
 		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.textColor);
 
 		g2d.drawString(FPSString, 0, 15);
 	}

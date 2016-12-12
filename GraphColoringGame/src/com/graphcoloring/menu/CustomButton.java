@@ -37,25 +37,23 @@ public class CustomButton {
 	public void drawButton(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.transparentColor);
 		if (centered) {
 			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, borderRadius, borderRadius);
 		} else {
 			body = new RoundRectangle2D.Double(x - width / 2, y, width, height, borderRadius, borderRadius);
 		}
 
-		g2d.setStroke(new BasicStroke(3));
 		g2d.draw(body);
-		g2d.setStroke(new BasicStroke(1));
 		drawText(g);
 	}
 
 	public void drawText(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		Font fnt = new Font("arial", Font.BOLD, 20);
+		Font fnt = Game.getFont(1).deriveFont(Font.PLAIN, 28f);
 		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.textColor);
 
 		if (centered) {
 			drawCenteredString(text, Game.WIDTH, y + height / 2 + 10, g);

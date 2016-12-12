@@ -11,7 +11,7 @@ public class RandomColors {
 		float seperation = 1 / amount;
 		float[] hue = new float[amount];
 		
-		colors[0] = Color.getHSBColor(183.53f / 360, 10.24f / 100, 65.1f / 100);
+		colors[0] = Game.silverColor;
 
 		for (int i = 1; i < amount; i++) {
 			saturation = 0.5f + (float) Math.random() * satRange;

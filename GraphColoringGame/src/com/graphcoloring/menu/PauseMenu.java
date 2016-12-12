@@ -15,7 +15,7 @@ public class PauseMenu extends MouseAdapter {
 	private Menu menu;
 
 	private int borderRadius = 20;
-	
+
 	private CustomButton resumeButton;
 	private CustomButton quitButton;
 
@@ -51,7 +51,6 @@ public class PauseMenu extends MouseAdapter {
 		if (resumeButton.mouseOver(mx, my)) {
 			game.gameState = Game.STATE.Game;
 		} else if (quitButton.mouseOver(mx, my)) {
-			handler.removeAllObjects();
 			menu.menuState = Menu.MENUSTATE.Main;
 			game.gameState = Game.STATE.Menu;
 		}

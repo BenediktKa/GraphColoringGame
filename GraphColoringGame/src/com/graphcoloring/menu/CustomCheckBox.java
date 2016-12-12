@@ -53,7 +53,7 @@ public class CustomCheckBox {
 	public void drawButton(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.transparentColor);
 		if (centered) {
 			body = new RoundRectangle2D.Double(Game.WIDTH / 2 - width / 2, y, width, height, 25, 25);
 			knob = new Ellipse2D.Double(Game.WIDTH / 2 - width / 2 + knobX, y, height, height);
@@ -62,28 +62,28 @@ public class CustomCheckBox {
 			knob = new Ellipse2D.Double(x - width / 2 + knobX, y, height, height);
 		}
 
-		g2d.setStroke(new BasicStroke(3));
-		g2d.draw(body);
-
 		if(knobState) {
-			g2d.setColor(new Color(46, 204, 113, 255));
+			g2d.setColor(new Color(39, 174, 96, 255));
 			g2d.fill(body);
-			g2d.setColor(Color.black);
+			g2d.setColor(Game.transparentColor);
 		}
+
+		
+		g2d.draw(body);
 		
 		g2d.draw(knob);
-		g2d.setColor(Color.white);
+		g2d.setColor(Game.textColor);
 		g2d.fill(knob);
-		g2d.setStroke(new BasicStroke(1));
+		
 		drawText(g);
 	}
 
 	public void drawText(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
-		Font fnt = new Font("arial", Font.BOLD, 20);
+		Font fnt = Game.getFont(1).deriveFont(Font.PLAIN, 20f);
 		g2d.setFont(fnt);
-		g2d.setColor(Color.black);
+		g2d.setColor(Game.textColor);
 
 		if (centered) {
 			drawCenteredString(text, Game.WIDTH, y - 20, g);

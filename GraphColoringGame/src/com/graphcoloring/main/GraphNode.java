@@ -10,14 +10,13 @@ import java.util.Random;
 
 public class GraphNode extends GameObject {
 	private Handler handler;
-	
+
 	private int nodeID;
 	private int color;
 	public boolean hover;
 	private int adjecencyMatrix[][];
-	private int colorMatrix[][];
 	private boolean outline = true;
-	
+
 	private int nodeSize;
 
 	private Color colorArray[];
@@ -38,8 +37,8 @@ public class GraphNode extends GameObject {
 		this.colorArray = colorArray;
 
 		this.color = 0;
-		
-		if(Game.SMALLNODES) {
+
+		if (Game.SMALLNODES) {
 			nodeSize = Game.WIDTH / 25;
 		} else {
 			nodeSize = Game.WIDTH / 20;
@@ -91,7 +90,7 @@ public class GraphNode extends GameObject {
 
 	public void generateEdges(Graphics2D g2d) {
 
-		for (int i = 0; i < adjecencyMatrix.length; i++) {
+		for (int i = 0; i < adjecencyMatrix[0].length; i++) {
 			if (adjecencyMatrix[nodeID][i] != 1) {
 				continue;
 			}
@@ -113,8 +112,9 @@ public class GraphNode extends GameObject {
 	}
 
 	public boolean clicked(int x, int y) {
-		if(node == null) return false;
-		
+		if (node == null)
+			return false;
+
 		return node.contains(x, y);
 	}
 
@@ -127,7 +127,33 @@ public class GraphNode extends GameObject {
 	}
 
 	public void changeColor(int color) {
-		this.color = color;
+
+		boolean canColor = true;
+		for (int i = 0; i < adjecencyMatrix.length; i++) {
+			if (adjecencyMatrix[nodeID][i] != 1 && adjecencyMatrix[i][nodeID] != 1) {
+				continue;
+			}
+			
+			for (int j = 0; j < handler.object.size(); j++) {
+				GameObject tempObject = handler.object.get(i);
+
+				if (tempObject.getId() != ID.GraphNode) {
+					continue;
+				}
+				GraphNode gn = (GraphNode) tempObject;
+
+				if (gn.getNodeID() == i && gn.getNodeID() != nodeID) {
+					if(gn.getColor() == color) {
+						canColor = false;
+						return;
+					}
+				}
+			}
+		}
+
+		if (canColor) {
+			this.color = color;
+		}
 	}
 
 	public int getNodeID() {

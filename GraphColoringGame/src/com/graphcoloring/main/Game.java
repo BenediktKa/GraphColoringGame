@@ -2,10 +2,15 @@ package com.graphcoloring.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
 
 import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.Notification;
@@ -22,6 +27,17 @@ public class Game extends Canvas implements Runnable {
 
 	// Version
 	public final static String VERSION = "v0.01";
+	
+	//Game Colors
+	public static final Color backgroundColor = new Color(20, 21, 23);
+	public static final Color textColor = new Color(255, 255, 255);
+	public static final Color transparentColor = new Color(1, 1, 1, 0.4f);
+	public static final Color dimWhiteColor = new Color(236, 240, 241);
+	public static final Color silverColor = new Color(189, 195, 199);
+	
+	//Fonts
+	public static Font fontRegular;
+	public static Font fontBold;
 
 	// Debug
 	public static final boolean DEBUG = true;
@@ -62,11 +78,11 @@ public class Game extends Canvas implements Runnable {
 
 	// Gamemodes
 	private GameMode gamemode;
-	
-	//Color Picker HUD
+
+	// Color Picker HUD
 	private ColorPickerHUD colorPickerHUD;
-	
-	//SoundPlayer
+
+	// SoundPlayer
 	private SoundPlayer soundPlayer;
 
 	// States
@@ -80,8 +96,11 @@ public class Game extends Canvas implements Runnable {
 	public static int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 
 	public Game() {
-		handler = new Handler();
 		
+		registerFonts();
+		
+		handler = new Handler();
+
 		soundPlayer = new SoundPlayer();
 
 		camera = new Camera(0, 0);
@@ -92,11 +111,11 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		menu = new Menu(this, handler, notification, soundPlayer);
-		
+
 		colorPickerHUD = new ColorPickerHUD(this);
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
-		
+
 		pauseMenu = new PauseMenu(this, handler, menu);
 		scoreMenu = new ScoreMenu(this, handler, menu);
 
@@ -128,14 +147,43 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void registerFonts() {
+		try {
+			
+			fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
+			fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
+			
+		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf")));
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-DemiBold.ttf")));
+		} catch (IOException|FontFormatException e) {
+			System.out.println("Error when reading fonts");
+		}
+	}
+	
+	public static Font getFont(int font) {
+		if(font == 1) {
+			return fontRegular;
+		} else {
+			return fontBold;
+		}
+	}
 
 	public void initilizeGame(int nodes, int edges) {
+		reset();
 		// Temporary
 		gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu);
 
 		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20,
 		// 20, ID.TestSprite)); }
 
+	}
+
+	public void reset() {
+		handler.removeAllObjects();
+		colorPickerHUD.removeAllObjects();
+		colorPickerHUD.setSelector(false);
 	}
 
 	public void run() {
@@ -187,7 +235,7 @@ public class Game extends Canvas implements Runnable {
 			colorPickerHUD.tick();
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
-		} else if(gameState == STATE.Score) {
+		} else if (gameState == STATE.Score) {
 			scoreMenu.tick();
 		}
 
@@ -214,7 +262,7 @@ public class Game extends Canvas implements Runnable {
 
 		// Stuff to Render Start
 
-		g.setColor(Color.WHITE);
+		g.setColor(backgroundColor);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		// g.setColor(Color.BLACK);
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
@@ -233,7 +281,7 @@ public class Game extends Canvas implements Runnable {
 			colorPickerHUD.render(g);
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
-		} else if(gameState == STATE.Score) {
+		} else if (gameState == STATE.Score) {
 			scoreMenu.render(g);
 		}
 
