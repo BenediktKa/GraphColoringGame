@@ -3,6 +3,7 @@ package com.graphcoloring.input;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
@@ -11,19 +12,22 @@ import com.graphcoloring.main.GameObject;
 import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
 import com.graphcoloring.main.ID;
+import com.graphcoloring.menu.ColorPickerHUD;
 
 public class MouseInput extends MouseAdapter {
 
 	private Game game;
 	private Handler handler;
 	private Camera camera;
+	private ColorPickerHUD colorPickerHUD;
 	
 	private Point mousePoint;
 
-	public MouseInput(Game game, Handler handler, Camera camera) {
+	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD) {
 		this.game = game;
 		this.handler = handler;
 		this.camera = camera;
+		this.colorPickerHUD = colorPickerHUD;
 	}
 
 	public void mouseClicked(MouseEvent event) {
@@ -43,7 +47,7 @@ public class MouseInput extends MouseAdapter {
 				GraphNode gn = (GraphNode) tempObject;
 
 				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
-					gn.changeColor();
+					gn.changeColor(colorPickerHUD.getActiveColor());
 					break;
 				}
 			}
@@ -58,7 +62,7 @@ public class MouseInput extends MouseAdapter {
 				GraphNode gn = (GraphNode) tempObject;
 
 				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
-					gn.changeColor();
+					gn.changeColor(colorPickerHUD.getActiveColor());
 					break;
 				}
 			}
@@ -88,6 +92,18 @@ public class MouseInput extends MouseAdapter {
 				gn.setY(my - (int) camera.getY() - gn.getRadius() / 2);
 				break;
 			}
+		}
+	}
+	
+	public void mouseWheelMoved(MouseWheelEvent event) {
+		if(game.gameState != Game.STATE.Game) {
+			return;
+		}
+		
+		if(event.getWheelRotation() < 0) {
+			colorPickerHUD.setActiveColor(colorPickerHUD.getActiveColor() + 1);
+		} else {
+			colorPickerHUD.setActiveColor(colorPickerHUD.getActiveColor() - 1);
 		}
 	}
 }

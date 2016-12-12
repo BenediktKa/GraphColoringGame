@@ -95,10 +95,11 @@ public class Game extends Canvas implements Runnable {
 		pauseMenu = new PauseMenu(this, handler, menu);
 		scoreMenu = new ScoreMenu(this, handler, menu);
 
-		MouseInput mouse = new MouseInput(this, handler, camera);
+		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD);
 
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
+		this.addMouseWheelListener(mouse);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addMouseListener(pauseMenu);
@@ -125,7 +126,7 @@ public class Game extends Canvas implements Runnable {
 
 	public void initilizeGame(int nodes, int edges) {
 		// Temporary
-		gamemode = new GameMode(nodes, edges, this, handler, notification, menu);
+		gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu);
 
 		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20,
 		// 20, ID.TestSprite)); }

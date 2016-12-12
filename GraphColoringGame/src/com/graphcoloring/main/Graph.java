@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import com.graphcoloring.hud.Notification;
+import com.graphcoloring.menu.ColorPickerHUD;
 
 public class Graph {
 
 	private Handler handler;
 	private Notification notification;
+	private ColorPickerHUD coloPickerHUD;
 	private int vertices;
 	private int edges;
 	private int adjacencyMatrix[][];
@@ -17,12 +19,14 @@ public class Graph {
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
-	public Graph(Handler handler, Notification notification, int verticies, int edges) {
+	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges) {
 		this.handler = handler;
 		this.notification = notification;
+		this.coloPickerHUD = colorPickerHUD;
 		this.vertices = verticies;
 		this.edges = edges;
 		this.colorArray = new RandomColors(20, 0.05f).getPalette();
+		colorPickerHUD.setColorArray(colorArray);
 
 		// Temporary
 		generateRandomGraph();
