@@ -91,7 +91,7 @@ public class Game extends Canvas implements Runnable {
 
 		notification = new Notification();
 
-		menu = new Menu(this, handler, notification);
+		menu = new Menu(this, handler, notification, soundPlayer);
 		
 		colorPickerHUD = new ColorPickerHUD(this);
 

@@ -11,12 +11,14 @@ import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
+import com.graphcoloring.main.SoundPlayer;
 
 public class Menu extends MouseAdapter {
 
 	private Game game;
 	private Handler handler;
 	private Notification notification;
+	private SoundPlayer soundPlayer;
 
 	private int borderRadius = 20;
 
@@ -35,8 +37,8 @@ public class Menu extends MouseAdapter {
 	private CustomSlider nodesSlider;
 	private CustomSlider edgesSlider;
 	private CustomButton bitterEndStartButton;
-	
-	//Gamemode Selection Back Button
+
+	// Gamemode Selection Back Button
 	private CustomButton selectionBackButton;
 
 	// Settings Menu Elements
@@ -59,10 +61,11 @@ public class Menu extends MouseAdapter {
 
 	public MENUSTATE menuState;
 
-	public Menu(Game game, Handler handler, Notification notification) {
+	public Menu(Game game, Handler handler, Notification notification, SoundPlayer soundPlayer) {
 		this.game = game;
 		this.handler = handler;
 		this.notification = notification;
+		this.soundPlayer = soundPlayer;
 
 		menuState = MENUSTATE.Main;
 
@@ -95,16 +98,19 @@ public class Menu extends MouseAdapter {
 		nodesSlider = new CustomSlider(0, Game.HEIGHT / 5, 200, 25, true, 30, 10, "Nodes");
 		edgesSlider = new CustomSlider(0, Game.HEIGHT / 5 * 2, 200, 25, true, 30, 15, "Edges");
 		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Start", borderRadius);
-		
-		//Gamemode Selection Back Button
+
+		// Gamemode Selection Back Button
 		selectionBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
-		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 1, 50, 25, false, "Fixed Refresh Rate", true);
-		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 2, 50, 25, false, "Antialiasing", true);
+		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 1, 50, 25, false,
+				"Fixed Refresh Rate", true);
+		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 2, 50, 25, false, "Antialiasing",
+				true);
 		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 3, 50, 25, false, "Dithering", true);
-		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 4, 50, 25, false, "Small Nodes", false);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 4, 50, 25, false, "Small Nodes",
+				false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 
 		// Sound Menu
@@ -182,7 +188,7 @@ public class Menu extends MouseAdapter {
 
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges);
-			} else if(selectionBackButton.mouseOver(mx, my)) {
+			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;
 			}
 		}
