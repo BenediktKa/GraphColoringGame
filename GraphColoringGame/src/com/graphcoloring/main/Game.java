@@ -171,7 +171,6 @@ public class Game extends Canvas implements Runnable {
 
 	public void registerFonts() {
 		try {
-
 			fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
 			fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
 

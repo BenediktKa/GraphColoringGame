@@ -202,7 +202,10 @@ public class Menu extends MouseAdapter {
 				int time = timeSlider.getKnobValue();
 
 				if (nodes > edges) {
-					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
+					return;
+				} else if(time < nodes * 3) {
+					notification.createNotification(TYPE.Error, "Error: Your time should be at least " + (nodes * 3 + edges * 2) + " seconds", 3);
 					return;
 				}
 
