@@ -99,8 +99,8 @@ public class Menu extends MouseAdapter {
 		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Gamemode Sliders
-		nodesSlider = new CustomSlider(0, Game.HEIGHT / 6, 200, 25, true, 30, 10, "Nodes");
-		edgesSlider = new CustomSlider(0, Game.HEIGHT / 6 * 2, 200, 25, true, 30, 15, "Edges");
+		nodesSlider = new CustomSlider(0, Game.HEIGHT / 6, 200, 25, true, 50, 10, "Nodes");
+		edgesSlider = new CustomSlider(0, Game.HEIGHT / 6 * 2, 200, 25, true, 150, 15, "Edges");
 
 		// Bitter End
 		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 6 * 3, 200, 50, true, "Start", borderRadius);
@@ -220,7 +220,7 @@ public class Menu extends MouseAdapter {
 				} else if (time < nodes * 3) {
 					notification.createNotification(TYPE.Error, "Error: Your time should be at least " + (nodes * 3 + edges * 2) + " seconds", 3);
 					return;
-				}
+				} 
 
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
