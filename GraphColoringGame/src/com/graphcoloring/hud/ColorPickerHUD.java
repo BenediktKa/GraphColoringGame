@@ -2,6 +2,7 @@ package com.graphcoloring.hud;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -63,8 +64,15 @@ public class ColorPickerHUD extends MouseAdapter {
 					g2d.setStroke(new BasicStroke(1));
 				}
 			}
-
-			g2d.setColor(Color.BLACK);
+			
+			Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 100f);
+			g2d.setFont(fnt);
+			
+			g2d.setColor(Game.backgroundColor);
+			
+			g2d.drawString("-",(int) (Game.WIDTH - (circleList.size() * 60) - selector.getWidth() - 15), 20);
+			
+			g2d.setColor(Game.dimWhiteColor);
 			remover = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - (circleList.size() - 1) * 60 - 10, 5, 50, 50, borderRadius, borderRadius);
 			adder = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - (circleList.size() - 1) * 60 - 20 - remover.getWidth(), 5, 50, 50, borderRadius, borderRadius);
 			g2d.fill(adder);
