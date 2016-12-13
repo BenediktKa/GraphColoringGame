@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
-import com.graphcoloring.main.SoundPlayer;
 
 public class ScoreMenu extends MouseAdapter {
 

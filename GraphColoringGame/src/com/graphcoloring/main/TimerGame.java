@@ -20,7 +20,9 @@ public class TimerGame {
 	}
 
 	public void stopTimer() {
-		timer.cancel();
+		if(timer != null) {
+			timer.cancel();
+		}
 	}
 
 	public double getFinishTime() {

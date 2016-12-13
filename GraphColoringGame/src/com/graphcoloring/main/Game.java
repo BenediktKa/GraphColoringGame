@@ -142,7 +142,7 @@ public class Game extends Canvas implements Runnable {
 
 		menu = new Menu(this, handler, notification, soundPlayer);
 
-		colorPickerHUD = new ColorPickerHUD(this);
+		colorPickerHUD = new ColorPickerHUD(this, notification);
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
 
@@ -157,7 +157,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(colorPickerHUD);
 		this.addMouseListener(hintHUD);
 		this.addMouseListener(scoreMenu);
-		this.addKeyListener(new KeyBoardInput(this, camera, timerHUD));
+		this.addKeyListener(new KeyBoardInput(this, camera, timerHUD, timerGame, colorPickerHUD));
 
 	}
 

@@ -14,6 +14,7 @@ import com.graphcoloring.main.Game;
 public class ColorPickerHUD extends MouseAdapter {
 
 	private Game game;
+	private Notification notification;
 
 	private int borderRadius = 25;
 
@@ -28,8 +29,9 @@ public class ColorPickerHUD extends MouseAdapter {
 
 	private LinkedList<RoundRectangle2D> circleList = new LinkedList<RoundRectangle2D>();
 
-	public ColorPickerHUD(Game game) {
+	public ColorPickerHUD(Game game, Notification notification) {
 		this.game = game;
+		this.notification = notification;
 
 		intialize();
 	}
@@ -76,7 +78,7 @@ public class ColorPickerHUD extends MouseAdapter {
 		if(circleList.isEmpty()) {
 			circleList.add(new RoundRectangle2D.Double());
 			circleList.add(new RoundRectangle2D.Double());
-		} else {
+		} else if (circleList.size() < colorArray.length) {
 			circleList.add(new RoundRectangle2D.Double());
 		}
 	}

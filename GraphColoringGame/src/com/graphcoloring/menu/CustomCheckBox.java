@@ -1,6 +1,5 @@
 package com.graphcoloring.menu;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
