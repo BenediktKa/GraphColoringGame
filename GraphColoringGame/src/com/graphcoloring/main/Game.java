@@ -43,6 +43,7 @@ public class Game extends Canvas implements Runnable {
 	
 	// Volume
 	public static float VOLUME = 100.0f;
+	public static float MUSICVOLUME = 100.0f;
 
 	// Debug
 	public static final boolean DEBUG = true;

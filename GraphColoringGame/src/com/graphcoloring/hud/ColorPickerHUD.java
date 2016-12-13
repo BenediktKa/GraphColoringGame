@@ -68,18 +68,30 @@ public class ColorPickerHUD extends MouseAdapter {
 			Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 100f);
 			g2d.setFont(fnt);
 			
-			g2d.setColor(Game.backgroundColor);
+			g2d.setColor(Game.transparentColor);
 			
-			g2d.drawString("-",(int) (Game.WIDTH - (circleList.size() * 60) - selector.getWidth() - 15), 20);
+			if(circleList.size() > 1) {
+				g2d.drawString("-",(int) (Game.WIDTH - (circleList.size() * 60) - selector.getWidth() - 16.5), 65);
+			}
+			g2d.drawString("+",(int) (Game.WIDTH - (circleList.size() * 60) - selector.getWidth() * 2 - 32), 72);
 			
-			g2d.setColor(Game.dimWhiteColor);
 			remover = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - (circleList.size() - 1) * 60 - 10, 5, 50, 50, borderRadius, borderRadius);
 			adder = new RoundRectangle2D.Double(Game.WIDTH - 75 - selector.getWidth() - (circleList.size() - 1) * 60 - 20 - remover.getWidth(), 5, 50, 50, borderRadius, borderRadius);
-			g2d.fill(adder);
-			g2d.fill(remover);
+			g2d.draw(adder);
+			if(circleList.size() > 1) {
+				g2d.draw(remover);	
+			}
 		}
-
-		g2d.fill(selector);
+		
+		Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 50f);
+		g2d.setFont(fnt);
+		
+		if(selectorActive) {
+			g2d.drawString(">",(int) (Game.WIDTH - 60), 47);
+		} else {
+			g2d.drawString("<",(int) (Game.WIDTH - 60), 47);
+		}
+		g2d.draw(selector);
 	}
 
 	public void addCircle() {

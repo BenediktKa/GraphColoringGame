@@ -55,7 +55,7 @@ public class SoundPlayer {
 
 			clip.open(AudioSystem.getAudioInputStream(file));
 			
-			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.BALANCE);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(Game.VOLUME * gainControl.getMaximum() / 100);
 			
 			clip.start();
