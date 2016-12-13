@@ -272,20 +272,20 @@ public class Menu extends MouseAdapter {
 			} else if (soundFXSlider.contains(mx, my)) {
 				soundFXSlider.setKnobX(mx);
 				Game.VOLUME = soundFXSlider.getKnobValue();
-			} else if (menuState == MENUSTATE.BitterEnd || menuState == MENUSTATE.RandomOrder) {
-				if (nodesSlider.contains(mx, my)) {
-					nodesSlider.setKnobX(mx);
-				} else if (edgesSlider.contains(mx, my)) {
-					edgesSlider.setKnobX(mx);
-				}
-			} else if (menuState == MENUSTATE.BestUpperBound) {
-				if (nodesSlider.contains(mx, my)) {
-					nodesSlider.setKnobX(mx);
-				} else if (edgesSlider.contains(mx, my)) {
-					edgesSlider.setKnobX(mx);
-				} else if (timeSlider.contains(mx, my)) {
-					timeSlider.setKnobX(mx);
-				}
+			}
+		} else if (menuState == MENUSTATE.BitterEnd || menuState == MENUSTATE.RandomOrder) {
+			if (nodesSlider.contains(mx, my)) {
+				nodesSlider.setKnobX(mx);
+			} else if (edgesSlider.contains(mx, my)) {
+				edgesSlider.setKnobX(mx);
+			}
+		} else if (menuState == MENUSTATE.BestUpperBound) {
+			if (nodesSlider.contains(mx, my)) {
+				nodesSlider.setKnobX(mx);
+			} else if (edgesSlider.contains(mx, my)) {
+				edgesSlider.setKnobX(mx);
+			} else if (timeSlider.contains(mx, my)) {
+				timeSlider.setKnobX(mx);
 			}
 		}
 	}
