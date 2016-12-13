@@ -1,6 +1,5 @@
 package com.graphcoloring.input;
 
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -21,8 +20,6 @@ public class MouseInput extends MouseAdapter {
 	private Camera camera;
 	private ColorPickerHUD colorPickerHUD;
 	private ScoreMenu scoreMenu;
-
-	private Point mousePoint;
 
 	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD, ScoreMenu scoreMenu) {
 		this.game = game;
@@ -73,8 +70,7 @@ public class MouseInput extends MouseAdapter {
 		}
 
 		// All nodes are colored here
-		scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 10000));
-		System.out.println(Game.timerGame.getFinishTime());
+		scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
 		game.gameState = Game.STATE.Score;
 		Game.timerGame.stopTimer();
 	}

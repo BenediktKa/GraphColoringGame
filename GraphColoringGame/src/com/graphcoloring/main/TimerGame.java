@@ -6,7 +6,7 @@ import java.util.TimerTask;
 public class TimerGame {
 	
 	private Timer timer;
-	private int finishTime;
+	private double finishTime;
 	
 	class CloseTimer extends TimerTask {
 		public void run() {
