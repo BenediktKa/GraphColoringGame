@@ -40,12 +40,10 @@ public class ScoreMenu extends MouseAdapter {
 	}
 
 	public void render(Graphics g) {
-
-		g.setColor(new Color(255, 255, 255, 150));
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
-		g.setColor(Color.BLACK);
 		
-		Font fnt = new Font("arial", Font.BOLD, 40);
+		g.setColor(Game.textColor);
+		
+		Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 28f);
 		g.setFont(fnt);
 		
 		drawCenteredString("Score: " + displayScore, Game.WIDTH, 100, g);

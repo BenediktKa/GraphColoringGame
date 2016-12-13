@@ -16,7 +16,8 @@ public class Notification {
 
 	// Notification Types
 	public enum TYPE {
-		Error;
+		Error,
+		Hint;
 	};
 
 	private RoundRectangle2D errorRectangle;
@@ -55,7 +56,7 @@ public class Notification {
 
 		int rectangleHeight = Game.HEIGHT / 3;
 
-		Font fnt = new Font("Lucida Grande", Font.BOLD, 18);
+		Font fnt = Game.getFont(1).deriveFont(Font.BOLD, 25f);
 		g2d.setFont(fnt);
 		
 		FontMetrics metrics = g2d.getFontMetrics(fnt);
@@ -65,19 +66,55 @@ public class Notification {
 
 		Color color, colorBorder;
 		if (alpha < 0) {
-			color = new Color(231.0f / 255.0f, 76.0f / 255.0f, 60.0f / 255.0f, 0);
-			colorBorder = new Color(0, 0, 0, 0);
+			color = new Color(125 / 255.0f, 38 / 255.0f, 28 / 255.0f, 0);
+			colorBorder = new Color(168 / 255.0f, 186 / 255.0f, 189 / 255.0f, 0);
 		} else {
-			color = new Color(231.0f / 255.0f, 76.0f / 255.0f, 60.0f / 255.0f, alpha);
-			colorBorder = new Color(0, 0, 0, alpha);
+			color = new Color(125 / 255.0f, 38 / 255.0f, 28 / 255.0f, alpha);
+			colorBorder = new Color(168 / 255.0f, 186 / 255.0f, 189 / 255.0f, alpha);
 		}
 		
 		g2d.setPaint(color);
 		g2d.fill(errorRectangle);
-		g2d.setStroke(new BasicStroke(2));
 		g2d.setPaint(colorBorder);
 		g2d.draw(errorRectangle);
-		g2d.setStroke(new BasicStroke(1));
+		
+		if (alpha < 0) {
+			color = new Color(236.0f / 255.0f, 240.0f / 255.0f, 241.0f / 255.0f, 0);
+		} else {
+			color = new Color(236.0f / 255.0f, 240.0f / 255.0f, 241.0f / 255.0f, alpha);
+		}
+		g2d.setPaint(color);
+		
+		
+		drawCenteredString(message, Game.WIDTH, Game.HEIGHT, g);
+	}
+	
+	public void displayHint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+
+		int rectangleHeight = Game.HEIGHT / 3;
+
+		Font fnt = Game.getFont(1).deriveFont(Font.BOLD, 25f);
+		g2d.setFont(fnt);
+		
+		FontMetrics metrics = g2d.getFontMetrics(fnt);
+		int textWidth = metrics.stringWidth(message) + 50;
+		
+		errorRectangle = new RoundRectangle2D.Double(Game.WIDTH / 2 - (textWidth / 2), Game.HEIGHT / 2 - (rectangleHeight / 2), textWidth, rectangleHeight, 25, 25);
+
+		Color color, colorBorder;
+		if (alpha < 0) {
+			color = new Color(44 / 255.0f, 62 / 255.0f, 80 / 255.0f, 0);
+			colorBorder = new Color(168 / 255.0f, 186 / 255.0f, 189 / 255.0f, 0);
+		} else {
+			color = new Color(44 / 255.0f, 62 / 255.0f, 80 / 255.0f, alpha);
+			colorBorder = new Color(168 / 255.0f, 186 / 255.0f, 189 / 255.0f, alpha);
+		}
+		
+		g2d.setPaint(color);
+		g2d.fill(errorRectangle);
+		g2d.setPaint(colorBorder);
+		g2d.draw(errorRectangle);
 		
 		if (alpha < 0) {
 			color = new Color(236.0f / 255.0f, 240.0f / 255.0f, 241.0f / 255.0f, 0);
@@ -109,6 +146,8 @@ public class Notification {
 
 		if (type == TYPE.Error) {
 			displayError(g);
+		} else if(type == TYPE.Hint) {
+			displayHint(g);
 		}
 	}
 

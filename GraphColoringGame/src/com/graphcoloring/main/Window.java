@@ -7,7 +7,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
-import com.graphcoloring.menu.ColorPickerHUD;
+import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.menu.Menu;
 
 public class Window extends Canvas {

@@ -1,4 +1,4 @@
-package com.graphcoloring.menu;
+package com.graphcoloring.hud;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -92,6 +92,9 @@ public class ColorPickerHUD extends MouseAdapter {
 		if (selector.contains(mx, my)) {
 			selectorActive = selectorActive ? false : true;
 		} else if (adder != null && adder.contains(mx, my)) {
+			if(circleList.size() >= colorArray.length) {
+				return;
+			}
 			addCircle();
 		} else if (remover != null && remover.contains(mx, my)) {
 			if (circleList.size() >= 2) {

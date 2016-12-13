@@ -3,8 +3,8 @@ package com.graphcoloring.main;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.Notification;
-import com.graphcoloring.menu.ColorPickerHUD;
 
 public class Graph {
 

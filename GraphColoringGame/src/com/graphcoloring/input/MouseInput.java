@@ -5,14 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
-import com.graphcoloring.main.Game.STATE;
 import com.graphcoloring.main.GameObject;
 import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
 import com.graphcoloring.main.ID;
-import com.graphcoloring.menu.ColorPickerHUD;
 
 public class MouseInput extends MouseAdapter {
 
@@ -20,7 +19,7 @@ public class MouseInput extends MouseAdapter {
 	private Handler handler;
 	private Camera camera;
 	private ColorPickerHUD colorPickerHUD;
-	
+
 	private Point mousePoint;
 
 	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD) {
@@ -32,7 +31,7 @@ public class MouseInput extends MouseAdapter {
 
 	public void mouseClicked(MouseEvent event) {
 		// Don't do anything if not in-game
-		if (game.gameState != STATE.Game) {
+		if (game.gameState != Game.STATE.Game) {
 			return;
 		}
 
@@ -48,34 +47,39 @@ public class MouseInput extends MouseAdapter {
 
 				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
 					gn.changeColor(colorPickerHUD.getActiveColor());
-					break;
-				}
-			}
-		} else if (event.getButton() == MouseEvent.BUTTON3) {
-
-			for (int i = 0; i < handler.object.size(); i++) {
-				GameObject tempObject = handler.object.get(i);
-
-				if (tempObject.getId() != ID.GraphNode) {
-					continue;
-				}
-				GraphNode gn = (GraphNode) tempObject;
-
-				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
-					gn.changeColor(colorPickerHUD.getActiveColor());
+					checkAllColored();
 					break;
 				}
 			}
 		}
 	}
 
+	public void checkAllColored() {
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() != ID.GraphNode) {
+				continue;
+			}
+			
+			GraphNode gn = (GraphNode) tempObject;
+			
+			if(gn.getColor() == 0) {
+				return;
+			}
+		}
+		
+		//All nodes are colored here
+		game.gameState = Game.STATE.Score;
+	}
+
 	public void mouseDragged(MouseEvent event) {
 
 		// Don't do anything if not in-game
-		if (game.gameState != STATE.Game) {
+		if (game.gameState != Game.STATE.Game) {
 			return;
 		}
-		
+
 		int mx = event.getX();
 		int my = event.getY();
 
@@ -94,13 +98,13 @@ public class MouseInput extends MouseAdapter {
 			}
 		}
 	}
-	
+
 	public void mouseWheelMoved(MouseWheelEvent event) {
-		if(game.gameState != Game.STATE.Game) {
+		if (game.gameState != Game.STATE.Game) {
 			return;
 		}
-		
-		if(event.getWheelRotation() < 0) {
+
+		if (event.getWheelRotation() < 0) {
 			colorPickerHUD.setActiveColor(colorPickerHUD.getActiveColor() + 1);
 		} else {
 			colorPickerHUD.setActiveColor(colorPickerHUD.getActiveColor() - 1);

@@ -12,11 +12,12 @@ import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 
+import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.HUDFPS;
+import com.graphcoloring.hud.HintHUD;
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
-import com.graphcoloring.menu.ColorPickerHUD;
 import com.graphcoloring.menu.Menu;
 import com.graphcoloring.menu.PauseMenu;
 import com.graphcoloring.menu.ScoreMenu;
@@ -27,15 +28,15 @@ public class Game extends Canvas implements Runnable {
 
 	// Version
 	public final static String VERSION = "v0.01";
-	
-	//Game Colors
+
+	// Game Colors
 	public static final Color backgroundColor = new Color(20, 21, 23);
 	public static final Color textColor = new Color(255, 255, 255);
 	public static final Color transparentColor = new Color(1, 1, 1, 0.4f);
 	public static final Color dimWhiteColor = new Color(236, 240, 241);
 	public static final Color silverColor = new Color(189, 195, 199);
-	
-	//Fonts
+
+	// Fonts
 	public static Font fontRegular;
 	public static Font fontBold;
 
@@ -79,6 +80,9 @@ public class Game extends Canvas implements Runnable {
 	// Gamemodes
 	private GameMode gamemode;
 
+	// HintHUD
+	private HintHUD hintHUD;
+
 	// Color Picker HUD
 	private ColorPickerHUD colorPickerHUD;
 
@@ -96,19 +100,22 @@ public class Game extends Canvas implements Runnable {
 	public static int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 
 	public Game() {
-		
+
 		registerFonts();
-		
+
 		handler = new Handler();
 
 		soundPlayer = new SoundPlayer();
 
 		camera = new Camera(0, 0);
 
-		if (DEBUG)
+		if (DEBUG) {
 			fpscounter = new HUDFPS();
+		}
 
 		notification = new Notification();
+
+		hintHUD = new HintHUD(this, notification, 5);
 
 		menu = new Menu(this, handler, notification, soundPlayer);
 
@@ -128,6 +135,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseMotionListener(menu);
 		this.addMouseListener(pauseMenu);
 		this.addMouseListener(colorPickerHUD);
+		this.addMouseListener(hintHUD);
 		this.addMouseListener(scoreMenu);
 		this.addKeyListener(new KeyBoardInput(this, camera));
 
@@ -147,23 +155,23 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void registerFonts() {
 		try {
-			
+
 			fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
 			fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
-			
-		     GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf")));
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-DemiBold.ttf")));
-		} catch (IOException|FontFormatException e) {
+
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-DemiBold.ttf")));
+		} catch (IOException | FontFormatException e) {
 			System.out.println("Error when reading fonts");
 		}
 	}
-	
+
 	public static Font getFont(int font) {
-		if(font == 1) {
+		if (font == 1) {
 			return fontRegular;
 		} else {
 			return fontBold;
@@ -233,6 +241,7 @@ public class Game extends Canvas implements Runnable {
 		} else if (gameState == STATE.Game) {
 			handler.tick();
 			colorPickerHUD.tick();
+			hintHUD.tick();
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
 		} else if (gameState == STATE.Score) {
@@ -279,6 +288,7 @@ public class Game extends Canvas implements Runnable {
 				menu.render(g);
 		} else if (gameState == STATE.Game) {
 			colorPickerHUD.render(g);
+			hintHUD.render(g);
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
 		} else if (gameState == STATE.Score) {

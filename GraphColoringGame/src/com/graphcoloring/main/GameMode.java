@@ -1,7 +1,7 @@
 package com.graphcoloring.main;
 
+import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.Notification;
-import com.graphcoloring.menu.ColorPickerHUD;
 import com.graphcoloring.menu.Menu;
 
 public class GameMode {

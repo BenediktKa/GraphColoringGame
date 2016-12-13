@@ -33,7 +33,7 @@ public class PauseMenu extends MouseAdapter {
 
 	public void render(Graphics g) {
 
-		g.setColor(new Color(255, 255, 255, 150));
+		g.setColor(new Color(0, 0, 0, 150));
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		g.setColor(Color.BLACK);
 		resumeButton.drawButton(g);
