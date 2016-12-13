@@ -1,7 +1,5 @@
 package com.graphcoloring.menu;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -106,6 +104,7 @@ public class CustomButton {
 	public boolean mouseOver(int mx, int my) {
 		if (mx > body.getMinX() && mx < body.getMinX() + width) {
 			if (my > body.getMinY() && my < body.getMinY() + height) {
+				Game.soundPlayer.playSoundFX("MenuClick");
 				return true;
 			} else
 				return false;

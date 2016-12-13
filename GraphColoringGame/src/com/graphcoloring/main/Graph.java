@@ -1,7 +1,10 @@
 package com.graphcoloring.main;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.Notification;
@@ -13,18 +16,22 @@ public class Graph {
 	private ColorPickerHUD coloPickerHUD;
 	private int vertices;
 	private int edges;
+	private boolean randomOrder;
 	private int adjacencyMatrix[][];
 	private int adjacencySimple[][];
 	private Color colorArray[];
+	
+	private List<Integer> randomOrderList = new ArrayList<>();
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
-	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges) {
+	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges, boolean randomOrder) {
 		this.handler = handler;
 		this.notification = notification;
 		this.coloPickerHUD = colorPickerHUD;
 		this.vertices = verticies;
 		this.edges = edges;
+		this.randomOrder = randomOrder;
 		this.colorArray = new RandomColors(20, 0.05f).getPalette();
 		colorPickerHUD.setColorArray(colorArray);
 
@@ -60,6 +67,10 @@ public class Graph {
 
 		adjSimple();
 		positionNodes();
+		
+		if(randomOrder) {
+			generateRandomOrder();
+		}
 	}
 
 	public void adjSimple() {
@@ -87,10 +98,21 @@ public class Graph {
 		double divisions = 2.0 / vertices;
 
 		for (int i = 0; i < vertices; i++) {
-			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)), (int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i, adjacencySimple, colorArray);
+			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)), (int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i, adjacencySimple, colorArray, randomOrderList);
 			handler.addObject(node);
 			addObject(node);
 		}
+	}
+	
+	public void generateRandomOrder() {
+		for(int i = 0; i < vertices; i++) {
+			randomOrderList.add(i);
+		}
+		Collections.shuffle(randomOrderList);
+	}
+	
+	public List<Integer> getRandomOrder() {
+		return randomOrderList;
 	}
 
 	public void addObject(GraphNode object) {

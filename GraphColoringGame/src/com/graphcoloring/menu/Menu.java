@@ -1,16 +1,18 @@
 package com.graphcoloring.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.Notification.TYPE;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
+import com.graphcoloring.main.ID;
+import com.graphcoloring.main.MenuParticle;
 import com.graphcoloring.main.SoundPlayer;
 
 public class Menu extends MouseAdapter {
@@ -44,6 +46,9 @@ public class Menu extends MouseAdapter {
 	private CustomSlider timeSlider;
 	private CustomButton bestUpperBoundStartButton;
 
+	// Random Order
+	private CustomButton randomOrderStartButton;
+
 	// Gamemode Selection Back Button
 	private CustomButton selectionBackButton;
 
@@ -59,6 +64,9 @@ public class Menu extends MouseAdapter {
 	private CustomSlider menuMusicSlider;
 	private CustomSlider soundFXSlider;
 	private CustomButton soundBackButton;
+
+	// Random
+	private Random random = new Random();
 
 	// States
 	public enum MENUSTATE {
@@ -100,6 +108,9 @@ public class Menu extends MouseAdapter {
 		// BestUpperBound
 		timeSlider = new CustomSlider(0, Game.HEIGHT / 6 * 3, 200, 25, true, 300, 20, "Seconds");
 		bestUpperBoundStartButton = new CustomButton(0, Game.HEIGHT / 6 * 4, 200, 50, true, "Start", borderRadius);
+
+		// RandomOrder
+		randomOrderStartButton = new CustomButton(0, Game.HEIGHT / 6 * 3, 200, 50, true, "Start", borderRadius);
 
 		// Gamemode Selection Back Button
 		selectionBackButton = new CustomButton(0, Game.HEIGHT / 6 * 5, 200, 50, true, "Back", borderRadius);
@@ -171,6 +182,8 @@ public class Menu extends MouseAdapter {
 				menuState = MENUSTATE.BitterEnd;
 			} else if (bestUpperBound.mouseOver(mx, my)) {
 				menuState = MENUSTATE.BestUpperBound;
+			} else if (randomOrder.mouseOver(mx, my)) {
+				menuState = MENUSTATE.RandomOrder;
 			} else if (gamemodesBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
 			}
@@ -204,13 +217,31 @@ public class Menu extends MouseAdapter {
 				if (nodes > edges) {
 					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
 					return;
-				} else if(time < nodes * 3) {
+				} else if (time < nodes * 3) {
 					notification.createNotification(TYPE.Error, "Error: Your time should be at least " + (nodes * 3 + edges * 2) + " seconds", 3);
 					return;
 				}
 
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
+			} else if (selectionBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Gamemodes;
+			}
+		}
+
+		// Random Order
+		else if (menuState == MENUSTATE.RandomOrder) {
+			if (randomOrderStartButton.mouseOver(mx, my)) {
+				int nodes = nodesSlider.getKnobValue();
+				int edges = edgesSlider.getKnobValue();
+
+				if (nodes > edges) {
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
+					return;
+				}
+
+				game.gameState = Game.STATE.Game;
+				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.RandomOrder);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;
 			}
@@ -230,7 +261,8 @@ public class Menu extends MouseAdapter {
 				menuMusicSlider.setKnobX(mx);
 			else if (soundFXSlider.contains(mx, my))
 				soundFXSlider.setKnobX(mx);
-		} else if (menuState == MENUSTATE.BitterEnd) {
+				Game.VOLUME = soundFXSlider.getKnobValue();
+		} else if (menuState == MENUSTATE.BitterEnd || menuState == MENUSTATE.RandomOrder) {
 			if (nodesSlider.contains(mx, my)) {
 				nodesSlider.setKnobX(mx);
 			} else if (edgesSlider.contains(mx, my)) {
@@ -254,6 +286,8 @@ public class Menu extends MouseAdapter {
 			smallNodesCheckBox.tick();
 			fixedRefreshRateCheckBox.tick();
 		}
+
+		handler.addObject(new MenuParticle(handler, random.nextInt(Game.WIDTH) - random.nextInt(Game.WIDTH), Game.HEIGHT, (float) Math.random(), 0.005f, ID.MenuParticle));
 	}
 
 	public void render(Graphics g) {
@@ -264,7 +298,7 @@ public class Menu extends MouseAdapter {
 		Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 30f);
 		g.setFont(fnt);
 		g.setColor(Game.textColor);
-		drawCenteredString("GraphColoring Game", Game.WIDTH, Game.HEIGHT / 15 + 30, g);
+		drawCenteredString("VerteX", Game.WIDTH, Game.HEIGHT / 15 + 30, g);
 
 		if (menuState == MENUSTATE.Main) {
 			mainMenu(g);
@@ -278,6 +312,8 @@ public class Menu extends MouseAdapter {
 			bitterEndMenu(g);
 		} else if (menuState == MENUSTATE.BestUpperBound) {
 			bestUpperBoundMenu(g);
+		} else if (menuState == MENUSTATE.RandomOrder) {
+			randomOrderMenu(g);
 		}
 	}
 
@@ -306,6 +342,13 @@ public class Menu extends MouseAdapter {
 		edgesSlider.drawSlider(g);
 		timeSlider.drawSlider(g);
 		bestUpperBoundStartButton.drawButton(g);
+		selectionBackButton.drawButton(g);
+	}
+
+	public void randomOrderMenu(Graphics g) {
+		nodesSlider.drawSlider(g);
+		edgesSlider.drawSlider(g);
+		randomOrderStartButton.drawButton(g);
 		selectionBackButton.drawButton(g);
 	}
 

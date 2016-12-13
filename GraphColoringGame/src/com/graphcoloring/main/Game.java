@@ -40,6 +40,9 @@ public class Game extends Canvas implements Runnable {
 	// Fonts
 	public static Font fontRegular;
 	public static Font fontBold;
+	
+	// Volume
+	public static float VOLUME = 100.0f;
 
 	// Debug
 	public static final boolean DEBUG = true;
@@ -91,7 +94,7 @@ public class Game extends Canvas implements Runnable {
 	private ColorPickerHUD colorPickerHUD;
 
 	// SoundPlayer
-	private SoundPlayer soundPlayer;
+	public static SoundPlayer soundPlayer;
 
 	// States
 	public enum STATE {
@@ -196,9 +199,11 @@ public class Game extends Canvas implements Runnable {
 		this.gamemodeState = gamemodeState;
 		
 		if(gamemodeState == GAMEMODE.BitterEnd) {
-			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu);
+			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, false);
 		} else if(gamemodeState == GAMEMODE.BestUpperBound) {
 			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, timerHUD, time);
+		} else if(gamemodeState == GAMEMODE.RandomOrder) {
+			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, true);
 		}
 
 		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20, 20, ID.TestSprite)); }
@@ -253,10 +258,11 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 
+		handler.tick();
+		
 		if (gameState == STATE.Menu) {
 			menu.tick();
 		} else if (gameState == STATE.Game) {
-			handler.tick();
 			colorPickerHUD.tick();
 			hintHUD.tick();
 			if(gamemodeState == GAMEMODE.BestUpperBound) {
@@ -297,11 +303,9 @@ public class Game extends Canvas implements Runnable {
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
 
-		if (gameState == STATE.Game || gameState == STATE.Pause) {
 			g2d.translate(camera.getX(), camera.getY());
 			handler.render(g);
 			g2d.translate(-camera.getX(), -camera.getY());
-		}
 
 		if (gameState == STATE.Menu) {
 			if (menu != null)

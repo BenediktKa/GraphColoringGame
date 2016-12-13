@@ -1,6 +1,5 @@
 package com.graphcoloring.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -9,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
+import com.graphcoloring.main.SoundPlayer;
 
 public class ScoreMenu extends MouseAdapter {
 

@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GraphNode extends GameObject {
@@ -21,9 +23,11 @@ public class GraphNode extends GameObject {
 
 	private Color colorArray[];
 
+	private List<Integer> randomOrderList = new ArrayList<>();
+
 	private Ellipse2D node;
 
-	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][], Color colorArray[]) {
+	public GraphNode(Handler handler, int x, int y, int velX, int velY, ID id, int nodeID, int adjecencyMatrix[][], Color colorArray[], List<Integer> randomOrderList) {
 		super(x, y, id);
 
 		this.handler = handler;
@@ -35,6 +39,8 @@ public class GraphNode extends GameObject {
 		this.adjecencyMatrix = adjecencyMatrix;
 
 		this.colorArray = colorArray;
+
+		this.randomOrderList = randomOrderList;
 
 		this.color = 0;
 
@@ -85,6 +91,13 @@ public class GraphNode extends GameObject {
 			g2d.draw(node);
 			g2d.setStroke(new BasicStroke(1));
 		}
+		if (!randomOrderList.isEmpty()) {
+			if (randomOrderList.get(0) == nodeID) {
+				g2d.setStroke(new BasicStroke(20));
+				g2d.draw(node);
+				g2d.setStroke(new BasicStroke(1));
+			}
+		}
 	}
 
 	public void generateEdges(Graphics2D g2d) {
@@ -126,13 +139,18 @@ public class GraphNode extends GameObject {
 	}
 
 	public void changeColor(int color) {
+		if (!randomOrderList.isEmpty()) {
+			if (randomOrderList.get(0) != nodeID) {
+				return;
+			}
+		}
 
 		boolean canColor = true;
 		for (int i = 0; i < adjecencyMatrix.length; i++) {
 			if (adjecencyMatrix[nodeID][i] != 1 && adjecencyMatrix[i][nodeID] != 1) {
 				continue;
 			}
-			
+
 			for (int j = 0; j < handler.object.size(); j++) {
 				GameObject tempObject = handler.object.get(i);
 
@@ -142,7 +160,7 @@ public class GraphNode extends GameObject {
 				GraphNode gn = (GraphNode) tempObject;
 
 				if (gn.getNodeID() == i && gn.getNodeID() != nodeID) {
-					if(gn.getColor() == color) {
+					if (gn.getColor() == color) {
 						canColor = false;
 						return;
 					}
@@ -151,6 +169,9 @@ public class GraphNode extends GameObject {
 		}
 
 		if (canColor) {
+			if (!randomOrderList.isEmpty()) {
+				randomOrderList.remove(0);
+			}
 			this.color = color;
 		}
 	}

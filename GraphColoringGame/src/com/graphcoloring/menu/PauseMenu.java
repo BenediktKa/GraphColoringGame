@@ -52,6 +52,7 @@ public class PauseMenu extends MouseAdapter {
 			game.gameState = Game.STATE.Game;
 		} else if (quitButton.mouseOver(mx, my)) {
 			menu.menuState = Menu.MENUSTATE.Main;
+			handler.removeAllObjects();
 			game.gameState = Game.STATE.Menu;
 		}
 	}
