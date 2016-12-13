@@ -33,10 +33,16 @@ public class Menu extends MouseAdapter {
 	private CustomButton randomOrder;
 	private CustomButton gamemodesBackButton;
 
-	// Bitter End Elements
+	// Gamemode selection Elements
 	private CustomSlider nodesSlider;
 	private CustomSlider edgesSlider;
+
+	// Bitter End Elements
 	private CustomButton bitterEndStartButton;
+
+	// Best UpperBound Elements
+	private CustomSlider timeSlider;
+	private CustomButton bestUpperBoundStartButton;
 
 	// Gamemode Selection Back Button
 	private CustomButton selectionBackButton;
@@ -69,16 +75,6 @@ public class Menu extends MouseAdapter {
 
 		menuState = MENUSTATE.Main;
 
-		/*
-		 * for (int i = 0; i < 10; i++) { GraphNode node = new
-		 * GraphNode((int)(Math.random() * Game.WIDTH), (int) (Math.random() *
-		 * Game.HEIGHT), (int) (Math.random() * 10 - Math.random() * 10), (int)
-		 * (Math.random() * 10 - Math.random() * 10), ID.GraphNode, new
-		 * RandomColors(100, 0.05f).getPalette(), false);
-		 * handler.addObject(node); }
-		 */
-
-		// testSlider = new CustomSlider(0, 100, 200, 20, true, 20, "Test:");
 		initialize();
 	}
 
@@ -94,23 +90,26 @@ public class Menu extends MouseAdapter {
 		randomOrder = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Random Order", borderRadius);
 		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
+		// Gamemode Sliders
+		nodesSlider = new CustomSlider(0, Game.HEIGHT / 6, 200, 25, true, 30, 10, "Nodes");
+		edgesSlider = new CustomSlider(0, Game.HEIGHT / 6 * 2, 200, 25, true, 30, 15, "Edges");
+
 		// Bitter End
-		nodesSlider = new CustomSlider(0, Game.HEIGHT / 5, 200, 25, true, 30, 10, "Nodes");
-		edgesSlider = new CustomSlider(0, Game.HEIGHT / 5 * 2, 200, 25, true, 30, 15, "Edges");
-		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 5 * 3, 200, 50, true, "Start", borderRadius);
+		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 6 * 3, 200, 50, true, "Start", borderRadius);
+
+		// BestUpperBound
+		timeSlider = new CustomSlider(0, Game.HEIGHT / 6 * 3, 200, 25, true, 300, 20, "Seconds");
+		bestUpperBoundStartButton = new CustomButton(0, Game.HEIGHT / 6 * 4, 200, 50, true, "Start", borderRadius);
 
 		// Gamemode Selection Back Button
-		selectionBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
+		selectionBackButton = new CustomButton(0, Game.HEIGHT / 6 * 5, 200, 50, true, "Back", borderRadius);
 
 		// Settings Menu
 		soundButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Sounds", borderRadius);
-		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 1, 50, 25, false,
-				"Fixed Refresh Rate", true);
-		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 2, 50, 25, false, "Antialiasing",
-				true);
+		fixedRefreshRateCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 1, 50, 25, false, "Fixed Refresh Rate", true);
+		antialiasingCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 2, 50, 25, false, "Antialiasing", true);
 		ditheringCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 3, 50, 25, false, "Dithering", true);
-		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 4, 50, 25, false, "Small Nodes",
-				false);
+		smallNodesCheckBox = new CustomCheckBox(Game.WIDTH / 5, Game.HEIGHT / 5 * 4, 50, 25, false, "Small Nodes", false);
 		settingsBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 
 		// Sound Menu
@@ -170,6 +169,8 @@ public class Menu extends MouseAdapter {
 		else if (menuState == MENUSTATE.Gamemodes) {
 			if (bitterEnd.mouseOver(mx, my)) {
 				menuState = MENUSTATE.BitterEnd;
+			} else if (bestUpperBound.mouseOver(mx, my)) {
+				menuState = MENUSTATE.BestUpperBound;
 			} else if (gamemodesBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Main;
 			}
@@ -187,7 +188,26 @@ public class Menu extends MouseAdapter {
 				}
 
 				game.gameState = Game.STATE.Game;
-				game.initilizeGame(nodes, edges);
+				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.BitterEnd);
+			} else if (selectionBackButton.mouseOver(mx, my)) {
+				menuState = MENUSTATE.Gamemodes;
+			}
+		}
+
+		// Best UpperBound
+		else if (menuState == MENUSTATE.BestUpperBound) {
+			if (bestUpperBoundStartButton.mouseOver(mx, my)) {
+				int nodes = nodesSlider.getKnobValue();
+				int edges = edgesSlider.getKnobValue();
+				int time = timeSlider.getKnobValue();
+
+				if (nodes > edges) {
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
+					return;
+				}
+
+				game.gameState = Game.STATE.Game;
+				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;
 			}
@@ -212,6 +232,14 @@ public class Menu extends MouseAdapter {
 				nodesSlider.setKnobX(mx);
 			} else if (edgesSlider.contains(mx, my)) {
 				edgesSlider.setKnobX(mx);
+			}
+		} else if (menuState == MENUSTATE.BestUpperBound) {
+			if (nodesSlider.contains(mx, my)) {
+				nodesSlider.setKnobX(mx);
+			} else if (edgesSlider.contains(mx, my)) {
+				edgesSlider.setKnobX(mx);
+			} else if (timeSlider.contains(mx, my)) {
+				timeSlider.setKnobX(mx);
 			}
 		}
 	}
@@ -245,6 +273,8 @@ public class Menu extends MouseAdapter {
 			gamemodesMenu(g);
 		} else if (menuState == MENUSTATE.BitterEnd) {
 			bitterEndMenu(g);
+		} else if (menuState == MENUSTATE.BestUpperBound) {
+			bestUpperBoundMenu(g);
 		}
 	}
 
@@ -265,6 +295,14 @@ public class Menu extends MouseAdapter {
 		nodesSlider.drawSlider(g);
 		edgesSlider.drawSlider(g);
 		bitterEndStartButton.drawButton(g);
+		selectionBackButton.drawButton(g);
+	}
+
+	public void bestUpperBoundMenu(Graphics g) {
+		nodesSlider.drawSlider(g);
+		edgesSlider.drawSlider(g);
+		timeSlider.drawSlider(g);
+		bestUpperBoundStartButton.drawButton(g);
 		selectionBackButton.drawButton(g);
 	}
 

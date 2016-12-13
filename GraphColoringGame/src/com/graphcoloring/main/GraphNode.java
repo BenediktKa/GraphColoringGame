@@ -85,7 +85,6 @@ public class GraphNode extends GameObject {
 			g2d.draw(node);
 			g2d.setStroke(new BasicStroke(1));
 		}
-		g2d.setColor(Color.BLACK);
 	}
 
 	public void generateEdges(Graphics2D g2d) {

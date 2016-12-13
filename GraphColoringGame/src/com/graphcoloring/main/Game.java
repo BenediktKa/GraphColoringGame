@@ -16,6 +16,7 @@ import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.HUDFPS;
 import com.graphcoloring.hud.HintHUD;
 import com.graphcoloring.hud.Notification;
+import com.graphcoloring.hud.TimerHUD;
 import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
 import com.graphcoloring.menu.Menu;
@@ -82,6 +83,9 @@ public class Game extends Canvas implements Runnable {
 
 	// HintHUD
 	private HintHUD hintHUD;
+	
+	// TimerHUD
+	private TimerHUD timerHUD;
 
 	// Color Picker HUD
 	private ColorPickerHUD colorPickerHUD;
@@ -93,11 +97,19 @@ public class Game extends Canvas implements Runnable {
 	public enum STATE {
 		Menu, Game, Pause, Score;
 	};
+	
+	
+	//Gamemodes
+	public enum GAMEMODE {
+		BitterEnd, BestUpperBound, RandomOrder;
+	};
 
 	public STATE gameState = STATE.Menu;
+	
+	public GAMEMODE gamemodeState;
 
 	// Windows Size
-	public static int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static int WIDTH = 1000, HEIGHT = WIDTH / 12 * 9;
 
 	public Game() {
 
@@ -116,6 +128,7 @@ public class Game extends Canvas implements Runnable {
 		notification = new Notification();
 
 		hintHUD = new HintHUD(this, notification, 5);
+		timerHUD = new TimerHUD(this);
 
 		menu = new Menu(this, handler, notification, soundPlayer);
 
@@ -137,7 +150,7 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(colorPickerHUD);
 		this.addMouseListener(hintHUD);
 		this.addMouseListener(scoreMenu);
-		this.addKeyListener(new KeyBoardInput(this, camera));
+		this.addKeyListener(new KeyBoardInput(this, camera, timerHUD));
 
 	}
 
@@ -178,13 +191,18 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	public void initilizeGame(int nodes, int edges) {
+	public void initilizeGame(int nodes, int edges, int time, GAMEMODE gamemodeState) {
 		reset();
-		// Temporary
-		gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu);
+		
+		this.gamemodeState = gamemodeState;
+		
+		if(gamemodeState == GAMEMODE.BitterEnd) {
+			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu);
+		} else if(gamemodeState == GAMEMODE.BestUpperBound) {
+			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, timerHUD, time);
+		}
 
-		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20,
-		// 20, ID.TestSprite)); }
+		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20, 20, ID.TestSprite)); }
 
 	}
 
@@ -242,6 +260,9 @@ public class Game extends Canvas implements Runnable {
 			handler.tick();
 			colorPickerHUD.tick();
 			hintHUD.tick();
+			if(gamemodeState == GAMEMODE.BestUpperBound) {
+				timerHUD.tick();
+			}
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.tick();
 		} else if (gameState == STATE.Score) {
@@ -289,6 +310,9 @@ public class Game extends Canvas implements Runnable {
 		} else if (gameState == STATE.Game) {
 			colorPickerHUD.render(g);
 			hintHUD.render(g);
+			if(gamemodeState == GAMEMODE.BestUpperBound) {
+				timerHUD.render(g);
+			}
 		} else if (gameState == STATE.Pause) {
 			pauseMenu.render(g);
 		} else if (gameState == STATE.Score) {
