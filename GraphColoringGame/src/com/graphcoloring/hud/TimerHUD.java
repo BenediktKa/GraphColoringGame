@@ -8,21 +8,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.graphcoloring.main.Game;
+import com.graphcoloring.menu.ScoreMenu;
 
 public class TimerHUD {
 
 	private Game game;
+	private ScoreMenu scoreMenu;
+	
 	private double time;
 	private double finishTime;
 	
 	private Timer timer;
 	
-	public TimerHUD(Game game) {
+	public TimerHUD(Game game, ScoreMenu scoreMenu) {
 		this.game = game;
+		this.scoreMenu = scoreMenu;
 	}
 	
 	public void tick() {
-		
 	}
 	
 	public void render(Graphics g) {
@@ -49,6 +52,8 @@ public class TimerHUD {
 			finishTime -= 0.1f;
 			
 			if(finishTime <= 0) {
+				scoreMenu.setWin(false);
+				game.gameState = Game.STATE.Score;
 				timer.cancel();
 			}
 		}

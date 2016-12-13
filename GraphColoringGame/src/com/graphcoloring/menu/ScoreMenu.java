@@ -1,5 +1,6 @@
 package com.graphcoloring.menu;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -16,9 +17,10 @@ public class ScoreMenu extends MouseAdapter {
 	private Handler handler;
 	private Menu menu;
 
-	private int score = 2023;
+	private int score;
 	private int displayScore;
 	private int borderRadius = 20;
+	private boolean win;
 
 	private CustomButton quitButton;
 
@@ -31,6 +33,9 @@ public class ScoreMenu extends MouseAdapter {
 	}
 
 	public void tick() {
+		if(!win) {
+			return;
+		}
 		
 		if(displayScore < score && displayScore + 10 > score) {
 			displayScore++;
@@ -41,13 +46,24 @@ public class ScoreMenu extends MouseAdapter {
 
 	public void render(Graphics g) {
 		
-		g.setColor(Game.textColor);
+		g.setColor(new Color(0, 0, 0, 150));
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		
-		Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 28f);
-		g.setFont(fnt);
+		if(win) {
+			g.setColor(Game.textColor);
+			Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 28f);
+			g.setFont(fnt);
 		
-		drawCenteredString("Score: " + displayScore, Game.WIDTH, 100, g);
-		quitButton.drawButton(g);
+			drawCenteredString("Score: " + displayScore, Game.WIDTH, 100, g);
+			quitButton.drawButton(g);
+		} else {
+			g.setColor(Game.textColor);
+			Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 28f);
+			g.setFont(fnt);
+		
+			drawCenteredString("You Lost!", Game.WIDTH, 100, g);
+			quitButton.drawButton(g);
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -60,7 +76,6 @@ public class ScoreMenu extends MouseAdapter {
 
 		if (quitButton.mouseOver(mx, my)) {
 			handler.removeAllObjects();
-			menu.menuState = Menu.MENUSTATE.Main;
 			game.gameState = Game.STATE.Menu;
 		}
 	}
@@ -69,6 +84,14 @@ public class ScoreMenu extends MouseAdapter {
 		FontMetrics fm = g.getFontMetrics();
 		int x = (w - fm.stringWidth(s)) / 2;
 		g.drawString(s, x, y);
+	}
+	
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }

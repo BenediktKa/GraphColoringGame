@@ -43,4 +43,8 @@ public class HintHUD extends MouseAdapter {
 			hintCount--;
 		}
 	}
+	
+	public void setHintCount(int hintCount) {
+		this.hintCount = hintCount;
+	}
 }

@@ -106,7 +106,7 @@ public class Menu extends MouseAdapter {
 		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 6 * 3, 200, 50, true, "Start", borderRadius);
 
 		// BestUpperBound
-		timeSlider = new CustomSlider(0, Game.HEIGHT / 6 * 3, 200, 25, true, 300, 20, "Seconds");
+		timeSlider = new CustomSlider(0, Game.HEIGHT / 6 * 3, 200, 25, true, 300, 60, "Seconds");
 		bestUpperBoundStartButton = new CustomButton(0, Game.HEIGHT / 6 * 4, 200, 50, true, "Start", borderRadius);
 
 		// RandomOrder
@@ -196,7 +196,10 @@ public class Menu extends MouseAdapter {
 				int edges = edgesSlider.getKnobValue();
 
 				if (nodes > edges) {
-					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
+					return;
+				} else if (edges > nodes * nodes / 2) {
+					notification.createNotification(TYPE.Error, "Error: You have too many edges (" + nodes * nodes / 2 + " Max)", 3);
 					return;
 				}
 
@@ -217,10 +220,13 @@ public class Menu extends MouseAdapter {
 				if (nodes > edges) {
 					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
 					return;
+				} else if (edges > nodes * nodes / 2) {
+					notification.createNotification(TYPE.Error, "Error: You have too many edges (" + nodes * nodes / 2 + " Max)", 3);
+					return;
 				} else if (time < nodes * 3) {
 					notification.createNotification(TYPE.Error, "Error: Your time should be at least " + (nodes * 3 + edges * 2) + " seconds", 3);
 					return;
-				} 
+				}
 
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
@@ -236,7 +242,10 @@ public class Menu extends MouseAdapter {
 				int edges = edgesSlider.getKnobValue();
 
 				if (nodes > edges) {
-					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 2);
+					notification.createNotification(TYPE.Error, "Error: You can't have more nodes than edges!", 3);
+					return;
+				} else if (edges > nodes * nodes / 2) {
+					notification.createNotification(TYPE.Error, "Error: You have too many edges (" + nodes * nodes / 2 + " Max)", 3);
 					return;
 				}
 
@@ -261,7 +270,7 @@ public class Menu extends MouseAdapter {
 				menuMusicSlider.setKnobX(mx);
 			else if (soundFXSlider.contains(mx, my))
 				soundFXSlider.setKnobX(mx);
-				Game.VOLUME = soundFXSlider.getKnobValue();
+			Game.VOLUME = soundFXSlider.getKnobValue();
 		} else if (menuState == MENUSTATE.BitterEnd || menuState == MENUSTATE.RandomOrder) {
 			if (nodesSlider.contains(mx, my)) {
 				nodesSlider.setKnobX(mx);

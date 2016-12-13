@@ -95,6 +95,9 @@ public class Game extends Canvas implements Runnable {
 
 	// SoundPlayer
 	public static SoundPlayer soundPlayer;
+	
+	// Timer
+	public static TimerGame timerGame;
 
 	// States
 	public enum STATE {
@@ -129,9 +132,13 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		notification = new Notification();
+		timerGame = new TimerGame();
+		
+		pauseMenu = new PauseMenu(this, handler, menu);
+		scoreMenu = new ScoreMenu(this, handler, menu);
 
 		hintHUD = new HintHUD(this, notification, 5);
-		timerHUD = new TimerHUD(this);
+		timerHUD = new TimerHUD(this, scoreMenu);
 
 		menu = new Menu(this, handler, notification, soundPlayer);
 
@@ -139,10 +146,7 @@ public class Game extends Canvas implements Runnable {
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
 
-		pauseMenu = new PauseMenu(this, handler, menu);
-		scoreMenu = new ScoreMenu(this, handler, menu);
-
-		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD);
+		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu);
 
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
@@ -194,16 +198,20 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void initilizeGame(int nodes, int edges, int time, GAMEMODE gamemodeState) {
+		
+		// Reset the Game variables
 		reset();
 		
 		this.gamemodeState = gamemodeState;
 		
 		if(gamemodeState == GAMEMODE.BitterEnd) {
 			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, false);
+			timerGame.startTimer();
 		} else if(gamemodeState == GAMEMODE.BestUpperBound) {
 			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, timerHUD, time);
 		} else if(gamemodeState == GAMEMODE.RandomOrder) {
 			gamemode = new GameMode(nodes, edges, this, handler, notification, colorPickerHUD, menu, true);
+			timerGame.startTimer();
 		}
 
 		// for(int i = 0; i < 20; i++) { handler.addObject(new TestSprite(20, 20, ID.TestSprite)); }
@@ -214,6 +222,10 @@ public class Game extends Canvas implements Runnable {
 		handler.removeAllObjects();
 		colorPickerHUD.removeAllObjects();
 		colorPickerHUD.setSelector(false);
+		scoreMenu.setWin(true);
+		scoreMenu.setScore(0);
+		timerGame.setFinishTime(0);
+		hintHUD.setHintCount(5);
 	}
 
 	public void run() {

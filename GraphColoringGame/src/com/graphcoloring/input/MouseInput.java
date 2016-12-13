@@ -12,6 +12,7 @@ import com.graphcoloring.main.GameObject;
 import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
 import com.graphcoloring.main.ID;
+import com.graphcoloring.menu.ScoreMenu;
 
 public class MouseInput extends MouseAdapter {
 
@@ -19,14 +20,16 @@ public class MouseInput extends MouseAdapter {
 	private Handler handler;
 	private Camera camera;
 	private ColorPickerHUD colorPickerHUD;
+	private ScoreMenu scoreMenu;
 
 	private Point mousePoint;
 
-	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD) {
+	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD, ScoreMenu scoreMenu) {
 		this.game = game;
 		this.handler = handler;
 		this.camera = camera;
 		this.colorPickerHUD = colorPickerHUD;
+		this.scoreMenu = scoreMenu;
 	}
 
 	public void mouseClicked(MouseEvent event) {
@@ -61,16 +64,19 @@ public class MouseInput extends MouseAdapter {
 			if (tempObject.getId() != ID.GraphNode) {
 				continue;
 			}
-			
+
 			GraphNode gn = (GraphNode) tempObject;
-			
-			if(gn.getColor() == 0) {
+
+			if (gn.getColor() == 0) {
 				return;
 			}
 		}
-		
-		//All nodes are colored here
+
+		// All nodes are colored here
+		scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 10000));
+		System.out.println(Game.timerGame.getFinishTime());
 		game.gameState = Game.STATE.Score;
+		Game.timerGame.stopTimer();
 	}
 
 	public void mouseDragged(MouseEvent event) {
