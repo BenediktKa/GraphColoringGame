@@ -147,7 +147,7 @@ public class Game extends Canvas implements Runnable {
 
 		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
 
-		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu);
+		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu, timerHUD);
 
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);

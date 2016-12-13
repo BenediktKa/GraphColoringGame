@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 import com.graphcoloring.hud.ColorPickerHUD;
+import com.graphcoloring.hud.TimerHUD;
 import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.GameObject;
@@ -20,13 +21,15 @@ public class MouseInput extends MouseAdapter {
 	private Camera camera;
 	private ColorPickerHUD colorPickerHUD;
 	private ScoreMenu scoreMenu;
+	private TimerHUD timerHUD;
 
-	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD, ScoreMenu scoreMenu) {
+	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD, ScoreMenu scoreMenu, TimerHUD timerHUD) {
 		this.game = game;
 		this.handler = handler;
 		this.camera = camera;
 		this.colorPickerHUD = colorPickerHUD;
 		this.scoreMenu = scoreMenu;
+		this.timerHUD = timerHUD;
 	}
 
 	public void mouseClicked(MouseEvent event) {
@@ -73,6 +76,7 @@ public class MouseInput extends MouseAdapter {
 		scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
 		game.gameState = Game.STATE.Score;
 		Game.timerGame.stopTimer();
+		timerHUD.stopTimer();
 	}
 
 	public void mouseDragged(MouseEvent event) {
