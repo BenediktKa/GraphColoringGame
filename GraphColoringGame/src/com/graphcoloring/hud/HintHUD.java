@@ -21,12 +21,15 @@ public class HintHUD extends MouseAdapter {
 		this.notification = notification;
 		this.hintCount = hintCount;
 	}
+	
+	public void initialize() {
+		hintBox = new CustomButton(Game.WIDTH - 70, Game.HEIGHT - 95, 100, 50, false, "Hint (" + hintCount + ")", 25);
+	}
 
 	public void tick() {
 	}
 
 	public void render(Graphics g) {
-		hintBox = new CustomButton(Game.WIDTH - 70, Game.HEIGHT - 95, 100, 50, false, "Hint (" + hintCount + ")", 25);
 		hintBox.drawButton(g);
 	}
 

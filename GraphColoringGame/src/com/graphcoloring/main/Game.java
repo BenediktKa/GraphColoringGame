@@ -1,5 +1,6 @@
 package com.graphcoloring.main;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,6 +37,12 @@ public class Game extends Canvas implements Runnable {
 	public static final Color transparentColor = new Color(1, 1, 1, 0.4f);
 	public static final Color dimWhiteColor = new Color(236, 240, 241);
 	public static final Color silverColor = new Color(189, 195, 199);
+	
+	//Strokes
+	public static final BasicStroke stroke1 = new BasicStroke(1);
+	public static final BasicStroke stroke2 = new BasicStroke(1);
+	public static final BasicStroke stroke3 = new BasicStroke(3);
+	public static final BasicStroke stroke20 = new BasicStroke(20);
 
 	// Fonts
 	public static Font fontRegular;
@@ -45,8 +52,7 @@ public class Game extends Canvas implements Runnable {
 	public static float VOLUME = 100.0f;
 	public static float MUSICVOLUME = 100.0f;
 
-	// Debug
-	public static final boolean DEBUG = true;
+	// FPS Counter
 	public static final boolean FPSCOUNTER = true;
 
 	// Settings
@@ -128,7 +134,7 @@ public class Game extends Canvas implements Runnable {
 
 		camera = new Camera(0, 0);
 
-		if (DEBUG) {
+		if (FPSCOUNTER) {
 			fpscounter = new HUDFPS();
 		}
 
@@ -145,7 +151,7 @@ public class Game extends Canvas implements Runnable {
 
 		colorPickerHUD = new ColorPickerHUD(this, notification);
 
-		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
+		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD, hintHUD);
 
 		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu, timerHUD);
 
@@ -163,12 +169,20 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public synchronized void start() {
+		if(running) {
+			return;
+		}
+		
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 
 	public synchronized void stop() {
+		if(!running) {
+			return;
+		}
+		
 		try {
 			thread.join();
 			running = false;

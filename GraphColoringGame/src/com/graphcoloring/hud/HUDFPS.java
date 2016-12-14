@@ -15,11 +15,11 @@ public class HUDFPS {
 
 		String FPSString = "FPS: " + FPS;
 
-		Font fnt = new Font("Lucida Grande", Font.PLAIN, 15);
+		Font fnt = Game.getFont(1).deriveFont(Font.PLAIN, 20f);
 		g2d.setFont(fnt);
-		g2d.setColor(Game.textColor);
+		g2d.setColor(Game.transparentColor);
 
-		g2d.drawString(FPSString, 0, 15);
+		g2d.drawString(FPSString, 0, 20);
 	}
 
 	public int getFPS() {

@@ -1,6 +1,7 @@
 package com.graphcoloring.main;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -20,12 +21,13 @@ public class Graph {
 	private int adjacencyMatrix[][];
 	private int adjacencySimple[][];
 	private Color colorArray[];
-	
+
 	private List<Integer> randomOrderList = new ArrayList<>();
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
-	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges, boolean randomOrder) {
+	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges,
+			boolean randomOrder) {
 		this.handler = handler;
 		this.notification = notification;
 		this.coloPickerHUD = colorPickerHUD;
@@ -67,8 +69,8 @@ public class Graph {
 
 		adjSimple();
 		positionNodes();
-		
-		if(randomOrder) {
+
+		if (randomOrder) {
 			generateRandomOrder();
 		}
 	}
@@ -89,6 +91,9 @@ public class Graph {
 		}
 	}
 
+	public void generateEdges() {
+	}
+
 	public void positionNodes() {
 
 		int centerX = Game.WIDTH / 2 - Game.WIDTH / 50;
@@ -98,19 +103,49 @@ public class Graph {
 		double divisions = 2.0 / vertices;
 
 		for (int i = 0; i < vertices; i++) {
-			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)), (int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i, adjacencySimple, colorArray, randomOrderList);
+			GraphNode node = new GraphNode(handler, (int) (centerX + radiusCircle * Math.cos(Math.PI * i * divisions)),
+					(int) (centerY + radiusCircle * Math.sin(Math.PI * i * divisions)), 0, 0, ID.GraphNode, i,
+					adjacencySimple, colorArray, randomOrderList);
 			handler.addObject(node);
 			addObject(node);
 		}
+		
+		
+		for (int i = 0; i < adjacencySimple.length; i++) {
+			for(int j = 0; j < adjacencySimple[0].length; j++) {
+				if(adjacencySimple[i][j] == 1) {
+					
+					GraphNode node1 = null, node2 = null;
+					
+					for(int k = 0; k < handler.object.size(); k++) {
+						GameObject tempObject = handler.object.get(k);
+						
+						if (tempObject.getId() != ID.GraphNode) {
+							continue;
+						}
+						GraphNode tempNode = (GraphNode) tempObject;
+						if(tempNode.getNodeID() == i) {
+							node1 = tempNode;
+						} else if(tempNode.getNodeID() == j) {
+							node2 = tempNode;
+						}
+					}
+					
+					if(node1 != null && node2 != null) {
+						handler.addObjectFirst(new GraphEdge(0, 0, node1, node2, ID.GraphEdge));
+					}
+				}
+			}
+		}
 	}
-	
+
 	public void generateRandomOrder() {
-		for(int i = 0; i < vertices; i++) {
+		for (int i = 0; i < vertices; i++) {
 			randomOrderList.add(i);
 		}
 		Collections.shuffle(randomOrderList);
 	}
-	
+
 	public List<Integer> getRandomOrder() {
 		return randomOrderList;
 	}

@@ -102,6 +102,10 @@ public class CustomButton {
 	}
 
 	public boolean mouseOver(int mx, int my) {
+		if(body == null) {
+			return false;
+		}
+		
 		if (mx > body.getMinX() && mx < body.getMinX() + width) {
 			if (my > body.getMinY() && my < body.getMinY() + height) {
 				Game.soundPlayer.playSoundFX("MenuClick");

@@ -110,6 +110,10 @@ public class CustomSlider {
 	}
 
 	public boolean contains(double x, double y) {
+		if(knob == null) {
+			return false;
+		}
+		
 		return knob.contains(x, y);
 	}
 

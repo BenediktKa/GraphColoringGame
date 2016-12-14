@@ -202,7 +202,7 @@ public class Menu extends MouseAdapter {
 					notification.createNotification(TYPE.Error, "Error: You have too many edges (" + nodes * nodes / 2 + " Max)", 3);
 					return;
 				}
-
+				menuState = MENUSTATE.Main;
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.BitterEnd);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
@@ -228,6 +228,7 @@ public class Menu extends MouseAdapter {
 					return;
 				}
 
+				menuState = MENUSTATE.Main;
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
@@ -249,6 +250,7 @@ public class Menu extends MouseAdapter {
 					return;
 				}
 
+				menuState = MENUSTATE.Main;
 				game.gameState = Game.STATE.Game;
 				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.RandomOrder);
 			} else if (selectionBackButton.mouseOver(mx, my)) {

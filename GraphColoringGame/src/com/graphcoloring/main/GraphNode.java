@@ -75,50 +75,22 @@ public class GraphNode extends GameObject {
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.setColor(colorArray[color]);
-		if (!hover) {
-			node = new Ellipse2D.Double(x, y, nodeSize, nodeSize);
-		}
-
-		if (adjecencyMatrix != null) {
-			generateEdges(g2d);
-		}
-
+		
+		node = new Ellipse2D.Double(x, y, nodeSize, nodeSize);
+		
 		g2d.fill(node);
 		g2d.setColor(colorArray[0]);
 
 		if (outline) {
-			g2d.setStroke(new BasicStroke(3));
+			g2d.setStroke(Game.stroke3);
 			g2d.draw(node);
-			g2d.setStroke(new BasicStroke(1));
+			g2d.setStroke(Game.stroke1);
 		}
 		if (!randomOrderList.isEmpty()) {
 			if (randomOrderList.get(0) == nodeID) {
-				g2d.setStroke(new BasicStroke(20));
+				g2d.setStroke(Game.stroke20);
 				g2d.draw(node);
-				g2d.setStroke(new BasicStroke(1));
-			}
-		}
-	}
-
-	public void generateEdges(Graphics2D g2d) {
-
-		for (int i = 0; i < adjecencyMatrix[0].length; i++) {
-			if (adjecencyMatrix[nodeID][i] != 1) {
-				continue;
-			}
-
-			for (int j = 0; j < handler.object.size(); j++) {
-				GameObject tempObject = handler.object.get(i);
-
-				if (tempObject.getId() != ID.GraphNode) {
-					continue;
-				}
-				GraphNode gn = (GraphNode) tempObject;
-
-				if (gn.getNodeID() == i) {
-					g2d.setStroke(new BasicStroke(2));
-					g2d.draw(new Line2D.Double(this.getCenterX(), this.getCenterY(), gn.getCenterX(), gn.getCenterY()));
-				}
+				g2d.setStroke(Game.stroke1);
 			}
 		}
 	}
@@ -130,12 +102,12 @@ public class GraphNode extends GameObject {
 		return node.contains(x, y);
 	}
 
-	public void onHover() {
-		hover = true;
-	}
-
 	public int getColor() {
 		return color;
+	}
+	
+	public Color getColorObject() {
+		return colorArray[color];
 	}
 
 	public void changeColor(int color) {
@@ -195,7 +167,7 @@ public class GraphNode extends GameObject {
 	}
 
 	public int getRadius() {
-		return (int) node.getWidth();
+		return nodeSize;
 	}
 
 	public Ellipse2D getNode() {
