@@ -3,11 +3,15 @@ package com.graphcoloring.main;
 import java.util.HashSet;
 import java.util.Set;
 
+import Jama.EigenvalueDecomposition;
+import Jama.Matrix;
+
 public class GraphSolver {
 
 	private int adjacencyMatrix[][];
 	private int verticies;
 	private int vertexColor[];
+	private int chromaticArray[];
 
 	private int chromaticNumber;
 
@@ -21,7 +25,7 @@ public class GraphSolver {
 	}
 
 	public void solveGraph(int vertex) {
-		for (int color = 1; color <= getLowerBound(); color++) {
+		for (int color = 1; color <= getUpperBound(); color++) {
 			if (canColor(vertex, color)) {
 				vertexColor[vertex] = color;
 
@@ -38,6 +42,7 @@ public class GraphSolver {
 					System.out.println("");
 					if (chromaticNumber > distinctNumberOfItems(vertexColor)) {
 						chromaticNumber = distinctNumberOfItems(vertexColor);
+						chromaticArray = vertexColor;
 					}
 				}
 			}
@@ -53,8 +58,47 @@ public class GraphSolver {
 		return true;
 	}
 
-	public int getLowerBound() {
-		return 6;
+	public int getUpperBound() {
+		Matrix A = new Matrix(verticies, verticies);
+		
+		for(int i = 0; i < adjacencyMatrix.length; i++) {
+			for(int j = 0; j < adjacencyMatrix[0].length; j++) {
+				A.set(i, j, adjacencyMatrix[i][j]);
+			}
+		}
+		
+		
+		
+		EigenvalueDecomposition eigen = A.eig();
+		
+		Matrix B = (Matrix) eigen.getD();
+		
+		int min = 0;
+		int max = 0;
+		
+		for(int i = 0; i < B.getColumnDimension(); i++) {
+			for(int j = 0; j < B.getRowDimension(); j++) {				
+				if(min == 0) {
+					min = (int)B.get(i, j);
+				} else {
+					if(A.get(i, j) < min) {
+						min = (int)B.get(i, j);
+					}
+				}
+				
+				if(max == 0) {
+					max = (int)B.get(i, j);
+				} else {
+					if(B.get(i, j) > max) {
+						max = (int)B.get(i, j);
+					}
+				}
+			}
+		}
+		
+		return max + 1;
+		
+		//Lower Bound 1 - max/min
 	}
 
 	public int distinctNumberOfItems(int[] array) {
@@ -83,7 +127,7 @@ public class GraphSolver {
 			
 			GraphNode gn = (GraphNode) tempObject;
 			
-			gn.setColor(vertexColor[gn.getNodeID()]);
+			gn.setColor(chromaticArray[gn.getNodeID()]);
 		}
 	}
 }
