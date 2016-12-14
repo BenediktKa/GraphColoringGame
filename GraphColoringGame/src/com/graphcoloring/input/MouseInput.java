@@ -3,6 +3,8 @@ package com.graphcoloring.input;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.TimerHUD;
@@ -58,6 +60,8 @@ public class MouseInput extends MouseAdapter {
 	}
 
 	public void checkAllColored() {
+		int nodes = 0;
+		
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
@@ -66,6 +70,7 @@ public class MouseInput extends MouseAdapter {
 			}
 
 			GraphNode gn = (GraphNode) tempObject;
+			nodes++;
 
 			if (gn.getColor() == 0) {
 				return;
@@ -73,10 +78,26 @@ public class MouseInput extends MouseAdapter {
 		}
 
 		// All nodes are colored here
-		scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
-		game.gameState = Game.STATE.Score;
-		Game.timerGame.stopTimer();
-		timerHUD.stopTimer();
+		int colorArray[] = new int[nodes];
+		
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() != ID.GraphNode) {
+				continue;
+			}
+
+			GraphNode gn = (GraphNode) tempObject;
+			
+			colorArray[gn.getNodeID()] = gn.getColor();
+		}
+		
+		if(distinctNumberOfItems(colorArray) == Game.chromaticNumber) {
+			scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
+			game.gameState = Game.STATE.Score;
+			Game.timerGame.stopTimer();
+			timerHUD.stopTimer();
+		}
 	}
 
 	public void mouseDragged(MouseEvent event) {
@@ -115,5 +136,17 @@ public class MouseInput extends MouseAdapter {
 		} else {
 			colorPickerHUD.setActiveColor(colorPickerHUD.getActiveColor() - 1);
 		}
+	}
+
+	public int distinctNumberOfItems(int[] array) {
+		if (array.length <= 1)
+			return array.length;
+
+		Set<Integer> set = new HashSet<Integer>();
+		for (int i : array)
+			if (i != 0)
+				set.add(i);
+
+		return set.size();
 	}
 }

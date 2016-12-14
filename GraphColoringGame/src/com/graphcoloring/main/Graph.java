@@ -12,6 +12,7 @@ import com.graphcoloring.hud.Notification;
 
 public class Graph {
 
+	private Game game;
 	private Handler handler;
 	private Notification notification;
 	private ColorPickerHUD coloPickerHUD;
@@ -21,13 +22,15 @@ public class Graph {
 	private int adjacencyMatrix[][];
 	private int adjacencySimple[][];
 	private Color colorArray[];
+	
+	private GraphSolver graphSolver;
 
 	private List<Integer> randomOrderList = new ArrayList<>();
 
 	LinkedList<GraphNode> nodeList = new LinkedList<GraphNode>();
 
-	public Graph(Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges,
-			boolean randomOrder) {
+	public Graph(Game game, Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, int verticies, int edges, boolean randomOrder) {
+		this.game = game;
 		this.handler = handler;
 		this.notification = notification;
 		this.coloPickerHUD = colorPickerHUD;
@@ -39,6 +42,16 @@ public class Graph {
 
 		// Temporary
 		generateRandomGraph();
+		
+		graphSolver = new GraphSolver(adjacencyMatrix, verticies);
+		graphSolver.solveGraph(0);
+		if(Game.SOLVEGRAPH) {
+			graphSolver.colorNodes(handler);
+		}
+		game.gameState = Game.STATE.Game;
+		
+		Game.chromaticNumber = graphSolver.getChromaticNumber();
+		System.out.println(Game.chromaticNumber);
 	}
 
 	public void generateRandomGraph() {
@@ -89,9 +102,6 @@ public class Graph {
 				}
 			}
 		}
-	}
-
-	public void generateEdges() {
 	}
 
 	public void positionNodes() {

@@ -99,8 +99,8 @@ public class Menu extends MouseAdapter {
 		gamemodesBackButton = new CustomButton(0, Game.HEIGHT / 5 * 4, 200, 50, true, "Back", borderRadius);
 
 		// Gamemode Sliders
-		nodesSlider = new CustomSlider(0, Game.HEIGHT / 6, 200, 25, true, 50, 10, "Nodes");
-		edgesSlider = new CustomSlider(0, Game.HEIGHT / 6 * 2, 200, 25, true, 150, 15, "Edges");
+		nodesSlider = new CustomSlider(0, Game.HEIGHT / 6, 200, 25, true, 25, 10, "Nodes");
+		edgesSlider = new CustomSlider(0, Game.HEIGHT / 6 * 2, 200, 25, true, 75, 15, "Edges");
 
 		// Bitter End
 		bitterEndStartButton = new CustomButton(0, Game.HEIGHT / 6 * 3, 200, 50, true, "Start", borderRadius);
@@ -203,7 +203,7 @@ public class Menu extends MouseAdapter {
 					return;
 				}
 				menuState = MENUSTATE.Main;
-				game.gameState = Game.STATE.Game;
+				game.gameState = Game.STATE.Loading;
 				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.BitterEnd);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;
@@ -229,7 +229,7 @@ public class Menu extends MouseAdapter {
 				}
 
 				menuState = MENUSTATE.Main;
-				game.gameState = Game.STATE.Game;
+				game.gameState = Game.STATE.Loading;
 				game.initilizeGame(nodes, edges, time, Game.GAMEMODE.BestUpperBound);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;
@@ -251,7 +251,7 @@ public class Menu extends MouseAdapter {
 				}
 
 				menuState = MENUSTATE.Main;
-				game.gameState = Game.STATE.Game;
+				game.gameState = Game.STATE.Loading;
 				game.initilizeGame(nodes, edges, 0, Game.GAMEMODE.RandomOrder);
 			} else if (selectionBackButton.mouseOver(mx, my)) {
 				menuState = MENUSTATE.Gamemodes;

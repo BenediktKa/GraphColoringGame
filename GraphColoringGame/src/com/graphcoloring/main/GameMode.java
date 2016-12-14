@@ -8,12 +8,12 @@ import com.graphcoloring.menu.Menu;
 public class GameMode {
 
 	public GameMode(int nodes, int edges, Game game, Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, Menu menu, boolean randomOrder) {
-		new Graph(handler, notification, colorPickerHUD, nodes, edges, randomOrder);
+		new Graph(game, handler, notification, colorPickerHUD, nodes, edges, randomOrder);
 	}
 	
 	public GameMode(int nodes, int edges, Game game, Handler handler, Notification notification, ColorPickerHUD colorPickerHUD, Menu menu, TimerHUD timerHUD, int time) {
 		timerHUD.startTimer(time);
 		
-		new Graph(handler, notification, colorPickerHUD, nodes, edges, false);
+		new Graph(game, handler, notification, colorPickerHUD, nodes, edges, false);
 	}
 }

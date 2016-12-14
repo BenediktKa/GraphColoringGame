@@ -106,6 +106,10 @@ public class GraphNode extends GameObject {
 		return color;
 	}
 	
+	public void setColor(int color) {
+		this.color = color;
+	}
+	
 	public Color getColorObject() {
 		return colorArray[color];
 	}

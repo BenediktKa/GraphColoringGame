@@ -20,6 +20,7 @@ import com.graphcoloring.hud.Notification;
 import com.graphcoloring.hud.TimerHUD;
 import com.graphcoloring.input.KeyBoardInput;
 import com.graphcoloring.input.MouseInput;
+import com.graphcoloring.menu.LoadingMenu;
 import com.graphcoloring.menu.Menu;
 import com.graphcoloring.menu.PauseMenu;
 import com.graphcoloring.menu.ScoreMenu;
@@ -54,6 +55,9 @@ public class Game extends Canvas implements Runnable {
 
 	// FPS Counter
 	public static final boolean FPSCOUNTER = true;
+	
+	// Solve Graph after generating?
+	public static final boolean SOLVEGRAPH = false;
 
 	// Settings
 	public static boolean FIXEDRENDERRATE = true;
@@ -105,10 +109,16 @@ public class Game extends Canvas implements Runnable {
 	
 	// Timer
 	public static TimerGame timerGame;
+	
+	// Chromatic Number
+	public static int chromaticNumber;
+	
+	// Loading Menu
+	private LoadingMenu loadingMenu;
 
 	// States
 	public enum STATE {
-		Menu, Game, Pause, Score;
+		Menu, Game, Pause, Score, Loading;
 	};
 	
 	
@@ -143,6 +153,7 @@ public class Game extends Canvas implements Runnable {
 		
 		pauseMenu = new PauseMenu(this, handler, menu);
 		scoreMenu = new ScoreMenu(this, handler, menu);
+		loadingMenu = new LoadingMenu();
 
 		hintHUD = new HintHUD(this, notification, 5);
 		timerHUD = new TimerHUD(this, scoreMenu);
@@ -285,7 +296,9 @@ public class Game extends Canvas implements Runnable {
 
 	private void tick() {
 
-		handler.tick();
+		if(gameState != STATE.Loading) {
+			handler.tick();
+		}
 		
 		if (gameState == STATE.Menu) {
 			menu.tick();
@@ -299,6 +312,8 @@ public class Game extends Canvas implements Runnable {
 			pauseMenu.tick();
 		} else if (gameState == STATE.Score) {
 			scoreMenu.tick();
+		} else if(gameState == STATE.Loading) {
+			loadingMenu.tick();
 		}
 
 		notification.tick();
@@ -330,9 +345,11 @@ public class Game extends Canvas implements Runnable {
 		// g.drawOval(WIDTH / 2 - ((HEIGHT - 100) / 2), HEIGHT / 2 - ((HEIGHT -
 		// 100) / 2), HEIGHT - 100, HEIGHT - 100);
 
+		if(gameState != STATE.Loading) {
 			g2d.translate(camera.getX(), camera.getY());
 			handler.render(g);
 			g2d.translate(-camera.getX(), -camera.getY());
+		}
 
 		if (gameState == STATE.Menu) {
 			if (menu != null)
@@ -347,6 +364,8 @@ public class Game extends Canvas implements Runnable {
 			pauseMenu.render(g);
 		} else if (gameState == STATE.Score) {
 			scoreMenu.render(g);
+		} else if(gameState == STATE.Loading) {
+			loadingMenu.render(g);
 		}
 
 		notification.render(g);
