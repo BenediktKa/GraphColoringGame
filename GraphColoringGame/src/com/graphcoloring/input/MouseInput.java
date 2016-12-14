@@ -10,6 +10,7 @@ import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.TimerHUD;
 import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
+import com.graphcoloring.main.Game.GAMEMODE;
 import com.graphcoloring.main.GameObject;
 import com.graphcoloring.main.GraphNode;
 import com.graphcoloring.main.Handler;
@@ -93,7 +94,16 @@ public class MouseInput extends MouseAdapter {
 		}
 		
 		if(distinctNumberOfItems(colorArray) == Game.chromaticNumber) {
-			scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
+			if (game.gamemodeState == GAMEMODE.BestUpperBound) {
+				scoreMenu.setTimeLeft(true);
+				scoreMenu.setTime(timerHUD.getFinishTime());
+				
+				scoreMenu.setScore((int) (1.0f / timerHUD.getFinishTime() * 100000));
+			} else {
+				scoreMenu.setTime(Game.timerGame.getFinishTime());
+				
+				scoreMenu.setScore((int) (1.0f / Game.timerGame.getFinishTime() * 100000));
+			}
 			game.gameState = Game.STATE.Score;
 			Game.timerGame.stopTimer();
 			timerHUD.stopTimer();

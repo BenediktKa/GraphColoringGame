@@ -6,6 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.Handler;
@@ -20,6 +21,9 @@ public class ScoreMenu extends MouseAdapter {
 	private int displayScore;
 	private int borderRadius = 20;
 	private boolean win;
+	
+	private double time;
+	private boolean timeLeft;
 
 	private CustomButton quitButton;
 
@@ -53,7 +57,14 @@ public class ScoreMenu extends MouseAdapter {
 			Font fnt = Game.getFont(2).deriveFont(Font.BOLD, 28f);
 			g.setFont(fnt);
 		
-			drawCenteredString("Score: " + displayScore, Game.WIDTH, 100, g);
+			DecimalFormat df = new DecimalFormat("#.##");
+			
+			if(timeLeft) {
+				drawCenteredString("You finished with " + df.format(time) + " seconds left on the clock", Game.WIDTH, 100, g);
+			} else {
+				drawCenteredString("You finished in " + df.format(time) + " seconds", Game.WIDTH, 100, g);
+			}
+			drawCenteredString("Score: " + displayScore, Game.WIDTH, 200, g);
 			quitButton.drawButton(g);
 		} else {
 			g.setColor(Game.textColor);
@@ -91,6 +102,14 @@ public class ScoreMenu extends MouseAdapter {
 	
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public void setTime(double time) {
+		this.time = time;
+	}
+	
+	public void setTimeLeft(boolean timeLeft) {
+		this.timeLeft = timeLeft;
 	}
 
 }

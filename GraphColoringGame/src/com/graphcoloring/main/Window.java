@@ -15,7 +15,7 @@ public class Window extends Canvas {
 
 	private static final long serialVersionUID = 8571002207074266558L;
 
-	public Window(int width, int height, String title, Game game, Menu menu, ColorPickerHUD colorPickerHUD, HintHUD hintHUD) {
+	public Window(int width, int height, String title, Game game, Menu menu, ColorPickerHUD colorPickerHUD) {
 		JFrame frame = new JFrame(title);
 
 		frame.setPreferredSize(new Dimension(width, height));
@@ -35,7 +35,6 @@ public class Window extends Canvas {
 				Game.HEIGHT = frame.getHeight();
 				menu.initialize();
 				colorPickerHUD.intialize();
-				hintHUD.initialize();
 			}
 		});
 	}

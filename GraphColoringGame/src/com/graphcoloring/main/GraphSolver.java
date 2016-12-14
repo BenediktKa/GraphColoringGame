@@ -54,7 +54,7 @@ public class GraphSolver {
 	}
 
 	public int getLowerBound() {
-		return 5;
+		return 6;
 	}
 
 	public int distinctNumberOfItems(int[] array) {

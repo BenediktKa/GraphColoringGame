@@ -21,19 +21,12 @@ public class HintHUD extends MouseAdapter {
 		this.notification = notification;
 		this.hintCount = hintCount;
 	}
-	
-	public void initialize() {
-		hintBox = new CustomButton(Game.WIDTH - 70, Game.HEIGHT - 95, 100, 50, false, "Hint (" + hintCount + ")", 25);
-	}
 
 	public void tick() {
 	}
 
 	public void render(Graphics g) {
-		if(hintBox == null) {
-			return;
-		}
-		
+		hintBox = new CustomButton(Game.WIDTH - 70, Game.HEIGHT - 95, 100, 50, false, "Hint (" + hintCount + ")", 25);
 		hintBox.drawButton(g);
 	}
 
@@ -46,12 +39,27 @@ public class HintHUD extends MouseAdapter {
 		int my = event.getY();
 
 		if (hintBox.mouseOver(mx, my)) {
-			notification.createNotification(TYPE.Hint, "Hint: Sample Hint", 5);
-			hintCount--;
+			displayHint();
 		}
 	}
 	
 	public void setHintCount(int hintCount) {
 		this.hintCount = hintCount;
+	}
+	
+	public void displayHint() {
+		if(hintCount == 5) {
+			notification.createNotification(TYPE.Hint, "Hint: You don't need more than " + (Game.chromaticNumber + 2) + " colors", 5);
+		} else if (hintCount == 4) {
+			notification.createNotification(TYPE.Hint, "Hint: You need more than " + (Game.chromaticNumber - 2) + " colors", 5);
+		} else if (hintCount == 3) {
+			notification.createNotification(TYPE.Hint, "Hint: You need more than " + (Game.chromaticNumber - 1) + " colors", 5);
+		} else if (hintCount == 2) {
+			notification.createNotification(TYPE.Hint, "Hint: You don't need more than " + (Game.chromaticNumber + 1) + " colors", 5);
+		} else if (hintCount == 1) {
+			notification.createNotification(TYPE.Hint, "Hint: The chromatic number is " + Game.chromaticNumber, 5);
+		}
+		
+		hintCount--;
 	}
 }

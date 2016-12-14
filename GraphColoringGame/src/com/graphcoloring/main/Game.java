@@ -162,7 +162,7 @@ public class Game extends Canvas implements Runnable {
 
 		colorPickerHUD = new ColorPickerHUD(this, notification);
 
-		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD, hintHUD);
+		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
 
 		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu, timerHUD);
 
@@ -250,6 +250,8 @@ public class Game extends Canvas implements Runnable {
 		colorPickerHUD.setSelector(false);
 		scoreMenu.setWin(true);
 		scoreMenu.setScore(0);
+		scoreMenu.setTime(0);
+		scoreMenu.setTimeLeft(false);
 		timerGame.setFinishTime(0);
 		hintHUD.setHintCount(5);
 	}
