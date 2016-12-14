@@ -23,13 +23,18 @@ public class GraphEdge extends GameObject {
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
-		if(node1.getColor() != 1) {
+		if(node1.getColor() != 0) {
 			g2d.setColor(node2.getColorObject());
-		} else if (node2.getColor() != 1) {
+		} else if (node2.getColor() != 0) {
 			g2d.setColor(node2.getColorObject());
+		} else {
+			g2d.setColor(Game.silverColor);
 		}
 		
 		line = new Line2D.Double(node1.getX() + node1.getRadius() / 2, node1.getY()  + node1.getRadius() / 2, node2.getX()  + node1.getRadius() / 2, node2.getY()  + node1.getRadius() / 2);
+		
+		g2d.setStroke(Game.stroke3);
 		g2d.draw(line);
+		g2d.setStroke(Game.stroke1);
 	}
 }

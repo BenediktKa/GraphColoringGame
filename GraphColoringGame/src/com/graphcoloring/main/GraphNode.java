@@ -118,13 +118,13 @@ public class GraphNode extends GameObject {
 		}
 
 		boolean canColor = true;
-		for (int i = 0; i < adjecencyMatrix.length; i++) {
+		for (int i = 0; i < adjecencyMatrix[0].length; i++) {
 			if (adjecencyMatrix[nodeID][i] != 1 && adjecencyMatrix[i][nodeID] != 1) {
 				continue;
 			}
 
 			for (int j = 0; j < handler.object.size(); j++) {
-				GameObject tempObject = handler.object.get(i);
+				GameObject tempObject = handler.object.get(j);
 
 				if (tempObject.getId() != ID.GraphNode) {
 					continue;

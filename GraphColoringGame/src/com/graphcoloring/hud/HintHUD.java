@@ -30,11 +30,15 @@ public class HintHUD extends MouseAdapter {
 	}
 
 	public void render(Graphics g) {
+		if(hintBox == null) {
+			return;
+		}
+		
 		hintBox.drawButton(g);
 	}
 
 	public void mouseClicked(MouseEvent event) {
-		if (game.gameState != Game.STATE.Game || hintCount <= 0) {
+		if (game.gameState != Game.STATE.Game || hintCount <= 0 || hintBox == null) {
 			return;
 		}
 
