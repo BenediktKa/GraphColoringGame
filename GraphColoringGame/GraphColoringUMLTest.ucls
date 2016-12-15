@@ -1,8 +1,1124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.13" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true">  
-  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-    sort-features="false" accessors="true" visibility="true">    
+<class-diagram version="1.1.13" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="false" associations="true" dependencies="true" nesting-relationships="false" 
+  router="FAN">  
+  <class id="1" language="java" name="com.graphcoloring.main.GameMode" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/GameMode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="410" x="2198" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.graphcoloring.main.Graph" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Graph.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="334" x="1191" y="571"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="3" language="java" name="com.graphcoloring.main.ID" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/ID.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="119" x="62" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="4" language="java" name="com.graphcoloring.main.MenuParticle" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/MenuParticle.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="219" x="221" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="5" language="java" name="com.graphcoloring.main.Game.STATE" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="171" width="119" x="1528" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="6" language="java" name="com.graphcoloring.main.RandomColors" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/RandomColors.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="235" x="225" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.graphcoloring.main.GraphSolver" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/GraphSolver.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="279" width="173" x="997" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.graphcoloring.main.TimerGame.CloseTimer" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/TimerGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="109" x="3042" y="2585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.graphcoloring.main.SoundPlayer" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/SoundPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="181" x="2821" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.graphcoloring.main.GraphEdge" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/GraphEdge.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="241" x="653" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.graphcoloring.main.Handler" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Handler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="186" x="1004" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.graphcoloring.main.ResourceLoader" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/ResourceLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="109" width="142" x="1178" y="37"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.graphcoloring.main.Game" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="729" width="217" x="1586" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.graphcoloring.main.GameObject" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/GameObject.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="369" width="135" x="653" y="571"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.graphcoloring.main.TestSprite" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/TestSprite.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="133" x="480" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.graphcoloring.main.GraphNode" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/GraphNode.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="495" width="332" x="651" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.graphcoloring.main.Camera" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Camera.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="116" x="3216" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="18" language="java" name="com.graphcoloring.main.Game.GAMEMODE" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="173" x="1687" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="19" language="java" name="com.graphcoloring.main.TimerGame" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/TimerGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="134" x="3042" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.graphcoloring.main.Window" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/main/Window.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="268" x="685" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="com.graphcoloring.input.KeyBoardInput" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/input/KeyBoardInput.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="358" x="2138" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="com.graphcoloring.input.MouseInput" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/input/MouseInput.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="211" width="382" x="1546" y="37"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="com.graphcoloring.hud.TimerHUD.CloseTimer" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/TimerHUD.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="104" x="1047" y="571"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="com.graphcoloring.hud.HUDFPS" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/HUDFPS.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="133" x="2648" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="com.graphcoloring.hud.Notification.CloseNotification" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/Notification.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="120" x="1070" y="2585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="com.graphcoloring.hud.HintHUD" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/HintHUD.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="189" width="182" x="2220" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="27" language="java" name="com.graphcoloring.hud.Notification.TYPE" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/Notification.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="119" x="1230" y="2585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="28" language="java" name="com.graphcoloring.hud.Notification" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/Notification.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="258" x="1230" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="com.graphcoloring.hud.ColorPickerHUD" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/ColorPickerHUD.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="405" width="227" x="1338" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="com.graphcoloring.hud.TimerHUD" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/hud/TimerHUD.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="167" x="1886" y="288"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="31" language="java" name="com.graphcoloring.menu.Menu.MENUSTATE" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/Menu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="207" width="173" x="2252" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="32" language="java" name="com.graphcoloring.menu.CustomButton" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/CustomButton.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="258" x="2763" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="com.graphcoloring.menu.CustomSlider" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/CustomSlider.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="477" width="258" x="2465" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="com.graphcoloring.menu.Menu" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/Menu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="351" width="258" x="2442" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="com.graphcoloring.menu.LoadingMenu" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/LoadingMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="135" width="258" x="1900" y="2194"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="com.graphcoloring.menu.CustomCheckBox" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/CustomCheckBox.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="567" width="285" x="1927" y="1425"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="com.graphcoloring.menu.PauseMenu" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/PauseMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="153" width="188" x="2180" y="571"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="com.graphcoloring.menu.ScoreMenu" project="GraphColoringGame" 
+    file="/GraphColoringGame/src/com/graphcoloring/menu/ScoreMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="333" width="258" x="1607" y="571"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="39">    
+    <bendpoint x="2730" y="980"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="40" name="quitButton"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="43" name="antialiasingCheckBox"/>      
+      <multiplicity id="44" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="45">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="46" name="type"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="49" name="menu"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="52" name="notification"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="54">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="55" name="coloPickerHUD"/>      
+      <multiplicity id="56" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="58" name="game"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="61" name="game"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="64" name="handler"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <bendpoint x="1937" y="980"/>    
+    <bendpoint x="1555" y="1425"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="67" name="handler"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <nesting id="70">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="18"/>  
+  </nesting>  
+  <association id="71">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="72" name="selectionBackButton"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="75" name="edgesSlider"/>      
+      <multiplicity id="76" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <bendpoint x="1263" y="980"/>    
+    <bendpoint x="1221" y="1425"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="78" name="handler"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="81" name="fixedRefreshRateCheckBox"/>      
+      <multiplicity id="82" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="84" name="gameState"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="87" name="gamemodesBackButton"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="90" name="bestUpperBoundStartButton"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <bendpoint x="2147" y="288"/>    
+    <bendpoint x="2147" y="571"/>    
+    <bendpoint x="2147" y="980"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="93" name="game"/>      
+      <multiplicity id="94" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <bendpoint x="2189" y="980"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="96" name="pauseMenu"/>      
+      <multiplicity id="97" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="98">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="99">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="100" name="soundPlayer"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="102">    
+    <bendpoint x="1293" y="1425"/>    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="103" name="notification"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <bendpoint x="1875" y="1425"/>    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="106" name="notification"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="108">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="109" name="gamemode"/>      
+      <multiplicity id="110" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="111">    
+    <bendpoint x="1307" y="980"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="112" name="game"/>      
+      <multiplicity id="113" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="115" name="timerHUD"/>      
+      <multiplicity id="116" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="117">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="118" name="colorPickerHUD"/>      
+      <multiplicity id="119" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <bendpoint x="1597" y="288"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="121" name="scoreMenu"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="123">    
+    <bendpoint x="1833" y="1425"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="124" name="notification"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="126">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="127">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="128" name="hintHUD"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <bendpoint x="1595" y="980"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="131" name="game"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <bendpoint x="1895" y="571"/>    
+    <bendpoint x="1895" y="980"/>    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="134" name="game"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="137" name="timerHUD"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="140" name="settingsButton"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="142">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="27"/>  
+  </nesting>  
+  <association id="143">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="144" name="soundButton"/>      
+      <multiplicity id="145" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="146">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="147" name="smallNodesCheckBox"/>      
+      <multiplicity id="148" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="149">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="150" name="scoreMenu"/>      
+      <multiplicity id="151" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="152">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="153" name="node2"/>      
+      <multiplicity id="154" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="155">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="156" name="settingsBackButton"/>      
+      <multiplicity id="157" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="158">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="159" name="menuMusicSlider"/>      
+      <multiplicity id="160" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="161">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="162" name="handler"/>      
+      <multiplicity id="163" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="164">    
+    <bendpoint x="1200" y="980"/>    
+    <bendpoint x="1200" y="1425"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="165" name="handler"/>      
+      <multiplicity id="166" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="167">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="168" name="node1"/>      
+      <multiplicity id="169" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="170">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="171" name="soundBackButton"/>      
+      <multiplicity id="172" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="173">    
+    <bendpoint x="620" y="1425"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="174" name="handler"/>      
+      <multiplicity id="175" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="176">    
+    <bendpoint x="2751" y="980"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="177" name="resumeButton"/>      
+      <multiplicity id="178" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="179">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="180" name="menu"/>      
+      <multiplicity id="181" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="182">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="183" name="loadingMenu"/>      
+      <multiplicity id="184" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="185">    
+    <bendpoint x="924" y="980"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="186">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="187" name="hintBox"/>      
+      <multiplicity id="188" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="189">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="190" name="nodesSlider"/>      
+      <multiplicity id="191" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="192">    
+    <bendpoint x="1616" y="980"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="193" name="scoreMenu"/>      
+      <multiplicity id="194" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="38" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="195">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <association id="196">    
+    <bendpoint x="1916" y="980"/>    
+    <bendpoint x="1916" y="571"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="197" name="timerHUD"/>      
+      <multiplicity id="198" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="199">    
+    <bendpoint x="3051" y="288"/>    
+    <bendpoint x="3051" y="571"/>    
+    <bendpoint x="3051" y="980"/>    
+    <bendpoint x="3051" y="1425"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="200" name="timerGame"/>      
+      <multiplicity id="201" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="202">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="203" name="timeSlider"/>      
+      <multiplicity id="204" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="205">    
+    <bendpoint x="1896" y="1425"/>    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="206" name="soundPlayer"/>      
+      <multiplicity id="207" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="208">    
+    <bendpoint x="1221" y="980"/>    
+    <bendpoint x="1242" y="1425"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="209" name="notification"/>      
+      <multiplicity id="210" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="211">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="212">    
+    <bendpoint x="2126" y="288"/>    
+    <bendpoint x="2459" y="571"/>    
+    <bendpoint x="2793" y="980"/>    
+    <bendpoint x="3072" y="1425"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="213" name="camera"/>      
+      <multiplicity id="214" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="215">    
+    <bendpoint x="2772" y="980"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="216" name="quitButton"/>      
+      <multiplicity id="217" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="218">    
+    <bendpoint x="1013" y="1425"/>    
+    <bendpoint x="945" y="980"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="219" name="object"/>      
+      <multiplicity id="220" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="221">    
+    <bendpoint x="1016" y="288"/>    
+    <bendpoint x="1016" y="571"/>    
+    <bendpoint x="1242" y="980"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="222" name="game"/>      
+      <multiplicity id="223" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="224">    
+    <bendpoint x="1555" y="288"/>    
+    <bendpoint x="1555" y="571"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="225" name="colorPickerHUD"/>      
+      <multiplicity id="226" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="227">    
+    <end type="SOURCE" refId="29" navigable="false">      
+      <attribute id="228" name="game"/>      
+      <multiplicity id="229" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="230">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="231" name="soundFXSlider"/>      
+      <multiplicity id="232" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="233">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="234" name="camera"/>      
+      <multiplicity id="235" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="236">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="237" name="playButton"/>      
+      <multiplicity id="238" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="239">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="240" name="randomOrderStartButton"/>      
+      <multiplicity id="241" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="242">    
+    <bendpoint x="966" y="980"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="243" name="nodeList"/>      
+      <multiplicity id="244" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="245">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="23"/>  
+  </nesting>  
+  <association id="246">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="247" name="bitterEndStartButton"/>      
+      <multiplicity id="248" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="249">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="250" name="id"/>      
+      <multiplicity id="251" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="252">    
+    <bendpoint x="2168" y="980"/>    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="253" name="game"/>      
+      <multiplicity id="254" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="255">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="256" name="ditheringCheckBox"/>      
+      <multiplicity id="257" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="258">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="259" name="randomOrder"/>      
+      <multiplicity id="260" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="261">    
+    <bendpoint x="3093" y="288"/>    
+    <bendpoint x="3093" y="571"/>    
+    <bendpoint x="3093" y="980"/>    
+    <bendpoint x="3093" y="1425"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="262" name="camera"/>      
+      <multiplicity id="263" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="264">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="25"/>  
+  </nesting>  
+  <association id="265">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="266" name="menuState"/>      
+      <multiplicity id="267" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="268">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="269" name="menu"/>      
+      <multiplicity id="270" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="271">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="272" name="fpscounter"/>      
+      <multiplicity id="273" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="274">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="275" name="graphSolver"/>      
+      <multiplicity id="276" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="277">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="278" name="timerGame"/>      
+      <multiplicity id="279" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="280">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="281" name="bitterEnd"/>      
+      <multiplicity id="282" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="283">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="284" name="gamemodeState"/>      
+      <multiplicity id="285" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="286">    
+    <bendpoint x="31" y="288"/>    
+    <bendpoint x="31" y="571"/>    
+    <bendpoint x="31" y="980"/>    
+    <bendpoint x="31" y="1425"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="287" name="handler"/>      
+      <multiplicity id="288" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="289">    
+    <bendpoint x="1854" y="1425"/>    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="290" name="handler"/>      
+      <multiplicity id="291" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="292">    
+    <bendpoint x="1576" y="288"/>    
+    <bendpoint x="1576" y="571"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="293" name="colorPickerHUD"/>      
+      <multiplicity id="294" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="295">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="296" name="quitButton"/>      
+      <multiplicity id="297" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="298">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <association id="299">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="300" name="bestUpperBound"/>      
+      <multiplicity id="301" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="false" package="false" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="false">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
     <operations public="true" package="true" protected="true" private="true" static="true"/>  
   </classifier-display>  
