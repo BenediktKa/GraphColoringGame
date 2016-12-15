@@ -11,10 +11,25 @@ import com.graphcoloring.hud.ColorPickerHUD;
 import com.graphcoloring.hud.HintHUD;
 import com.graphcoloring.menu.Menu;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Window.
+ */
 public class Window extends Canvas {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8571002207074266558L;
 
+	/**
+	 * Instantiates a new window.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 * @param title the title
+	 * @param game the game
+	 * @param menu the menu
+	 * @param colorPickerHUD the color picker HUD
+	 */
 	public Window(int width, int height, String title, Game game, Menu menu, ColorPickerHUD colorPickerHUD) {
 		JFrame frame = new JFrame(title);
 

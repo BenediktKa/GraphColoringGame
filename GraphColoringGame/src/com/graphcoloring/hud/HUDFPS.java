@@ -6,10 +6,20 @@ import java.awt.Graphics2D;
 
 import com.graphcoloring.main.Game;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HUDFPS.
+ */
 public class HUDFPS {
 
+	/** The fps. */
 	private int FPS;
 
+	/**
+	 * Render.
+	 *
+	 * @param g the g
+	 */
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -22,10 +32,20 @@ public class HUDFPS {
 		g2d.drawString(FPSString, 0, 20);
 	}
 
+	/**
+	 * Gets the fps.
+	 *
+	 * @return the fps
+	 */
 	public int getFPS() {
 		return FPS;
 	}
 
+	/**
+	 * Sets the fps.
+	 *
+	 * @param FPS the new fps
+	 */
 	public void setFPS(int FPS) {
 		this.FPS = FPS;
 	}

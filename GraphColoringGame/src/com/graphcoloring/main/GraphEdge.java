@@ -4,11 +4,27 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GraphEdge.
+ */
 public class GraphEdge extends GameObject {
 	
+	/** The line. */
 	private Line2D line;
+	
+	/** The node 2. */
 	private GraphNode node1, node2;
 
+	/**
+	 * Instantiates a new graph edge.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param node1 the node 1
+	 * @param node2 the node 2
+	 * @param id the id
+	 */
 	public GraphEdge(int x, int y, GraphNode node1, GraphNode node2, ID id) {
 		super(x, y, id);
 		
@@ -16,10 +32,16 @@ public class GraphEdge extends GameObject {
 		this.node2 = node2;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.graphcoloring.main.GameObject#tick()
+	 */
 	public void tick() {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.graphcoloring.main.GameObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		

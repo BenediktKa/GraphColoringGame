@@ -6,15 +6,37 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MenuParticle.
+ */
 public class MenuParticle extends GameObject {
 
+	/** The handler. */
 	private Handler handler;
+	
+	/** The circle particle. */
 	private Ellipse2D circleParticle;
+	
+	/** The alpha. */
 	private float alpha;
+	
+	/** The decay. */
 	private float decay;
 	
+	/** The random. */
 	private Random random =  new Random();
 
+	/**
+	 * Instantiates a new menu particle.
+	 *
+	 * @param handler the handler
+	 * @param x the x
+	 * @param y the y
+	 * @param alpha the alpha
+	 * @param decay the decay
+	 * @param id the id
+	 */
 	public MenuParticle(Handler handler, int x, int y, float alpha, float decay, ID id) {
 		super(x, y, id);
 
@@ -23,6 +45,9 @@ public class MenuParticle extends GameObject {
 		this.decay = decay;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.graphcoloring.main.GameObject#tick()
+	 */
 	public void tick() {
 		
 		if(alpha > 0) {
@@ -38,6 +63,9 @@ public class MenuParticle extends GameObject {
 		velY = -random.nextInt(5);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.graphcoloring.main.GameObject#render(java.awt.Graphics)
+	 */
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		

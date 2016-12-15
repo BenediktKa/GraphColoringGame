@@ -11,25 +11,56 @@ import java.util.TimerTask;
 
 import com.graphcoloring.main.Game;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Notification.
+ */
 public class Notification {
 
+	/**
+	 * The Enum TYPE.
+	 */
 	// Notification Types
 	public enum TYPE {
+		
+		/** The Error. */
 		Error,
+		
+		/** The Hint. */
 		Hint;
 	};
 
+	/** The error rectangle. */
 	private RoundRectangle2D errorRectangle;
+	
+	/** The notification visible. */
 	private boolean notificationVisible;
+	
+	/** The fade out. */
 	private boolean fadeOut;
+	
+	/** The fade in. */
 	private boolean fadeIn;
+	
+	/** The alpha. */
 	private float alpha;
 
+	/** The type. */
 	private TYPE type;
+	
+	/** The message. */
 	private String message;
 
+	/** The timer. */
 	private Timer timer;
 
+	/**
+	 * Creates the notification.
+	 *
+	 * @param type the type
+	 * @param message the message
+	 * @param seconds the seconds
+	 */
 	public void createNotification(TYPE type, String message, int seconds) {
 		this.type = type;
 		this.message = message;
@@ -43,13 +74,25 @@ public class Notification {
 		timer.schedule(new CloseNotification(), seconds * 1000);
 	}
 
+	/**
+	 * The Class CloseNotification.
+	 */
 	class CloseNotification extends TimerTask {
+		
+		/* (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
 		public void run() {
 			fadeOut = true;
 			timer.cancel();
 		}
 	}
 
+	/**
+	 * Display error.
+	 *
+	 * @param g the g
+	 */
 	public void displayError(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -88,6 +131,11 @@ public class Notification {
 		drawCenteredString(message, Game.WIDTH, Game.HEIGHT, g);
 	}
 	
+	/**
+	 * Display hint.
+	 *
+	 * @param g the g
+	 */
 	public void displayHint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 
@@ -126,6 +174,9 @@ public class Notification {
 		drawCenteredString(message, Game.WIDTH, Game.HEIGHT, g);
 	}
 
+	/**
+	 * Tick.
+	 */
 	public void tick() {
 		if (!notificationVisible) {
 			return;
@@ -138,6 +189,11 @@ public class Notification {
 		}
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param g the g
+	 */
 	public void render(Graphics g) {
 		if (!notificationVisible) {
 			return;
@@ -150,6 +206,14 @@ public class Notification {
 		}
 	}
 
+	/**
+	 * Draw centered string.
+	 *
+	 * @param s the s
+	 * @param w the w
+	 * @param h the h
+	 * @param g the g
+	 */
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
 		FontMetrics fm = g.getFontMetrics();
 		int x = (w - fm.stringWidth(s)) / 2;
@@ -157,6 +221,9 @@ public class Notification {
 		g.drawString(s, x, y);
 	}
 
+	/**
+	 * Fade in.
+	 */
 	public void fadeIn() {
 		if (alpha < 1.0) {
 			alpha += 0.05;
@@ -170,6 +237,9 @@ public class Notification {
 		}
 	}
 
+	/**
+	 * Fade out.
+	 */
 	public void fadeOut() {
 		if (alpha > 0.0) {
 			alpha -= 0.05;

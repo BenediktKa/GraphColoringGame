@@ -15,66 +15,142 @@ import com.graphcoloring.main.ID;
 import com.graphcoloring.main.MenuParticle;
 import com.graphcoloring.main.SoundPlayer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Menu.
+ */
 public class Menu extends MouseAdapter {
 
+	/** The game. */
 	private Game game;
+	
+	/** The handler. */
 	private Handler handler;
+	
+	/** The notification. */
 	private Notification notification;
+	
+	/** The sound player. */
 	private SoundPlayer soundPlayer;
 
+	/** The border radius. */
 	private int borderRadius = 20;
 
+	/** The play button. */
 	// Main Menu Elements
 	private CustomButton playButton;
+	
+	/** The settings button. */
 	private CustomButton settingsButton;
+	
+	/** The quit button. */
 	private CustomButton quitButton;
 
+	/** The bitter end. */
 	// Gamemode Elements
 	private CustomButton bitterEnd;
+	
+	/** The best upper bound. */
 	private CustomButton bestUpperBound;
+	
+	/** The random order. */
 	private CustomButton randomOrder;
+	
+	/** The gamemodes back button. */
 	private CustomButton gamemodesBackButton;
 
+	/** The nodes slider. */
 	// Gamemode selection Elements
 	private CustomSlider nodesSlider;
+	
+	/** The edges slider. */
 	private CustomSlider edgesSlider;
 
+	/** The bitter end start button. */
 	// Bitter End Elements
 	private CustomButton bitterEndStartButton;
 
+	/** The time slider. */
 	// Best UpperBound Elements
 	private CustomSlider timeSlider;
+	
+	/** The best upper bound start button. */
 	private CustomButton bestUpperBoundStartButton;
 
+	/** The random order start button. */
 	// Random Order
 	private CustomButton randomOrderStartButton;
 
+	/** The selection back button. */
 	// Gamemode Selection Back Button
 	private CustomButton selectionBackButton;
 
+	/** The sound button. */
 	// Settings Menu Elements
 	private CustomButton soundButton;
+	
+	/** The fixed refresh rate check box. */
 	private CustomCheckBox fixedRefreshRateCheckBox;
+	
+	/** The antialiasing check box. */
 	private CustomCheckBox antialiasingCheckBox;
+	
+	/** The dithering check box. */
 	private CustomCheckBox ditheringCheckBox;
+	
+	/** The small nodes check box. */
 	private CustomCheckBox smallNodesCheckBox;
+	
+	/** The settings back button. */
 	private CustomButton settingsBackButton;
 
+	/** The menu music slider. */
 	// Sound Menu
 	private CustomSlider menuMusicSlider;
+	
+	/** The sound FX slider. */
 	private CustomSlider soundFXSlider;
+	
+	/** The sound back button. */
 	private CustomButton soundBackButton;
 
+	/** The random. */
 	// Random
 	private Random random = new Random();
 
+	/**
+	 * The Enum MENUSTATE.
+	 */
 	// States
 	public enum MENUSTATE {
-		Main, Settings, Sound, Gamemodes, BitterEnd, BestUpperBound, RandomOrder;
+		
+		/** The Main. */
+		Main, 
+ /** The Settings. */
+ Settings, 
+ /** The Sound. */
+ Sound, 
+ /** The Gamemodes. */
+ Gamemodes, 
+ /** The Bitter end. */
+ BitterEnd, 
+ /** The Best upper bound. */
+ BestUpperBound, 
+ /** The Random order. */
+ RandomOrder;
 	};
 
+	/** The menu state. */
 	public MENUSTATE menuState;
 
+	/**
+	 * Instantiates a new menu.
+	 *
+	 * @param game the game
+	 * @param handler the handler
+	 * @param notification the notification
+	 * @param soundPlayer the sound player
+	 */
 	public Menu(Game game, Handler handler, Notification notification, SoundPlayer soundPlayer) {
 		this.game = game;
 		this.handler = handler;
@@ -86,6 +162,9 @@ public class Menu extends MouseAdapter {
 		initialize();
 	}
 
+	/**
+	 * Initialize.
+	 */
 	public void initialize() {
 		// Main Menu
 		playButton = new CustomButton(0, Game.HEIGHT / 4, 200, 50, true, "Play", borderRadius);
@@ -129,6 +208,9 @@ public class Menu extends MouseAdapter {
 		soundBackButton = new CustomButton(0, Game.HEIGHT / 4 * 3, 200, 50, true, "Back", borderRadius);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+	 */
 	public void mousePressed(MouseEvent e) {
 		if (game.gameState != Game.STATE.Menu) {
 			return;
@@ -259,6 +341,9 @@ public class Menu extends MouseAdapter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
+	 */
 	public void mouseDragged(MouseEvent e) {
 		if (game.gameState != Game.STATE.Menu) {
 			return;
@@ -292,6 +377,9 @@ public class Menu extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Tick.
+	 */
 	public void tick() {
 		if (menuState == MENUSTATE.Settings) {
 			antialiasingCheckBox.tick();
@@ -303,6 +391,11 @@ public class Menu extends MouseAdapter {
 		handler.addObject(new MenuParticle(handler, random.nextInt(Game.WIDTH) - random.nextInt(Game.WIDTH), Game.HEIGHT, (float) Math.random(), 0.005f, ID.MenuParticle));
 	}
 
+	/**
+	 * Render.
+	 *
+	 * @param g the g
+	 */
 	public void render(Graphics g) {
 		if (game.gameState != Game.STATE.Menu) {
 			return;
@@ -330,12 +423,22 @@ public class Menu extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Main menu.
+	 *
+	 * @param g the g
+	 */
 	public void mainMenu(Graphics g) {
 		playButton.drawButton(g);
 		settingsButton.drawButton(g);
 		quitButton.drawButton(g);
 	}
 
+	/**
+	 * Gamemodes menu.
+	 *
+	 * @param g the g
+	 */
 	public void gamemodesMenu(Graphics g) {
 		bitterEnd.drawButton(g);
 		bestUpperBound.drawButton(g);
@@ -343,6 +446,11 @@ public class Menu extends MouseAdapter {
 		gamemodesBackButton.drawButton(g);
 	}
 
+	/**
+	 * Bitter end menu.
+	 *
+	 * @param g the g
+	 */
 	public void bitterEndMenu(Graphics g) {
 		nodesSlider.drawSlider(g);
 		edgesSlider.drawSlider(g);
@@ -350,6 +458,11 @@ public class Menu extends MouseAdapter {
 		selectionBackButton.drawButton(g);
 	}
 
+	/**
+	 * Best upper bound menu.
+	 *
+	 * @param g the g
+	 */
 	public void bestUpperBoundMenu(Graphics g) {
 		nodesSlider.drawSlider(g);
 		edgesSlider.drawSlider(g);
@@ -358,6 +471,11 @@ public class Menu extends MouseAdapter {
 		selectionBackButton.drawButton(g);
 	}
 
+	/**
+	 * Random order menu.
+	 *
+	 * @param g the g
+	 */
 	public void randomOrderMenu(Graphics g) {
 		nodesSlider.drawSlider(g);
 		edgesSlider.drawSlider(g);
@@ -365,6 +483,11 @@ public class Menu extends MouseAdapter {
 		selectionBackButton.drawButton(g);
 	}
 
+	/**
+	 * Sets the tings menu.
+	 *
+	 * @param g the new tings menu
+	 */
 	public void settingsMenu(Graphics g) {
 		soundButton.drawButton(g);
 		fixedRefreshRateCheckBox.drawButton(g);
@@ -374,12 +497,25 @@ public class Menu extends MouseAdapter {
 		settingsBackButton.drawButton(g);
 	}
 
+	/**
+	 * Sound menu.
+	 *
+	 * @param g the g
+	 */
 	public void soundMenu(Graphics g) {
 		menuMusicSlider.drawSlider(g);
 		soundFXSlider.drawSlider(g);
 		soundBackButton.drawButton(g);
 	}
 
+	/**
+	 * Draw centered string.
+	 *
+	 * @param s the s
+	 * @param w the w
+	 * @param h the h
+	 * @param g the g
+	 */
 	public void drawCenteredString(String s, int w, int h, Graphics g) {
 		FontMetrics fm = g.getFontMetrics();
 		int x = (w - fm.stringWidth(s)) / 2;

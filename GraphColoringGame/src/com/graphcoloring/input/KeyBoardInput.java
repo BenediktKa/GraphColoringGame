@@ -9,16 +9,39 @@ import com.graphcoloring.main.Camera;
 import com.graphcoloring.main.Game;
 import com.graphcoloring.main.TimerGame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class KeyBoardInput.
+ */
 public class KeyBoardInput extends KeyAdapter {
 
+	/** The game. */
 	private Game game;
+	
+	/** The camera. */
 	private Camera camera;
+	
+	/** The timer HUD. */
 	private TimerHUD timerHUD;
+	
+	/** The timer game. */
 	private TimerGame timerGame;
+	
+	/** The color picker HUD. */
 	private ColorPickerHUD colorPickerHUD;
 
+	/** The paused time. */
 	private double pausedTime;
 
+	/**
+	 * Instantiates a new key board input.
+	 *
+	 * @param game the game
+	 * @param camera the camera
+	 * @param timerHUD the timer HUD
+	 * @param timerGame the timer game
+	 * @param colorPickerHUD the color picker HUD
+	 */
 	public KeyBoardInput(Game game, Camera camera, TimerHUD timerHUD, TimerGame timerGame, ColorPickerHUD colorPickerHUD) {
 		this.game = game;
 		this.camera = camera;
@@ -27,6 +50,9 @@ public class KeyBoardInput extends KeyAdapter {
 		this.colorPickerHUD = colorPickerHUD;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.KeyAdapter#keyPressed(java.awt.event.KeyEvent)
+	 */
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		switch (keyCode) {

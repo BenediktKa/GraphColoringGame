@@ -17,15 +17,40 @@ import com.graphcoloring.main.Handler;
 import com.graphcoloring.main.ID;
 import com.graphcoloring.menu.ScoreMenu;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MouseInput.
+ */
 public class MouseInput extends MouseAdapter {
 
+	/** The game. */
 	private Game game;
+	
+	/** The handler. */
 	private Handler handler;
+	
+	/** The camera. */
 	private Camera camera;
+	
+	/** The color picker HUD. */
 	private ColorPickerHUD colorPickerHUD;
+	
+	/** The score menu. */
 	private ScoreMenu scoreMenu;
+	
+	/** The timer HUD. */
 	private TimerHUD timerHUD;
 
+	/**
+	 * Instantiates a new mouse input.
+	 *
+	 * @param game the game
+	 * @param handler the handler
+	 * @param camera the camera
+	 * @param colorPickerHUD the color picker HUD
+	 * @param scoreMenu the score menu
+	 * @param timerHUD the timer HUD
+	 */
 	public MouseInput(Game game, Handler handler, Camera camera, ColorPickerHUD colorPickerHUD, ScoreMenu scoreMenu, TimerHUD timerHUD) {
 		this.game = game;
 		this.handler = handler;
@@ -35,6 +60,9 @@ public class MouseInput extends MouseAdapter {
 		this.timerHUD = timerHUD;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	public void mouseClicked(MouseEvent event) {
 		// Don't do anything if not in-game
 		if (game.gameState != Game.STATE.Game) {
@@ -74,6 +102,9 @@ public class MouseInput extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Check all colored.
+	 */
 	public void checkAllColored() {
 		int nodes = 0;
 		
@@ -128,6 +159,9 @@ public class MouseInput extends MouseAdapter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
+	 */
 	public void mouseDragged(MouseEvent event) {
 
 		// Don't do anything if not in-game
@@ -154,6 +188,9 @@ public class MouseInput extends MouseAdapter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see java.awt.event.MouseAdapter#mouseWheelMoved(java.awt.event.MouseWheelEvent)
+	 */
 	public void mouseWheelMoved(MouseWheelEvent event) {
 		if (game.gameState != Game.STATE.Game) {
 			return;
@@ -166,6 +203,12 @@ public class MouseInput extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Distinct number of items.
+	 *
+	 * @param array the array
+	 * @return the int
+	 */
 	public int distinctNumberOfItems(int[] array) {
 		if (array.length <= 1)
 			return array.length;

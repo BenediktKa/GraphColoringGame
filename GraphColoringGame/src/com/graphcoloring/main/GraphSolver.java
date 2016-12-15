@@ -6,15 +6,33 @@ import java.util.Set;
 import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GraphSolver.
+ */
 public class GraphSolver {
 
+	/** The adjacency matrix. */
 	private int adjacencyMatrix[][];
+	
+	/** The verticies. */
 	private int verticies;
+	
+	/** The vertex color. */
 	private int vertexColor[];
+	
+	/** The chromatic array. */
 	private int chromaticArray[];
 
+	/** The chromatic number. */
 	private int chromaticNumber;
 
+	/**
+	 * Instantiates a new graph solver.
+	 *
+	 * @param adjacencyMatrix the adjacency matrix
+	 * @param verticies the verticies
+	 */
 	public GraphSolver(int adjacencyMatrix[][], int verticies) {
 		this.adjacencyMatrix = adjacencyMatrix;
 		this.verticies = verticies;
@@ -25,6 +43,11 @@ public class GraphSolver {
 		this.chromaticNumber = verticies;
 	}
 
+	/**
+	 * Solve graph.
+	 *
+	 * @param vertex the vertex
+	 */
 	public void solveGraph(int vertex) {
 		for (int color = 1; color <= getUpperBound(); color++) {
 			if (canColor(vertex, color)) {
@@ -46,6 +69,13 @@ public class GraphSolver {
 		}
 	}
 
+	/**
+	 * Can color.
+	 *
+	 * @param vertex the vertex
+	 * @param color the color
+	 * @return true, if successful
+	 */
 	public boolean canColor(int vertex, int color) {
 		for (int vertex_2 = 0; vertex_2 < verticies; vertex_2++) {
 			if (adjacencyMatrix[vertex][vertex_2] == 1 && color == vertexColor[vertex_2]) {
@@ -55,6 +85,11 @@ public class GraphSolver {
 		return true;
 	}
 
+	/**
+	 * Gets the upper bound.
+	 *
+	 * @return the upper bound
+	 */
 	public int getUpperBound() {
 		Matrix A = new Matrix(verticies, verticies);
 		
@@ -98,6 +133,12 @@ public class GraphSolver {
 		//Lower Bound 1 - max/min
 	}
 
+	/**
+	 * Distinct number of items.
+	 *
+	 * @param array the array
+	 * @return the int
+	 */
 	public int distinctNumberOfItems(int[] array) {
 		if (array.length <= 1)
 			return array.length;
@@ -110,10 +151,20 @@ public class GraphSolver {
 		return set.size();
 	}
 
+	/**
+	 * Gets the chromatic number.
+	 *
+	 * @return the chromatic number
+	 */
 	public int getChromaticNumber() {
 		return chromaticNumber;
 	}
 
+	/**
+	 * Color nodes.
+	 *
+	 * @param handler the handler
+	 */
 	public void colorNodes(Handler handler) {
 		
 		System.out.println("Number of items " + distinctNumberOfItems(chromaticArray));

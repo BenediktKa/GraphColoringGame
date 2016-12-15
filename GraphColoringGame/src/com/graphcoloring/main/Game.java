@@ -25,115 +25,197 @@ import com.graphcoloring.menu.Menu;
 import com.graphcoloring.menu.PauseMenu;
 import com.graphcoloring.menu.ScoreMenu;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Game.
+ */
 public class Game extends Canvas implements Runnable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -3545061167023626203L;
 
+	/** The Constant VERSION. */
 	// Version
 	public final static String VERSION = "v0.01";
 
+	/** The Constant backgroundColor. */
 	// Game Colors
 	public static final Color backgroundColor = new Color(20, 21, 23);
+	
+	/** The Constant textColor. */
 	public static final Color textColor = new Color(255, 255, 255);
+	
+	/** The Constant transparentColor. */
 	public static final Color transparentColor = new Color(1, 1, 1, 0.4f);
+	
+	/** The Constant dimWhiteColor. */
 	public static final Color dimWhiteColor = new Color(236, 240, 241);
+	
+	/** The Constant silverColor. */
 	public static final Color silverColor = new Color(189, 195, 199);
 	
+	/** The Constant stroke1. */
 	//Strokes
 	public static final BasicStroke stroke1 = new BasicStroke(1);
+	
+	/** The Constant stroke2. */
 	public static final BasicStroke stroke2 = new BasicStroke(1);
+	
+	/** The Constant stroke3. */
 	public static final BasicStroke stroke3 = new BasicStroke(3);
+	
+	/** The Constant stroke20. */
 	public static final BasicStroke stroke20 = new BasicStroke(20);
 
+	/** The font regular. */
 	// Fonts
 	public static Font fontRegular;
+	
+	/** The font bold. */
 	public static Font fontBold;
 	
+	/** The volume. */
 	// Volume
 	public static float VOLUME = 100.0f;
+	
+	/** The musicvolume. */
 	public static float MUSICVOLUME = 100.0f;
 
+	/** The Constant FPSCOUNTER. */
 	// FPS Counter
 	public static final boolean FPSCOUNTER = true;
 	
+	/** The Constant SOLVEGRAPH. */
 	// Solve Graph after generating?
 	public static final boolean SOLVEGRAPH = false;
 
+	/** The fixedrenderrate. */
 	// Settings
 	public static boolean FIXEDRENDERRATE = true;
+	
+	/** The antialiasing. */
 	public static boolean ANTIALIASING = true;
+	
+	/** The dithering. */
 	public static boolean DITHERING = true;
+	
+	/** The smallnodes. */
 	public static boolean SMALLNODES = false;
 
+	/** The thread. */
 	// Thread
 	private Thread thread;
 
+	/** The running. */
 	// Running
 	private boolean running = false;
 
+	/** The handler. */
 	// Handler
 	private Handler handler;
 
+	/** The menu. */
 	// Menu
 	private Menu menu;
 
+	/** The pause menu. */
 	// Pause Menu
 	private PauseMenu pauseMenu;
 
+	/** The score menu. */
 	// Score Menu
 	private ScoreMenu scoreMenu;
 
+	/** The camera. */
 	// Camera
 	private Camera camera;
 
+	/** The fpscounter. */
 	// FPS Counter
 	private HUDFPS fpscounter;
 
+	/** The notification. */
 	// Notification
 	Notification notification;
 
+	/** The gamemode. */
 	// Gamemodes
 	private GameMode gamemode;
 
+	/** The hint HUD. */
 	// HintHUD
 	private HintHUD hintHUD;
 	
+	/** The timer HUD. */
 	// TimerHUD
 	private TimerHUD timerHUD;
 
+	/** The color picker HUD. */
 	// Color Picker HUD
 	private ColorPickerHUD colorPickerHUD;
 
+	/** The sound player. */
 	// SoundPlayer
 	public static SoundPlayer soundPlayer;
 	
+	/** The timer game. */
 	// Timer
 	public static TimerGame timerGame;
 	
+	/** The chromatic number. */
 	// Chromatic Number
 	public static int chromaticNumber;
 	
+	/** The loading menu. */
 	// Loading Menu
 	private LoadingMenu loadingMenu;
 
+	/**
+	 * The Enum STATE.
+	 */
 	// States
 	public enum STATE {
-		Menu, Game, Pause, Score, Loading;
+		
+		/** The Menu. */
+		Menu, 
+ /** The Game. */
+ Game, 
+ /** The Pause. */
+ Pause, 
+ /** The Score. */
+ Score, 
+ /** The Loading. */
+ Loading;
 	};
 	
 	
+	/**
+	 * The Enum GAMEMODE.
+	 */
 	//Gamemodes
 	public enum GAMEMODE {
-		BitterEnd, BestUpperBound, RandomOrder;
+		
+		/** The Bitter end. */
+		BitterEnd, 
+ /** The Best upper bound. */
+ BestUpperBound, 
+ /** The Random order. */
+ RandomOrder;
 	};
 
+	/** The game state. */
 	public STATE gameState = STATE.Menu;
 	
+	/** The gamemode state. */
 	public GAMEMODE gamemodeState;
 
+	/** The height. */
 	// Windows Size
 	public static int WIDTH = 1000, HEIGHT = WIDTH / 12 * 9;
 
+	/**
+	 * Instantiates a new game.
+	 */
 	public Game() {
 
 		registerFonts();
@@ -162,7 +244,7 @@ public class Game extends Canvas implements Runnable {
 
 		colorPickerHUD = new ColorPickerHUD(this, notification);
 
-		new Window(WIDTH, HEIGHT, "Graph Coloring Game", this, menu, colorPickerHUD);
+		new Window(WIDTH, HEIGHT, "VerteX", this, menu, colorPickerHUD);
 
 		MouseInput mouse = new MouseInput(this, handler, camera, colorPickerHUD, scoreMenu, timerHUD);
 
@@ -179,6 +261,9 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
+	/**
+	 * Start.
+	 */
 	public synchronized void start() {
 		if(running) {
 			return;
@@ -189,6 +274,9 @@ public class Game extends Canvas implements Runnable {
 		running = true;
 	}
 
+	/**
+	 * Stop.
+	 */
 	public synchronized void stop() {
 		if(!running) {
 			return;
@@ -202,19 +290,28 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * Register fonts.
+	 */
 	public void registerFonts() {
 		try {
-			fontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
-			fontBold = Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf"));
+			fontRegular = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load("fonts/Oswald-ExtraLight.ttf"));
+			fontBold = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load("fonts/Oswald-ExtraLight.ttf"));
 
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-ExtraLight.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src\\fonts\\Oswald-DemiBold.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load("fonts/Oswald-ExtraLight.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.load("fonts/Oswald-DemiBold.ttf")));
 		} catch (IOException | FontFormatException e) {
 			System.out.println("Error when reading fonts");
 		}
 	}
 
+	/**
+	 * Gets the font.
+	 *
+	 * @param font the font
+	 * @return the font
+	 */
 	public static Font getFont(int font) {
 		if (font == 1) {
 			return fontRegular;
@@ -223,6 +320,14 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
+	/**
+	 * Initilize game.
+	 *
+	 * @param nodes the nodes
+	 * @param edges the edges
+	 * @param time the time
+	 * @param gamemodeState the gamemode state
+	 */
 	public void initilizeGame(int nodes, int edges, int time, GAMEMODE gamemodeState) {
 		
 		// Reset the Game variables
@@ -244,6 +349,9 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
+	/**
+	 * Reset.
+	 */
 	public void reset() {
 		handler.removeAllObjects();
 		colorPickerHUD.removeAllObjects();
@@ -256,6 +364,9 @@ public class Game extends Canvas implements Runnable {
 		hintHUD.setHintCount(5);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		final double amountOfTicks = 60.0;
@@ -296,6 +407,9 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
+	/**
+	 * Tick.
+	 */
 	private void tick() {
 
 		if(gameState != STATE.Loading) {
@@ -321,6 +435,9 @@ public class Game extends Canvas implements Runnable {
 		notification.tick();
 	}
 
+	/**
+	 * Render.
+	 */
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 
@@ -381,6 +498,11 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		new Game();
 	}
