@@ -37,7 +37,7 @@ public class Graph {
 		this.vertices = verticies;
 		this.edges = edges;
 		this.randomOrder = randomOrder;
-		this.colorArray = new RandomColors(20, 0.05f).getPalette();
+		this.colorArray = new RandomColors(10, 0.05f).getPalette();
 		colorPickerHUD.setColorArray(colorArray);
 
 		// Temporary

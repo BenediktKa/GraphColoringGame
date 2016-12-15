@@ -57,6 +57,20 @@ public class MouseInput extends MouseAdapter {
 					break;
 				}
 			}
+		} else if (event.getButton() == MouseEvent.BUTTON3) {
+			for (int i = 0; i < handler.object.size(); i++) {
+				GameObject tempObject = handler.object.get(i);
+
+				if (tempObject.getId() != ID.GraphNode) {
+					continue;
+				}
+				GraphNode gn = (GraphNode) tempObject;
+
+				if (gn.clicked(event.getX() - (int) camera.getX(), event.getY() - (int) camera.getY())) {
+					gn.setColor(0);
+					break;
+				}
+			}
 		}
 	}
 
@@ -107,6 +121,10 @@ public class MouseInput extends MouseAdapter {
 			game.gameState = Game.STATE.Score;
 			Game.timerGame.stopTimer();
 			timerHUD.stopTimer();
+		} else if (game.gamemodeState == GAMEMODE.RandomOrder) {
+			scoreMenu.setWin(false);
+			game.gameState = Game.STATE.Score;
+			Game.timerGame.stopTimer();
 		}
 	}
 

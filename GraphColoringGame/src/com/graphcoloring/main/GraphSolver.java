@@ -20,6 +20,7 @@ public class GraphSolver {
 		this.verticies = verticies;
 
 		this.vertexColor = new int[verticies];
+		this.chromaticArray = new int[verticies];
 
 		this.chromaticNumber = verticies;
 	}
@@ -36,13 +37,9 @@ public class GraphSolver {
 				if ((vertex + 1) < verticies) {
 					solveGraph(vertex + 1);
 				} else {
-					for (int i = 0; i < vertexColor.length; i++) {
-						System.out.print(vertexColor[i] + " ");
-					}
-					System.out.println("");
 					if (chromaticNumber > distinctNumberOfItems(vertexColor)) {
+						System.arraycopy(vertexColor, 0, chromaticArray, 0, vertexColor.length);
 						chromaticNumber = distinctNumberOfItems(vertexColor);
-						chromaticArray = vertexColor;
 					}
 				}
 			}
@@ -118,6 +115,9 @@ public class GraphSolver {
 	}
 
 	public void colorNodes(Handler handler) {
+		
+		System.out.println("Number of items " + distinctNumberOfItems(chromaticArray));
+		
 		for (int j = 0; j < handler.object.size(); j++) {
 			GameObject tempObject = handler.object.get(j);
 
